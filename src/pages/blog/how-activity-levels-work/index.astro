@@ -1,0 +1,183 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Faq from '../../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'How Activity Levels Really Work (and Why Most People Overestimate)',
+    description: 'The five TDEE activity multipliers explained honestly: what 1.2 to 1.9 look like in real jobs and step counts, why desk workers overestimate, and a step-count self-test.',
+    url: 'https://tdeecheck.com/blog/how-activity-levels-work/',
+    image: 'https://tdeecheck.com/images/activity-levels-hero.webp',
+    author: { '@type': 'Person', name: 'Farah Akram', jobTitle: 'Dietitian' },
+    publisher: { '@type': 'Organization', name: 'TDEE Check', url: 'https://tdeecheck.com/' },
+    datePublished: '2026-10-22',
+    dateModified: '2026-10-22',
+  },
+];
+
+const faqs = [
+  {
+    q: 'I work out five days a week. Am I very active?',
+    a: 'Only if the rest of your day agrees. Five gym hours inside an otherwise seated week usually lands at moderate, sometimes light, because the multiplier describes all 168 hours of the week, not the five hardest. Very active generally needs a physical job, very high daily steps, or genuinely hard training most days on top of an active life.',
+  },
+  {
+    q: 'Does walking 10,000 steps a day make me moderately active?',
+    a: 'It puts you well on the way. Ten thousand steps a day with a couple of training sessions a week is a fair picture of moderate for most people. Ten thousand steps without any training, at a desk job, is closer to the top of light. Use steps and training together, not either one alone.',
+  },
+  {
+    q: 'Should I add exercise calories on top of my TDEE?',
+    a: 'No. Your activity multiplier already includes your typical exercise; that is its whole job. Adding tracker exercise calories on top counts the same work twice and is one of the most common reasons a calculated deficit quietly becomes maintenance.',
+  },
+  {
+    q: 'My watch says I burn more than the calculator. Which is right?',
+    a: 'Probably neither exactly, but wearables are known to overestimate energy burn, sometimes by a wide margin, while the formula at least errs consistently. Trust your own data over both: eat at a number for two to three weeks and see what your average weight does, as our accuracy guide explains.',
+  },
+  {
+    q: 'My job is physical but I never train. What level am I?',
+    a: 'Likely moderate or very active, and possibly higher than a gym member with a desk job. Eight hours of lifting, walking and carrying outweighs one hour of training in the weekly total. Anchor on your steps and your job first, then adjust for any training on top.',
+  },
+];
+---
+
+<BaseLayout
+  title="How Activity Levels Really Work (and Why Most People Overestimate)"
+  description="The five TDEE activity multipliers explained honestly: what 1.2 to 1.9 look like in real jobs and step counts, why desk workers overestimate, and a step-count self-test."
+  path="/blog/how-activity-levels-work/"
+  ogType="article"
+  ogImage="/images/activity-levels-hero.webp"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog/' },
+    { name: 'How Activity Levels Work', path: '/blog/how-activity-levels-work/' },
+  ]}
+>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 pt-10">
+    <p class="text-sm font-bold text-brand-700 uppercase tracking-wide">Guide · Reviewed by Farah Akram, Dietitian</p>
+    <h1 class="mt-2 text-4xl font-extrabold tracking-tight text-ink-900">How activity levels really work</h1>
+    <p class="mt-5 text-lg text-ink-700 leading-relaxed">
+      Every TDEE calculator asks you to pick an activity level, and almost everyone picks wrong in the same
+      direction. The descriptions sound flattering: who does not feel very active after a hard gym session? But the
+      multiplier is not rating your effort or your discipline. It is describing your whole week, including the
+      160-plus hours you were not exercising. Read honestly, most modern lives land one level lower than their
+      owners expect, and that one level is worth more calories than most diets cut.
+    </p>
+    <img
+      src="/images/activity-levels-hero.webp"
+      alt="Illustration of five activity levels from a desk worker to an athlete, with rising daily step counts"
+      width="2048"
+      height="1152"
+      class="mt-8 w-full rounded-2xl border border-brand-100"
+      loading="eager"
+    />
+
+    <h2 class="mt-10 text-2xl font-extrabold text-ink-900">The five multipliers, in real life</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Forget the gym-first descriptions. The honest way to read each level is job plus steps plus training,
+      together, across an average week.
+    </p>
+    <div class="mt-4 overflow-x-auto rounded-xl border border-brand-100 bg-white">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-brand-50 text-left">
+            <th class="px-4 py-3 font-extrabold text-ink-900">Multiplier</th>
+            <th class="px-4 py-3 font-extrabold text-ink-900">What it actually looks like</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-brand-50">
+          <tr><td class="px-4 py-3 font-semibold">1.2 Sedentary</td><td class="px-4 py-3">Desk or driving job, under about 5,000 steps a day, little or no deliberate exercise.</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">1.375 Light</td><td class="px-4 py-3">Mostly seated life plus 5,000 to 7,500 steps, or light training one to three days a week.</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">1.55 Moderate</td><td class="px-4 py-3">On your feet for part of the day or 7,500 to 10,000 steps, plus training three to five days a week.</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">1.725 Very active</td><td class="px-4 py-3">Physical job or 10,000 plus steps daily, plus hard training six to seven days a week.</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">1.9 Athlete</td><td class="px-4 py-3">Physical job plus daily training, or a competitive athlete in season training twice a day.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      The pattern to notice: the top two levels are not descriptions of keen gym members. They describe people
+      whose work itself is movement, or athletes. Our
+      <a class="font-bold text-brand-700 underline" href="/sedentary-tdee-calculator/">sedentary TDEE
+      calculator</a> exists precisely because the bottom row is the honest home of a large share of modern
+      workers.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Why the gym hour misleads you</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      An hour of solid training might burn 300 to 500 kcal. It feels enormous because it is concentrated and hard.
+      But it is one hour against the other twenty-three, most of which a desk worker spends sitting, and sitting
+      burns barely more than sleeping. Spread across the day, three or four gym hours a week add perhaps 150 to
+      250 kcal to your daily average. That is real, and worth having, but it is the difference between sedentary
+      and light, not between sedentary and very active. Judging your level by your workouts is like judging your
+      income by your best day of overtime.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">NEAT: the hidden difference between two identical jobs</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Between BMR and exercise sits NEAT, non-exercise activity thermogenesis: steps, standing, carrying,
+      cleaning, fidgeting, walking to talk to someone instead of messaging them. It is unglamorous and it is huge.
+      Two people with the same desk job can differ by 300 kcal a day or more purely through NEAT, one taking calls
+      walking and parking far away, the other motionless from login to logout. This is why step counts predict
+      your real level better than your training plan does, and why raising NEAT is the most underrated way to
+      raise TDEE: it needs no recovery, no kit and no willpower budget.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">A simple self-test: your weekly step average</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Average your daily steps over one normal week, rest days included, then use this rough mapping. It is a
+      guide, not a law, and training shifts you up within it.
+    </p>
+    <div class="mt-4 overflow-x-auto rounded-xl border border-brand-100 bg-white">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-brand-50 text-left">
+            <th class="px-4 py-3 font-extrabold text-ink-900">Average daily steps</th>
+            <th class="px-4 py-3 font-extrabold text-ink-900">Likely level</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-brand-50">
+          <tr><td class="px-4 py-3 font-semibold">Under 5,000</td><td class="px-4 py-3">Sedentary (1.2)</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">5,000 to 7,499</td><td class="px-4 py-3">Light (1.375)</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">7,500 to 9,999</td><td class="px-4 py-3">Moderate (1.55), especially with regular training</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">10,000 and above</td><td class="px-4 py-3">Active range, 1.55 to 1.725 depending on job and training</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      If your steps say light but your pride says moderate, believe the steps for your first calculation. You can
+      always revise upward when your weight trend proves the estimate low; that is exactly the test in our guide
+      to <a class="font-bold text-brand-700 underline" href="/blog/how-accurate-are-tdee-calculators/">how accurate
+      TDEE calculators are</a>.
+    </p>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Two traps hide inside the average itself. The first is the weekend split: plenty of people are genuinely
+      active Monday to Friday, then spend two days almost entirely seated, which pulls the weekly average down a
+      level from the weekday picture they described to the calculator. Always average across a full week, rest
+      days included. The second is that your level is not a personality trait. A new job, an injury, a baby, a
+      move from a warehouse to a desk can shift you a full level in a month, and the honest response is to
+      recalculate rather than defend the old number. Your level is a measurement of your current life, and it
+      expires when your life does.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">What one level too high costs you</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Take the standard example from this site: a woman whose BMR is 1,475. At the moderate level she maintains on
+      <strong>2,287 kcal</strong>. Call her very active instead and the calculator says <strong>2,546</strong>, a
+      gap of 259 kcal a day. Now watch what that does to a diet. She sets a sensible 250 kcal deficit from the
+      inflated figure and eats 2,296, which is, to within rounding, her true maintenance. She does everything
+      right for a month, loses nothing, and concludes her metabolism is broken. Nothing was broken except the
+      dropdown. It is the single most common reason a correctly built deficit fails, and the fix costs nothing:
+      choose the level below the flattering one, run your real number through our
+      <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a>, and let two to three weeks of
+      your own data have the final word.
+    </p>
+
+    <p class="mt-8 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Farah Akram, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+
+    <Faq faqs={faqs} title="Activity level questions" />
+  </article>
+</BaseLayout>

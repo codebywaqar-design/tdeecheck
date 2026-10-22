@@ -1,0 +1,153 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Faq from '../../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Reverse Dieting Explained: Raising Calories After a Diet',
+    description: 'Reverse dieting means adding calories back slowly after a diet. How it works, who it suits, the honest evidence on why it helps, and when to skip it and go straight to maintenance.',
+    url: 'https://tdeecheck.com/blog/reverse-dieting-explained/',
+    image: 'https://tdeecheck.com/images/reverse-dieting-hero.webp',
+    author: { '@type': 'Person', name: 'Farah Akram', jobTitle: 'Dietitian' },
+    publisher: { '@type': 'Organization', name: 'TDEE Check', url: 'https://tdeecheck.com/' },
+    datePublished: '2026-10-22',
+    dateModified: '2026-10-22',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Will I gain fat while reverse dieting?',
+    a: 'A little regain is possible at the edges, but the increases are deliberately small, and much of the early scale movement is water and glycogen rather than fat. If your weekly average weight climbs steadily for two or three weeks in a row, hold your calories where they are for a week before adding more; the process should feel like a ramp, not a slide.',
+  },
+  {
+    q: 'How many calories should I add each week?',
+    a: 'Fifty to 150 kcal per week suits most people. Smaller, more cautious dieters and anyone nervous about regain sits at the bottom of that range; larger people with a long way to maintenance can use the top. Consistency matters more than the exact figure.',
+  },
+  {
+    q: 'How long does a reverse diet take?',
+    a: 'Typically four to twelve weeks, depending on the gap between your diet calories and your estimated maintenance. Someone 300 kcal below maintenance is done in three to six weeks of small steps; someone 700 kcal below may need the full twelve.',
+  },
+  {
+    q: 'Is reverse dieting scientifically proven to repair metabolism?',
+    a: 'Honestly, the direct trial evidence is thin, and repair is the wrong word. What is well supported is the mechanism underneath it: as intake rises, everyday movement, training output and spontaneous activity recover, so total burn rises with it. Think of it as restoring your normal activity and habits gradually, not rebooting an organ.',
+  },
+  {
+    q: 'Can I reverse diet without tracking calories?',
+    a: 'Roughly, yes, by adding a defined portion each week, like an extra snack or a larger serving of carbs at one meal, and watching your weight trend. It is less precise, and precision is the point of the method, so tracked reverse dieting tends to work better. If tracking itself is a problem for you, jumping straight to a sensible maintenance estimate may be the healthier choice.',
+  },
+];
+---
+
+<BaseLayout
+  title="Reverse Dieting Explained: Raising Calories After a Diet"
+  description="Reverse dieting means adding calories back slowly after a diet. How it works, who it suits, the honest evidence on why it helps, and when to skip it and go straight to maintenance."
+  path="/blog/reverse-dieting-explained/"
+  ogType="article"
+  ogImage="/images/reverse-dieting-hero.webp"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog/' },
+    { name: 'Reverse Dieting Explained', path: '/blog/reverse-dieting-explained/' },
+  ]}
+>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 pt-10">
+    <p class="text-sm font-bold text-brand-700 uppercase tracking-wide">Guide · Reviewed by Farah Akram, Dietitian</p>
+    <h1 class="mt-2 text-4xl font-extrabold tracking-tight text-ink-900">Reverse dieting explained: raising calories after a diet</h1>
+    <p class="mt-5 text-lg text-ink-700 leading-relaxed">
+      Finishing a diet creates a strange fear: you know you cannot eat diet calories forever, but eating normally
+      again feels like undoing the work. Reverse dieting is the gradual answer to that fear. Instead of jumping
+      from your diet intake straight to maintenance, you climb in small weekly steps, watching how your weight and
+      training respond as you go. This guide explains how to run it, what it actually does inside the body, stated
+      honestly, and the cases where you should skip it and simply eat at maintenance.
+    </p>
+    <img
+      src="/images/reverse-dieting-hero.webp"
+      alt="Illustration of calories being added back gradually after a diet, plates growing step by step toward maintenance"
+      width="2048"
+      height="1152"
+      class="mt-8 w-full rounded-2xl border border-brand-100"
+      loading="eager"
+    />
+
+    <h2 class="mt-10 text-2xl font-extrabold text-ink-900">What reverse dieting is, and who it suits</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      A reverse diet is a controlled ramp from a deficit up to your current maintenance, built from weekly
+      additions of 50 to 150 kcal. It suits three groups best. Long dieters, who have spent months in a deficit
+      and feel fragile around food. People ending a diet at very low intakes, where the jump to maintenance is
+      large and psychologically hard. And physique competitors and serious trainees, who want calories back up for
+      performance while keeping regain deliberate and small. If your diet was short and your intake never went
+      very low, you are probably not the audience, and the last section of this guide is for you.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">How to do it, step by step</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Start from honesty about where you are: your real average intake over the last two weeks of the diet, not
+      the target you aimed at. Estimate your maintenance at your new weight with our
+      <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a>; that figure is the top of your
+      ramp. Each week, add 50 to 150 kcal a day, mostly from carbohydrates, since carbs refill glycogen, support
+      training and are easy to adjust in small amounts. Hold protein steady throughout, because it protects the
+      muscle you dieted to reveal. A dieter finishing at 1,600 kcal with an estimated maintenance of 2,287 might
+      add about 100 a week and arrive in roughly seven weeks. Set your macro split for each step with the
+      <a class="font-bold text-brand-700 underline" href="/calculators/macro-calculator/">Macro Calculator</a>
+      rather than guessing.
+    </p>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Monitor three things as you climb: your weekly average weight, your waist, and your performance and hunger
+      in training. If weight holds for two weeks, add the next step. If it climbs steadily, pause a week before
+      adding more. You are steering, not following a timetable off a cliff.
+    </p>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      One discipline matters throughout: change one dial at a time. Keep your training program broadly the same
+      while calories climb, and resist adding extra cardio to earn the increases or punish the scale. Extra cardio
+      burns off the very calories you are trying to restore, muddies your reading of what maintenance actually is,
+      and quietly turns the reverse diet back into a diet. The extra energy is supposed to go somewhere visible:
+      stronger sessions, more daily steps without trying, better sleep and a normal appetite. If those are
+      improving, the ramp is doing its job even before the numbers settle.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">What it actually does: the honest version</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Reverse dieting is often sold as repairing a damaged metabolism. That framing overpromises. Your metabolism
+      was not broken; it adapted, the way our guide to
+      <a class="font-bold text-brand-700 underline" href="/blog/why-your-tdee-changed/">why your TDEE changed</a>
+      describes: dieting makes you move less without noticing, train with less output, and burn slightly less at
+      the same weight. As calories come back, those things restore. Steps creep up, workouts feel stronger, the
+      small movements of daily life return, and the energy cost of digesting more food adds a little too. Total
+      burn genuinely rises as you eat more, mostly through activity rather than magic, which is why many people
+      reach a higher maintenance than they feared. The other real benefit is behavioral: a ramp is easier to trust
+      and stick to than a leap, and adherence, as always, is the mechanism that matters most.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">What the scale will do, so it does not scare you</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Expect an early rise that is not fat. More carbohydrate means more stored glycogen, and glycogen carries
+      roughly three grams of water with every gram. More food also means more food physically in transit. Together
+      these commonly add 1 to 3 lb in the first week or two, then flatten even as calories keep rising slowly.
+      Judge the process by the trend across weeks and by your waist, never by the morning after an increase. A
+      steady upward trend beyond week three, with the waist growing too, is the signal to pause the ramp, not the
+      first watery jump.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">How long it takes, and when to skip it entirely</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Most reverse diets run four to twelve weeks, set by the size of the gap and the step you choose. When you
+      reach your estimated maintenance, hold there for at least a few weeks and let your weight trend confirm the
+      number before deciding what is next. And be clear about the alternative: jumping straight to maintenance is
+      not a mistake. For short diets, moderate deficits, or anyone who finds slow ramps more stressful than
+      reassuring, going directly to your calculated maintenance, water jump and all, reaches the same destination
+      weeks sooner with no metabolic penalty. Reverse dieting is a tool for people who need the gradual route. It
+      is not a toll every dieter has to pay.
+    </p>
+
+    <p class="mt-8 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Farah Akram, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+
+    <Faq faqs={faqs} title="Reverse dieting questions" />
+  </article>
+</BaseLayout>

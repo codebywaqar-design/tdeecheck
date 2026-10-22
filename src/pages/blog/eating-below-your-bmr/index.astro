@@ -1,0 +1,152 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Faq from '../../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Eating Below Your BMR: Is It Safe?',
+    description: 'Eating below your BMR means eating less than your body burns at rest. A dietitian-reviewed look at the risks, who must never do it, and the safer way to set a deficit.',
+    url: 'https://tdeecheck.com/blog/eating-below-your-bmr/',
+    image: 'https://tdeecheck.com/images/eating-below-bmr-hero.webp',
+    author: { '@type': 'Person', name: 'Farah Akram', jobTitle: 'Dietitian' },
+    publisher: { '@type': 'Organization', name: 'TDEE Check', url: 'https://tdeecheck.com/' },
+    datePublished: '2026-10-22',
+    dateModified: '2026-10-22',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Is it OK to eat below my BMR for a few days?',
+    a: 'A single low day, because you were busy, ill or travelling, is not a problem for a healthy adult; your body runs on stored energy and barely notices. The concern in this article is chronic intake below BMR, week after week, chosen deliberately as a diet strategy.',
+  },
+  {
+    q: 'Will eating below my BMR damage my metabolism permanently?',
+    a: 'There is no good evidence of permanent damage in healthy adults. What does happen is adaptation: you move less, train weaker and burn slightly less than predicted, and most of that reverses when intake comes back up. The real costs are the ones you feel along the way: fatigue, muscle loss, nutrient gaps and a diet you cannot sustain.',
+  },
+  {
+    q: 'What if a calculator gives me a target below my BMR?',
+    a: 'Treat that as a sign the deficit is too big for your body, not as an instruction. Pick a smaller deficit, or eat at maintenance for a while and focus on steps and training. If your TDEE is only slightly above your BMR, say so to your clinician or dietitian, because your room to cut safely is genuinely narrow.',
+  },
+  {
+    q: 'My BMR is 1,400. Is eating 1,200 kcal fine?',
+    a: 'That is below your BMR, so it is not something we would recommend as a self-directed plan. The 1,200 floor is a general minimum guardrail, not a promise that 1,200 suits everyone; for you the safer route is a small deficit under your TDEE with professional guidance if weight loss stalls.',
+  },
+  {
+    q: 'Does fasting count as eating below my BMR?',
+    a: 'What matters most is your average intake across the week, not any single day. A fasting pattern whose weekly average stays comfortably above your BMR is a different situation from eating under it every day. Long multi-day fasts are a medical topic, not a calculator one, and belong with a clinician.',
+  },
+];
+---
+
+<BaseLayout
+  title="Eating Below Your BMR: Is It Safe?"
+  description="Eating below your BMR means eating less than your body burns at rest. A dietitian-reviewed look at the risks, who must never do it, and the safer way to set a deficit."
+  path="/blog/eating-below-your-bmr/"
+  ogType="article"
+  ogImage="/images/eating-below-bmr-hero.webp"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog/' },
+    { name: 'Eating Below Your BMR', path: '/blog/eating-below-your-bmr/' },
+  ]}
+>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 pt-10">
+    <p class="text-sm font-bold text-brand-700 uppercase tracking-wide">Guide · Reviewed by Farah Akram, Dietitian</p>
+    <h1 class="mt-2 text-4xl font-extrabold tracking-tight text-ink-900">Eating below your BMR: is it safe?</h1>
+    <p class="mt-5 text-lg text-ink-700 leading-relaxed">
+      It is a question that appears as soon as someone does the maths honestly: if my body burns 1,475 kcal just
+      existing, what happens if I eat 1,200? The short answer is that your BMR is not a target to eat under. It is
+      the cost of keeping you alive before you have done anything at all, and eating below it for weeks at a time
+      is a strategy we consistently talk people out of. This page explains why, carefully, including the one
+      legitimate exception, and then shows the safer way to build the same weight loss.
+    </p>
+    <img
+      src="/images/eating-below-bmr-hero.webp"
+      alt="Illustration of the body's resting energy needs, the organs and systems that BMR pays for"
+      width="2048"
+      height="1152"
+      class="mt-8 w-full rounded-2xl border border-brand-100"
+      loading="eager"
+    />
+
+    <h2 class="mt-10 text-2xl font-extrabold text-ink-900">What your BMR actually pays for</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      BMR is often described as the calories you burn in a coma, which makes it sound optional, like standby mode
+      on a television. It is not. That energy runs your brain, which alone takes about a fifth of it, your liver
+      filtering and processing, your heart beating around 100,000 times a day, your kidneys, your lungs, your body
+      temperature held within a narrow band, and the constant repair and replacement of your own cells. None of
+      that pauses when you eat less. The bill arrives every day whether you fund it or not, and the difference is
+      taken from your own tissue. Run your numbers in our
+      <a class="font-bold text-brand-700 underline" href="/calculators/bmr-calculator/">BMR Calculator</a> and
+      treat the result as a floor to respect, not a hurdle to get under.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Why eating below it backfires</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      A body funded below its resting costs does not simply burn fat faster and carry on. It economizes. Energy
+      and mood drop, training gets weaker, and everyday movement quietly shrinks, so part of the deficit you
+      created is handed straight back. Hunger hormones rise while thyroid and reproductive hormones can drift
+      down, which is why very low intakes are linked with feeling cold, disrupted cycles and low libido. Protein
+      and micronutrients get squeezed hardest, because there is so little food to fit them into, and the visible
+      results are the familiar ones: hair shedding a few months in, brittle nails, poor sleep, and a growing share
+      of the weight lost coming from muscle rather than fat. Muscle loss is the expensive part, because muscle is
+      what holds your BMR up; lose it and your maintenance falls, so the diet gets harder to leave as well as
+      harder to run. Finally there is adherence: intakes this low collapse socially and psychologically, and the
+      rebound eating that follows is a pattern dietitians see constantly.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">The one exception: supervised very-low-calorie diets</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      There is a legitimate medical version of eating far below BMR: the very-low-calorie diet, usually around 800
+      kcal a day, used for a limited period in people with significant weight to lose. It looks nothing like doing
+      it yourself. It uses formulated products designed to cover protein and micronutrients at tiny intakes, it is
+      screened and monitored by a medical team with blood tests and follow-up, and it has entry and exit criteria.
+      The supervision is not decoration; it is most of what makes the risk acceptable. Taking the calorie level and
+      leaving the medicine is the part we are warning against here.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Who must not do this at all</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Some readers should not eat below BMR, or run aggressive deficits generally, under any framing: anyone under
+      18, anyone pregnant or breastfeeding, anyone with a current or past eating disorder, and anyone managing a
+      medical condition such as diabetes, kidney or thyroid disease, or taking medication affected by food intake.
+      Our <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a> sets
+      this out in full. If that list includes you, calorie targets belong in a conversation with your clinician,
+      not on a calculator page, including ours.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">The floors we use, and what to do instead</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      As general guardrails for healthy adults, we use 1,200 kcal a day for women and 1,500 for men as the lowest
+      self-directed intakes, and BMR awareness on top of them: if your BMR is itself near or above those figures,
+      your personal floor is effectively your BMR region, and your cutting room is small. The standard method
+      sidesteps the problem entirely. Your deficit should be taken from your TDEE, the whole day's burn, not from
+      your BMR. Subtract 250 to 500 kcal from TDEE and, for most people, the target lands comfortably above BMR
+      while still producing steady loss. Our
+      <a class="font-bold text-brand-700 underline" href="/calculators/calorie-deficit-calculator/">Calorie Deficit
+      Calculator</a> builds targets exactly this way, and our guide to
+      <a class="font-bold text-brand-700 underline" href="/blog/what-is-a-calorie-deficit/">what a calorie deficit
+      is</a> walks through the sizes. Slower on paper, faster in real life, because you can still be doing it in
+      month six.
+    </p>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      A concrete case shows why this matters most for smaller, less active people. Imagine a woman whose BMR is
+      1,280 and whose sedentary TDEE is about 1,540. A standard 500 kcal deficit would put her at roughly 1,040,
+      far below her BMR and below the 1,200 floor, which is exactly the trap this article is about. Her workable
+      deficit is the small one: 200 to 250 kcal, landing near 1,300, a little above her BMR, with slower expected
+      loss that is genuinely sustainable. The bigger the gap between your TDEE and your BMR, the more cutting room
+      you have. Where that gap is narrow, patience and professional input replace aggression.
+    </p>
+
+    <p class="mt-8 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Farah Akram, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+
+    <Faq faqs={faqs} title="Eating below BMR questions" />
+  </article>
+</BaseLayout>

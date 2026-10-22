@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Faq from '../../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'TDEE for Beginners: The Complete Plain-Language Guide',
+    description: 'New to TDEE? This plain-language beginner guide explains what TDEE and BMR mean, how the activity multiplier works, and the three steps to start with this week.',
+    url: 'https://tdeecheck.com/blog/tdee-for-beginners/',
+    image: 'https://tdeecheck.com/images/tdee-beginners-hero.webp',
+    author: { '@type': 'Person', name: 'Farah Akram', jobTitle: 'Dietitian' },
+    publisher: { '@type': 'Organization', name: 'TDEE Check', url: 'https://tdeecheck.com/' },
+    datePublished: '2026-10-22',
+    dateModified: '2026-10-22',
+  },
+];
+
+const faqs = [
+  {
+    q: 'What does TDEE stand for?',
+    a: 'Total Daily Energy Expenditure. It is the total number of calories your body burns in a full day, including rest, digestion, everyday movement and exercise. If you eat about that amount, your weight stays roughly the same.',
+  },
+  {
+    q: 'Do I need to work out my BMR separately?',
+    a: 'No. BMR is already inside TDEE; it is the biggest part of it. A calculator works out your BMR first and then multiplies it by your activity level to reach TDEE. You only need the separate BMR number if you are curious, or for our body fat based formula that uses it directly.',
+  },
+  {
+    q: 'How many calories should a beginner eat to lose weight?',
+    a: 'Start with your TDEE and subtract 250 to 500 kcal. For most beginners the smaller end is the smarter start: the loss is slower on paper but far easier to stick to, and you can always widen the gap later if your weight trend shows nothing is moving after three weeks.',
+  },
+  {
+    q: 'How often should I recalculate my TDEE?',
+    a: 'Whenever your weight changes by about 10 to 15 lb, or when your routine changes a lot, like a new job or a new training plan. A smaller body burns less, so a number that was right in January can be too high by spring if you have lost weight in between.',
+  },
+  {
+    q: 'Is a calculator accurate enough for a beginner?',
+    a: 'Yes, as a starting point. Formulas land within about 10 percent for most people, and the beginner method does not rely on the estimate being perfect: you test it against your own weight trend for two to three weeks and adjust by what actually happens.',
+  },
+];
+---
+
+<BaseLayout
+  title="TDEE for Beginners: The Complete Plain-Language Guide"
+  description="New to TDEE? This plain-language beginner guide explains what TDEE and BMR mean, how the activity multiplier works, and the three steps to start with this week."
+  path="/blog/tdee-for-beginners/"
+  ogType="article"
+  ogImage="/images/tdee-beginners-hero.webp"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog/' },
+    { name: 'TDEE for Beginners', path: '/blog/tdee-for-beginners/' },
+  ]}
+>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 pt-10">
+    <p class="text-sm font-bold text-brand-700 uppercase tracking-wide">Guide · Reviewed by Farah Akram, Dietitian</p>
+    <h1 class="mt-2 text-4xl font-extrabold tracking-tight text-ink-900">TDEE for beginners: the complete plain-language guide</h1>
+    <p class="mt-5 text-lg text-ink-700 leading-relaxed">
+      If words like TDEE and BMR make calorie advice feel like a maths exam, this is the page to start on. TDEE is
+      one simple idea with an unfriendly name: it is how much energy your body spends in a day. Once you know that
+      number, questions like how much to eat to lose, keep or gain weight stop being guesswork. This guide explains
+      the whole thing in plain words, with one worked example and three small things to do this week. No background
+      in nutrition needed.
+    </p>
+    <img
+      src="/images/tdee-beginners-hero.webp"
+      alt="Illustration of a beginner learning how daily calorie burn works, with simple energy icons"
+      width="2048"
+      height="1152"
+      class="mt-8 w-full rounded-2xl border border-brand-100"
+      loading="eager"
+    />
+
+    <h2 class="mt-10 text-2xl font-extrabold text-ink-900">Your body spends energy in four ways</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Everything your body burns in a day falls into four buckets. The biggest, usually 60 to 70 percent of the
+      total, is simply staying alive: your heart beating, your brain thinking, your body holding its temperature.
+      The second is digesting food, which costs roughly 10 percent of what you eat. The third is everyday movement:
+      walking to the shop, climbing stairs, standing, fidgeting, housework. The fourth, and usually the smallest
+      for beginners, is deliberate exercise. Add all four together and you have your total daily energy
+      expenditure, your TDEE. Most of your burn is not workouts. It is the background cost of being a person who
+      moves through a day.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">BMR in plain words</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      BMR stands for basal metabolic rate, and in plain words it is your idle speed: the calories you would burn if
+      you lay in bed all day doing absolutely nothing. Think of it as the electricity bill for keeping the house
+      running with nobody home. It depends mostly on your size, your sex and your age, because a bigger body has
+      more of everything to run. You never need to calculate it by hand unless you want to; our
+      <a class="font-bold text-brand-700 underline" href="/blog/how-to-calculate-tdee/">step by step guide</a> shows
+      the formula, and every calculator on this site works it out as the first step toward TDEE.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">The activity multiplier, simply</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Because nobody actually lies in bed all day, calculators take your BMR and multiply it by a number that
+      stands for how active your life is. Sit at a desk and barely move, and the multiplier is 1.2. Live a fairly
+      active life with regular training, and it climbs toward 1.9. That is the whole trick: BMR times activity
+      equals TDEE. Picking the multiplier is the one judgment call in the process, and beginners usually pick one
+      notch too high, because we remember our most active days rather than our average ones. When you are torn
+      between two levels, choose the lower one and let your results correct you.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">One worked example</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      The example used across this site is a woman of 32, 5 ft 6 in and 165 lb who exercises three to five days a
+      week. Her BMR, her idle speed, is 1,475 kcal. She is moderately active, so her multiplier is 1.55, and 1,475
+      times 1.55 gives a TDEE of <strong>2,287 kcal</strong>. That single number now answers three questions. To
+      keep her weight, she eats about 2,287. To lose steadily, she eats a few hundred less. To gain, a few hundred
+      more. Your numbers will differ, but the shape of the maths is identical, and our
+      <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a> runs it for your stats in
+      seconds.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">A tiny glossary</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Five words cover almost everything you will read about calories. Learn these and the rest of this site, and
+      most diet advice anywhere, becomes readable.
+    </p>
+    <div class="mt-4 overflow-x-auto rounded-xl border border-brand-100 bg-white">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-brand-50 text-left">
+            <th class="px-4 py-3 font-extrabold text-ink-900">Word</th>
+            <th class="px-4 py-3 font-extrabold text-ink-900">What it means</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-brand-50">
+          <tr><td class="px-4 py-3 font-semibold">BMR</td><td class="px-4 py-3">Calories you burn at complete rest, your idle speed.</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">TDEE</td><td class="px-4 py-3">All calories you burn in a full day, BMR plus everything you do.</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">NEAT</td><td class="px-4 py-3">Everyday movement that is not exercise: steps, standing, housework, fidgeting.</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">Maintenance</td><td class="px-4 py-3">Eating at your TDEE, so your weight stays about the same.</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">Deficit</td><td class="px-4 py-3">Eating below your TDEE, which is how weight loss happens.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      If you want the short version of how BMR and TDEE fit together, our
+      <a class="font-bold text-brand-700 underline" href="/blog/tdee-vs-bmr/">TDEE vs BMR guide</a> is the natural
+      next read after this one.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Three things to do this week</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      First, calculate your number. It takes a minute and gives you a target instead of a guess. Second, track
+      what you eat honestly for one week, without changing anything yet. Most beginners have never seen their real
+      intake written down, and the gap between it and their TDEE explains more than any diet rule. Third, weigh
+      yourself on three or four mornings, after the bathroom and before breakfast, and average the readings. One
+      morning's weight is mostly water; a weekly average is information. Those three habits, a number, a record
+      and a trend, are the entire foundation. Everything else in dieting is decoration on top of them.
+    </p>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      After two or three weeks of this, compare your average weight with where you started. If it is flat, your
+      estimate was right and you now own a real maintenance number, measured rather than guessed. If it crept up
+      or down, your true TDEE sits a little below or above the estimate, and a small adjustment of 100 to 200
+      kcal in the right direction lines them up. That is the whole beginner method, and it never really changes.
+      Experienced dieters are doing exactly this, just with more practice and less surprise at the water weight.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Beginner mistakes worth skipping</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      The classic four: choosing the activity level of your best week instead of your normal one, which inflates
+      your target and stalls progress; cutting calories hard on day one, feeling awful by day ten and quitting;
+      judging by single weigh-ins, when water alone can swing the scale by 2 to 3 lb overnight; and forgetting
+      drinks, cooking oils and weekends, which quietly add back the deficit you built on weekdays. None of these
+      make you a failed beginner. They are simply the standard first draft, and now you get to skip them.
+    </p>
+
+    <p class="mt-8 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Farah Akram, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+
+    <Faq faqs={faqs} title="Beginner TDEE questions" />
+  </article>
+</BaseLayout>
