@@ -1,0 +1,136 @@
+---
+// BMI calculator with category gauge and healthy weight range for the entered height.
+---
+
+<div class="bg-white rounded-2xl shadow-lg shadow-brand-900/5 border border-brand-100 p-5 sm:p-7" id="calculator">
+  <form id="bmi-form" novalidate>
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <p class="font-extrabold text-ink-900 text-lg">Your details</p>
+      <div class="inline-flex rounded-lg bg-brand-50 border border-brand-100 p-1" role="group" aria-label="Units">
+        <button type="button" data-units="imperial" class="bmi-units-btn px-3 py-1.5 rounded-md text-sm font-bold bg-brand-600 text-white">Imperial (lb, ft)</button>
+        <button type="button" data-units="metric" class="bmi-units-btn px-3 py-1.5 rounded-md text-sm font-bold text-ink-700">Metric (kg, cm)</button>
+      </div>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-4 mt-5">
+      <div>
+        <span class="block text-sm font-bold text-ink-700 mb-2">Height</span>
+        <div id="bmi-height-imperial" class="grid grid-cols-2 gap-2">
+          <input id="bmi-ft" type="number" inputmode="numeric" min="3" max="8" value="5" placeholder="ft" aria-label="Feet" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          <input id="bmi-inch" type="number" inputmode="numeric" min="0" max="11" value="6" placeholder="in" aria-label="Inches" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+        <div id="bmi-height-metric" class="hidden">
+          <input id="bmi-cm" type="number" inputmode="numeric" min="100" max="250" value="168" placeholder="cm" aria-label="Centimeters" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-bold text-ink-700 mb-2" for="bmi-weight">Weight <span id="bmi-weight-unit" class="font-semibold text-ink-500">(lb)</span></label>
+        <input id="bmi-weight" type="number" inputmode="decimal" min="50" max="1000" value="165" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+      </div>
+    </div>
+    <p id="bmi-error" class="hidden mt-4 text-sm font-semibold text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3" role="alert"></p>
+    <button type="submit" class="mt-6 w-full sm:w-auto inline-flex justify-center items-center rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-extrabold px-8 py-3.5 text-base shadow-md shadow-brand-600/20">Calculate my BMI</button>
+  </form>
+
+  <div id="bmi-results" class="hidden mt-8 border-t border-brand-100 pt-7" aria-live="polite">
+    <div class="rounded-2xl bg-brand-600 text-white p-6 text-center">
+      <p class="text-sm font-bold uppercase tracking-wide text-brand-100">Your Body Mass Index</p>
+      <p class="mt-1 text-5xl font-extrabold" id="bmi-value">0.0</p>
+      <p class="mt-2 text-brand-100 font-semibold" id="bmi-category"></p>
+    </div>
+    <div class="mt-8">
+      <div class="relative">
+        <div class="flex h-4 rounded-full overflow-hidden" aria-hidden="true">
+          <div class="bg-sky-400" style="width:16%"></div>
+          <div class="bg-brand-500" style="width:26%"></div>
+          <div class="bg-amber-400" style="width:20%"></div>
+          <div class="bg-red-400" style="width:38%"></div>
+        </div>
+        <div id="bmi-marker" class="absolute -top-1.5 w-0 h-0" style="left:50%" aria-hidden="true">
+          <div class="w-0.5 h-7 bg-ink-900 mx-auto"></div>
+        </div>
+      </div>
+      <div class="flex justify-between text-[11px] font-bold text-ink-500 mt-2">
+        <span>Under 18.5</span><span>18.5 to 24.9 Healthy</span><span>25 to 29.9</span><span>30 plus</span>
+      </div>
+    </div>
+    <div class="mt-6 grid sm:grid-cols-2 gap-4">
+      <div class="rounded-xl border border-brand-100 bg-brand-50/60 p-5">
+        <p class="font-extrabold text-ink-900">Healthy weight range for your height</p>
+        <p class="mt-1 text-2xl font-extrabold text-brand-700" id="bmi-range"></p>
+        <p class="text-sm text-ink-500 mt-1">Based on a BMI of 18.5 to 24.9, the range used for most adults.</p>
+      </div>
+      <div class="rounded-xl border border-brand-100 bg-brand-50/60 p-5">
+        <p class="font-extrabold text-ink-900">What this means</p>
+        <p class="mt-1 text-sm text-ink-700 leading-relaxed" id="bmi-advice"></p>
+      </div>
+    </div>
+    <p class="mt-4 text-sm text-ink-700">BMI is a screening number, not a diagnosis. It does not measure body fat directly and can misread muscular people. Pair it with your calorie needs from the <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator on our homepage</a>.</p>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var units = 'imperial';
+    function $(id) { return document.getElementById(id); }
+    function fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+
+    document.querySelectorAll('.bmi-units-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        units = b.getAttribute('data-units');
+        document.querySelectorAll('.bmi-units-btn').forEach(function (x) {
+          var active = x.getAttribute('data-units') === units;
+          x.className = 'bmi-units-btn px-3 py-1.5 rounded-md text-sm font-bold ' + (active ? 'bg-brand-600 text-white' : 'text-ink-700');
+        });
+        $('bmi-height-imperial').classList.toggle('hidden', units !== 'imperial');
+        $('bmi-height-metric').classList.toggle('hidden', units !== 'metric');
+        $('bmi-weight-unit').textContent = units === 'imperial' ? '(lb)' : '(kg)';
+        var w = parseFloat($('bmi-weight').value);
+        if (!isNaN(w)) $('bmi-weight').value = units === 'imperial' ? Math.round(w * 2.20462) : Math.round(w / 2.20462);
+      });
+    });
+
+    $('bmi-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var err = $('bmi-error');
+      err.classList.add('hidden');
+      var weightRaw = parseFloat($('bmi-weight').value);
+      var heightCm = units === 'imperial'
+        ? ((parseFloat($('bmi-ft').value) || 0) * 12 + (parseFloat($('bmi-inch').value) || 0)) * 2.54
+        : parseFloat($('bmi-cm').value);
+      var weightKg = units === 'imperial' ? weightRaw * 0.45359237 : weightRaw;
+      if (isNaN(weightRaw) || weightKg < 25 || weightKg > 450 || isNaN(heightCm) || heightCm < 100 || heightCm > 250) {
+        err.textContent = 'Please check your entries: a realistic height and a realistic weight.';
+        err.classList.remove('hidden');
+        return;
+      }
+      var m = heightCm / 100;
+      var bmi = weightKg / (m * m);
+      var lo = 18.5 * m * m;
+      var hi = 24.9 * m * m;
+      var cat, advice;
+      if (bmi < 18.5) {
+        cat = 'Category: Underweight (below 18.5)';
+        advice = 'A BMI under 18.5 can mean you are not eating enough for your body to run well. A gradual calorie surplus built on nutrient dense food is the usual first step. If weight loss was not intentional, talk to a clinician.';
+      } else if (bmi < 25) {
+        cat = 'Category: Healthy weight (18.5 to 24.9)';
+        advice = 'Your BMI sits in the range linked with the lowest average health risk for adults. Focus on maintaining: eat near your TDEE, keep protein up, and stay active.';
+      } else if (bmi < 30) {
+        cat = 'Category: Overweight (25 to 29.9)';
+        advice = 'A BMI in this range is common and very changeable. A modest deficit of 250 to 500 kcal a day from your TDEE usually produces steady progress of about 0.5 to 1 lb per week.';
+      } else {
+        cat = 'Category: Obesity range (30 and above)';
+        advice = 'A BMI of 30 or above raises the risk of several long term conditions, and gradual loss of even 5 to 10 percent of body weight brings measurable benefits. A structured plan and support from a clinician or dietitian make a real difference at this level.';
+      }
+      $('bmi-value').textContent = bmi.toFixed(1);
+      $('bmi-category').textContent = cat;
+      var pct = Math.min(98, Math.max(1, (bmi - 13) / (42 - 13) * 100));
+      $('bmi-marker').style.left = pct + '%';
+      $('bmi-range').textContent = units === 'imperial'
+        ? fmt(lo / 0.45359237) + ' to ' + fmt(hi / 0.45359237) + ' lb'
+        : lo.toFixed(1) + ' to ' + hi.toFixed(1) + ' kg';
+      $('bmi-advice').textContent = advice;
+      $('bmi-results').classList.remove('hidden');
+      $('bmi-results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  })();
+</script>

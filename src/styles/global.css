@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: ui-sans-system, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --color-brand-50: #eefbf3;
+  --color-brand-100: #d7f5e2;
+  --color-brand-200: #b2eac9;
+  --color-brand-300: #81d8a9;
+  --color-brand-400: #4abd84;
+  --color-brand-500: #27a068;
+  --color-brand-600: #198152;
+  --color-brand-700: #156743;
+  --color-brand-800: #135237;
+  --color-brand-900: #11452e;
+  --color-ink-900: #0f1f18;
+  --color-ink-700: #2c4238;
+  --color-ink-500: #5a7267;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #f7faf8;
+  color: var(--color-ink-900);
+}
+
+details.faq > summary {
+  list-style: none;
+  cursor: pointer;
+}
+details.faq > summary::-webkit-details-marker {
+  display: none;
+}
+details.faq > summary .faq-chevron {
+  transition: transform 0.2s ease;
+}
+details.faq[open ] > summary .faq-chevron {
+  transform: rotate(180deg);
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+@media print {
+  header, footer, .no-print {
+    display: none !important;
+  }
+}

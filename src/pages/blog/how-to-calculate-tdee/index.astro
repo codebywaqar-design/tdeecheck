@@ -1,0 +1,142 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Faq from '../../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'How to Calculate Your TDEE, Step by Step, with Examples',
+    description: 'Learn how to calculate TDEE by hand: BMR with Mifflin-St Jeor, the right activity multiplier, and goal targets, with full worked examples.',
+    url: 'https://tdeecheck.com/blog/how-to-calculate-tdee/',
+    author: { '@type': 'Person', name: 'Waqar', jobTitle: 'Dietitian' },
+    publisher: { '@type': 'Organization', name: 'TDEE Check', url: 'https://tdeecheck.com/' },
+    datePublished: '2026-10-22',
+    dateModified: '2026-10-22',
+  },
+];
+
+const faqs = [
+  {
+    q: 'How do I calculate my TDEE manually?',
+    a: 'First calculate BMR with Mifflin-St Jeor: (10 x weight in kg) + (6.25 x height in cm) minus (5 x age), then plus 5 for men or minus 161 for women. Then multiply by your activity factor: 1.2 sedentary, 1.375 light, 1.55 moderate, 1.725 very active, or 1.9 athlete. The result is your TDEE.',
+  },
+  {
+    q: 'What if I do not know my activity level?',
+    a: 'Start with the level below the one you think you are. Most people overestimate. A desk worker training 3 days a week is usually light (1.375) or moderate (1.55). Track for 2 to 3 weeks and correct with real weight data.',
+  },
+  {
+    q: 'How do I calculate TDEE for weight loss?',
+    a: 'Calculate your normal TDEE first, then subtract 250 to 500 kcal. That is your weight loss intake target. Recalculate whenever your weight changes by about 10 to 15 lb, because a lighter body burns less.',
+  },
+];
+---
+
+<BaseLayout
+  title="How to Calculate Your TDEE, Step by Step (With Examples)"
+  description="Learn how to calculate TDEE by hand: BMR with the Mifflin-St Jeor formula, picking the right activity multiplier, and setting goal calories. Two full worked examples."
+  path="/blog/how-to-calculate-tdee/"
+  ogType="article"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog/' },
+    { name: 'How to Calculate TDEE', path: '/blog/how-to-calculate-tdee/' },
+  ]}
+>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 pt-10">
+    <p class="text-sm font-bold text-brand-700 uppercase tracking-wide">Guide · Reviewed by Waqar, Dietitian</p>
+    <h1 class="mt-2 text-4xl font-extrabold tracking-tight text-ink-900">How to calculate your TDEE, step by step</h1>
+    <p class="mt-5 text-lg text-ink-700 leading-relaxed">
+      You do not need an app to find your Total Daily Energy Expenditure. With four numbers about yourself and two short
+      formulas you can work it out on paper in about two minutes. This guide walks through each step, then checks the math
+      with two full examples. If you would rather skip the arithmetic, our
+      <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a> runs the identical steps instantly.
+    </p>
+
+    <h2 class="mt-10 text-2xl font-extrabold text-ink-900">Step 1: Convert your weight and height</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      The formulas work in metric. If you think in pounds and inches, convert first. Weight in pounds divided by 2.205
+      gives kilograms, so 165 lb becomes about 74.8 kg. Height in inches multiplied by 2.54 gives centimeters, so 5 ft
+      6 in (66 inches) becomes about 167.6 cm. Write both numbers down.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Step 2: Calculate your BMR with Mifflin-St Jeor</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Your Basal Metabolic Rate is the calories you burn at complete rest. The Mifflin-St Jeor equation is:
+    </p>
+    <div class="mt-4 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 font-semibold text-ink-900">
+      <p>Men: BMR = (10 x weight in kg) + (6.25 x height in cm) minus (5 x age) + 5</p>
+      <p class="mt-2">Women: BMR = (10 x weight in kg) + (6.25 x height in cm) minus (5 x age) minus 161</p>
+    </div>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Do the multiplications first, then add and subtract left to right. Our
+      <a class="font-bold text-brand-700 underline" href="/calculators/bmr-calculator/">BMR Calculator</a> shows this same
+      step on its own if you want to double check your arithmetic.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Step 3: Multiply by your activity level</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      BMR assumes you never move. Real life costs more, so multiply by the factor that matches your whole week:
+    </p>
+    <div class="mt-4 overflow-x-auto rounded-xl border border-brand-100 bg-white">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-brand-50 text-left">
+            <th class="px-4 py-3 font-extrabold text-ink-900">Lifestyle</th>
+            <th class="px-4 py-3 font-extrabold text-ink-900">Multiply BMR by</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-brand-50">
+          <tr><td class="px-4 py-3 font-semibold">Sedentary, desk job, little exercise</td><td class="px-4 py-3">1.2</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">Light, exercise 1 to 3 days a week</td><td class="px-4 py-3">1.375</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">Moderate, exercise 3 to 5 days a week</td><td class="px-4 py-3">1.55</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">Very active, hard exercise 6 to 7 days a week</td><td class="px-4 py-3">1.725</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">Athlete, two sessions a day or physical job</td><td class="px-4 py-3">1.9</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Be honest here. Picking the flattering row is the most common reason calculated TDEE comes out too high, and it is
+      better to start a touch low and adjust up than the reverse.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Worked example 1: a woman who wants to lose weight</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Sarah is 32, 5 ft 6 in, and 165 lb, and trains four days a week. Converting: 165 lb is 74.8 kg, and 66 inches is
+      167.6 cm. Her BMR is (10 x 74.8) + (6.25 x 167.6) minus (5 x 32) minus 161, which is 748 + 1,048 minus 160 minus
+      161, about <strong>1,475 kcal</strong>. Four training days makes her moderate, so her TDEE is 1,475 x 1.55, about
+      <strong>2,287 kcal per day</strong>. For weight loss at roughly a pound a week she subtracts 500 and targets about
+      <strong>1,787 kcal per day</strong>, with protein near 40 percent of that, about 179 grams.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Worked example 2: a man who wants to gain muscle</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      James is 27, 5 ft 11 in, and 180 lb, with a warehouse job and five lifting sessions a week. Converting: 180 lb is
+      81.6 kg, and 71 inches is 180.3 cm. His BMR is (10 x 81.6) + (6.25 x 180.3) minus (5 x 27) + 5, which is 816 +
+      1,127 minus 135 + 5, about <strong>1,813 kcal</strong>. A physical job plus five sessions puts him at very active,
+      so his TDEE is 1,813 x 1.725, about <strong>3,128 kcal per day</strong>. For slow muscle gain he adds 250 and
+      targets about <strong>3,378 kcal per day</strong>. Notice how much the activity factor matters: at sedentary his
+      number would be only about 2,176.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Step 4: Check your number against reality</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      A formula gives you an estimate, your scale gives you the verdict. Eat close to your TDEE for 2 to 3 weeks, weigh
+      yourself on several mornings each week, and compare the weekly averages. If the average is flat, your hand
+      calculation was right. If you are drifting up, your true TDEE is a little lower; drifting down means it is a little
+      higher. Adjust by 100 to 200 kcal and repeat once, and you will know your personal TDEE more precisely than any
+      formula or wearable can tell you. Then set your real goal with the
+      <a class="font-bold text-brand-700 underline" href="/calculators/calorie-calculator/">Calorie Calculator</a> and split
+      it into macros with the <a class="font-bold text-brand-700 underline" href="/calculators/macro-calculator/">Macro
+      Calculator</a>.
+    </p>
+
+    <p class="mt-8 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Waqar, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+
+    <Faq faqs={faqs} title="TDEE calculation questions" />
+  </article>
+</BaseLayout>

@@ -1,0 +1,147 @@
+---
+import '../styles/global.css';
+
+interface Crumb {
+  name: string;
+  path: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  schemas?: Record<string, unknown>[];
+  ogType?: string;
+  crumbs?: Crumb[];
+}
+
+const { title, description, path, schemas = [], ogType = 'website', crumbs } = Astro.props;
+const canonical = new URL(path, 'https://tdeecheck.com').toString();
+
+const allSchemas: Record<string, unknown>[] = [...schemas];
+if (crumbs && crumbs.length > 0) {
+  allSchemas.push({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: crumbs.map((c, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: c.name,
+      item: new URL(c.path, 'https://tdeecheck.com').toString(),
+    })),
+  });
+}
+
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content="index, follow" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23198152'/%3E%3Cpath d='M17.5 4 7 18h6l-1.5 10L22 13.5h-6.2L17.5 4z' fill='white'/%3E%3C/svg%3E" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="TDEE Check" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {allSchemas.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+  </head>
+  <body class="min-h-screen flex flex-col antialiased">
+    <header class="bg-white/90 backdrop-blur border-b border-brand-100 sticky top-0 z-40">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="flex items-center justify-between h-16">
+          <a href="/" class="flex items-center gap-2 font-extrabold text-lg text-ink-900">
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-brand-600 text-white" aria-hidden="true">
+              <svg viewBox="0 0 32 32" class="w-5 h-5" fill="currentColor"><path d="M17.5 4 7 18h6l-1.5 10L22 13.5h-6.2L17.5 4z"/></svg>
+            </span>
+            TDEE<span class="text-brand-600">Check</span>
+          </a>
+          <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-ink-700" aria-label="Main">
+            <a class="hover:text-brand-700" href="/">TDEE Calculator</a>
+            <a class="hover:text-brand-700" href="/calculators/">All Calculators</a>
+            <a class="hover:text-brand-700" href="/tdee-weight-loss-calculator/">Weight Loss</a>
+            <a class="hover:text-brand-700" href="/blog/">Blog</a>
+            <a class="hover:text-brand-700" href="/about/">About</a>
+          </nav>
+          <a href="/#calculator" class="md:hidden inline-flex items-center rounded-lg bg-brand-600 text-white text-sm font-bold px-3 py-2">Calculate</a>
+        </div>
+        <nav class="md:hidden flex gap-4 pb-3 text-sm font-semibold text-ink-700 overflow-x-auto" aria-label="Mobile">
+          <a class="whitespace-nowrap" href="/calculators/">All Calculators</a>
+          <a class="whitespace-nowrap" href="/tdee-weight-loss-calculator/">Weight Loss</a>
+          <a class="whitespace-nowrap" href="/blog/">Blog</a>
+          <a class="whitespace-nowrap" href="/about/">About</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="flex-1 w-full">
+      {crumbs && crumbs.length > 1 && (
+        <nav aria-label="Breadcrumb" class="max-w-6xl mx-auto px-4 sm:px-6 pt-5">
+          <ol class="flex flex-wrap items-center gap-1 text-sm text-ink-500">
+            {crumbs.map((c, i) => (
+              <li class="flex items-center gap-1">
+                {i > 0 && <span aria-hidden="true" class="text-ink-500">/</span>}
+                {i === crumbs.length - 1 ? (
+                  <span aria-current="page" class="font-semibold text-ink-700">{c.name}</span>
+                ) : (
+                  <a class="hover:text-brand-700 underline-offset-2 hover:underline" href={c.path}>{c.name}</a>
+                )}
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
+      <slot />
+    </main>
+
+    <footer class="bg-ink-900 text-white mt-16">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12 grid gap-10 md:grid-cols-4">
+        <div class="md:col-span-2">
+          <p class="font-extrabold text-lg">TDEE<span class="text-brand-300">Check</span></p>
+          <p class="mt-3 text-sm text-white/70 leading-relaxed max-w-md">
+            Free calorie and nutrition calculators built on published formulas and reviewed by a dietitian.
+            Every result is an estimate to help you plan, not medical advice.
+          </p>
+          <p class="mt-4 text-sm text-white/70">Reviewed by Waqar, Dietitian.</p>
+        </div>
+        <nav aria-label="Calculators">
+          <p class="font-bold text-sm uppercase tracking-wide text-white/80">Calculators</p>
+          <ul class="mt-3 space-y-2 text-sm text-white/70">
+            <li><a class="hover:text-white" href="/">TDEE Calculator</a></li>
+            <li><a class="hover:text-white" href="/calculators/bmr-calculator/">BMR Calculator</a></li>
+            <li><a class="hover:text-white" href="/calculators/calorie-calculator/">Calorie Calculator</a></li>
+            <li><a class="hover:text-white" href="/calculators/macro-calculator/">Macro Calculator</a></li>
+            <li><a class="hover:text-white" href="/calculators/bmi-calculator/">BMI Calculator</a></li>
+            <li><a class="hover:text-white" href="/tdee-weight-loss-calculator/">TDEE Weight Loss Calculator</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Site">
+          <p class="font-bold text-sm uppercase tracking-wide text-white/80">Site</p>
+          <ul class="mt-3 space-y-2 text-sm text-white/70">
+            <li><a class="hover:text-white" href="/about/">About</a></li>
+            <li><a class="hover:text-white" href="/blog/">Blog</a></li>
+            <li><a class="hover:text-white" href="/contact/">Contact</a></li>
+            <li><a class="hover:text-white" href="/medical-disclaimer/">Medical Disclaimer</a></li>
+            <li><a class="hover:text-white" href="/privacy-policy/">Privacy Policy</a></li>
+            <li><a class="hover:text-white" href="/terms/">Terms of Use</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="border-t border-white/10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-5 text-xs text-white/50 flex flex-wrap gap-2 justify-between">
+          <p>© {year} TDEE Check. All rights reserved.</p>
+          <p>Estimates only. See our <a class="underline" href="/medical-disclaimer/">medical disclaimer</a>.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

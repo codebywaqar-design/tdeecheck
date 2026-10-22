@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import MacroCalculator from '../../../components/MacroCalculator.astro';
+import Faq from '../../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Macro Calculator',
+    url: 'https://tdeecheck.com/calculators/macro-calculator/',
+    applicationCategory: 'HealthApplication',
+    operatingSystem: 'Any',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  },
+];
+
+const faqs = [
+  {
+    q: 'What is a good macro split for weight loss?',
+    a: 'A higher protein split works well, for example 40 percent protein, 30 percent carbs, 30 percent fat. Protein is the most filling macro and protects muscle in a deficit. The split matters less than total calories and hitting your protein target.',
+  },
+  {
+    q: 'How much protein do I really need?',
+    a: 'A practical target for active people and anyone dieting is about 0.7 to 1 gram per pound of body weight per day (roughly 1.6 to 2.2 g per kg). Sedentary adults can manage on less, around 0.5 to 0.6 g per pound.',
+  },
+  {
+    q: 'Do I have to hit my macros exactly every day?',
+    a: 'No. Treat protein as the daily anchor, let carbs and fat trade places a little, and judge your averages across the week. Being within about 5 to 10 grams on each macro most days is plenty for almost everyone.',
+  },
+  {
+    q: 'Is keto better for fat loss?',
+    a: 'Keto helps some people control appetite, which makes the deficit easier. But studies that match calories and protein find similar fat loss between keto and other diets. The best split is the one you can follow for months.',
+  },
+];
+---
+
+<BaseLayout
+  title="Macro Calculator - Protein, Carbs and Fat in Grams"
+  description="Free macro calculator. Enter your calories and diet style to get daily protein, carb, and fat targets in grams, with per meal breakdowns."
+  path="/calculators/macro-calculator/"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Calculators', path: '/calculators/' },
+    { name: 'Macro Calculator', path: '/calculators/macro-calculator/' },
+  ]}
+>
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-8">
+    <div class="max-w-3xl">
+      <h1 class="text-4xl font-extrabold tracking-tight text-ink-900">Macro Calculator</h1>
+      <p class="mt-4 text-lg text-ink-700 leading-relaxed">
+        Calories decide the direction, macros decide the quality. Enter your daily calories, choose a diet style, and
+        get your protein, carb, and fat targets in grams.
+      </p>
+    </div>
+    <div class="mt-8 max-w-4xl">
+      <MacroCalculator />
+    </div>
+  </section>
+
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 mt-14">
+    <h2 class="text-2xl font-extrabold text-ink-900">What macros are, and why protein comes first</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Macronutrients are the three energy sources in food: protein and carbs at 4 kcal per gram, and fat at 9 kcal per
+      gram. Of the three, protein deserves the most attention. It preserves and builds muscle, keeps you fuller than the
+      same calories from carbs or fat, and costs the most energy to digest. When we review diet plans, the single most
+      common fixable problem is protein set far too low. That is why the weight loss presets on TDEE Check raise protein
+      to about 40 percent of calories.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Choosing your split</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Start with balanced if you have no strong preference. Choose high protein if you are dieting or focused on muscle.
+      Low carb suits people who find carbs trigger overeating. The athlete split pushes carbs up to fuel high training
+      volumes. Keto drops carbs to about 5 percent, which is a legitimate approach for people who thrive on it, but it is
+      restrictive and worth discussing with a clinician if you have any metabolic condition. Every split here is applied
+      to your calorie target from the <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a>, so make
+      sure that number is right first.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">From grams to actual meals</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Daily grams can feel abstract, so the results include a per meal split for three meals. In practice, anchor each
+      meal on a palm to palm and a half sized protein portion, add vegetables and a sensible starch, and cook with
+      measured oils, since poured fats are where fat grams quietly double. Track carefully for two weeks and most people
+      can then eyeball portions with good accuracy.
+    </p>
+    <p class="mt-6 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Waqar, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+    <Faq faqs={faqs} />
+  </article>
+</BaseLayout>

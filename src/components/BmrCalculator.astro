@@ -1,0 +1,157 @@
+---
+// BMR calculator: Mifflin-St Jeor, optional Katch-McArdle with body fat.
+---
+
+<div class="bg-white rounded-2xl shadow-lg shadow-brand-900/5 border border-brand-100 p-5 sm:p-7" id="calculator">
+  <form id="bmr-form" novalidate>
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <p class="font-extrabold text-ink-900 text-lg">Your details</p>
+      <div class="inline-flex rounded-lg bg-brand-50 border border-brand-100 p-1" role="group" aria-label="Units">
+        <button type="button" data-units="imperial" class="bmr-units-btn px-3 py-1.5 rounded-md text-sm font-bold bg-brand-600 text-white">Imperial (lb, ft)</button>
+        <button type="button" data-units="metric" class="bmr-units-btn px-3 py-1.5 rounded-md text-sm font-bold text-ink-700">Metric (kg, cm)</button>
+      </div>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-4 mt-5">
+      <div>
+        <span class="block text-sm font-bold text-ink-700 mb-2">Sex</span>
+        <div class="grid grid-cols-2 gap-2">
+          <button type="button" data-sex="female" class="bmr-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm border-brand-600 bg-brand-50 text-brand-800">Female</button>
+          <button type="button" data-sex="male" class="bmr-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm border-brand-100 bg-white text-ink-700">Male</button>
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-bold text-ink-700 mb-2" for="bmr-age">Age (years)</label>
+        <input id="bmr-age" type="number" inputmode="numeric" min="10" max="100" value="32" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+      </div>
+      <div>
+        <span class="block text-sm font-bold text-ink-700 mb-2">Height</span>
+        <div id="bmr-height-imperial" class="grid grid-cols-2 gap-2">
+          <input id="bmr-ft" type="number" inputmode="numeric" min="3" max="8" value="5" placeholder="ft" aria-label="Feet" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          <input id="bmr-inch" type="number" inputmode="numeric" min="0" max="11" value="6" placeholder="in" aria-label="Inches" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+        <div id="bmr-height-metric" class="hidden">
+          <input id="bmr-cm" type="number" inputmode="numeric" min="100" max="250" value="168" placeholder="cm" aria-label="Centimeters" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-bold text-ink-700 mb-2" for="bmr-weight">Weight <span id="bmr-weight-unit" class="font-semibold text-ink-500">(lb)</span></label>
+        <input id="bmr-weight" type="number" inputmode="decimal" min="50" max="1000" value="165" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+      </div>
+      <div class="sm:col-span-2">
+        <label class="flex items-start gap-3 cursor-pointer">
+          <input id="bmr-bf-toggle" type="checkbox" class="mt-1 w-4 h-4 accent-brand-600" />
+          <span class="text-sm text-ink-700"><span class="font-bold">I know my body fat percentage</span> (optional, uses the Katch-McArdle formula)</span>
+        </label>
+        <div id="bmr-bf-wrap" class="hidden mt-3 max-w-xs">
+          <label class="block text-sm font-bold text-ink-700 mb-2" for="bmr-bf">Body fat %</label>
+          <input id="bmr-bf" type="number" inputmode="decimal" min="3" max="60" placeholder="e.g. 24" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+      </div>
+    </div>
+    <p id="bmr-error" class="hidden mt-4 text-sm font-semibold text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3" role="alert"></p>
+    <button type="submit" class="mt-6 w-full sm:w-auto inline-flex justify-center items-center rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-extrabold px-8 py-3.5 text-base shadow-md shadow-brand-600/20">Calculate my BMR</button>
+  </form>
+
+  <div id="bmr-results" class="hidden mt-8 border-t border-brand-100 pt-7" aria-live="polite">
+    <div class="rounded-2xl bg-brand-600 text-white p-6 text-center">
+      <p class="text-sm font-bold uppercase tracking-wide text-brand-100">Your Basal Metabolic Rate (BMR)</p>
+      <p class="mt-1 text-5xl font-extrabold"><span id="bmr-value">0</span> <span class="text-xl font-bold">kcal / day</span></p>
+      <p id="bmr-formula-note" class="mt-3 text-sm text-brand-100"></p>
+    </div>
+    <h3 class="mt-8 font-extrabold text-ink-900 text-lg">Your daily calorie burn at each activity level (your TDEE)</h3>
+    <div class="mt-4 overflow-x-auto rounded-xl border border-brand-100">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-brand-50 text-left">
+            <th class="px-4 py-3 font-extrabold text-ink-900">Activity level</th>
+            <th class="px-4 py-3 font-extrabold text-ink-900">Multiplier</th>
+            <th class="px-4 py-3 font-extrabold text-ink-900">Calories per day</th>
+          </tr>
+        </thead>
+        <tbody id="bmr-activity-rows" class="divide-y divide-brand-50"></tbody>
+      </table>
+    </div>
+    <p class="mt-4 text-sm text-ink-700">Want goals and macros on top of this? Run the same numbers through the <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator on our homepage</a>.</p>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var units = 'imperial';
+    var sex = 'female';
+    function $(id) { return document.getElementById(id); }
+    function fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+
+    document.querySelectorAll('.bmr-units-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        units = b.getAttribute('data-units');
+        document.querySelectorAll('.bmr-units-btn').forEach(function (x) {
+          var active = x.getAttribute('data-units') === units;
+          x.className = 'bmr-units-btn px-3 py-1.5 rounded-md text-sm font-bold ' + (active ? 'bg-brand-600 text-white' : 'text-ink-700');
+        });
+        $('bmr-height-imperial').classList.toggle('hidden', units !== 'imperial');
+        $('bmr-height-metric').classList.toggle('hidden', units !== 'metric');
+        $('bmr-weight-unit').textContent = units === 'imperial' ? '(lb)' : '(kg)';
+        var w = parseFloat($('bmr-weight').value);
+        if (!isNaN(w)) $('bmr-weight').value = units === 'imperial' ? Math.round(w * 2.20462) : Math.round(w / 2.20462);
+      });
+    });
+    document.querySelectorAll('.bmr-sex-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        sex = b.getAttribute('data-sex');
+        document.querySelectorAll('.bmr-sex-btn').forEach(function (x) {
+          var active = x.getAttribute('data-sex') === sex;
+          x.className = 'bmr-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm ' + (active ? 'border-brand-600 bg-brand-50 text-brand-800' : 'border-brand-100 bg-white text-ink-700');
+        });
+      });
+    });
+    $('bmr-bf-toggle').addEventListener('change', function () {
+      $('bmr-bf-wrap').classList.toggle('hidden', !this.checked);
+    });
+
+    $('bmr-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var err = $('bmr-error');
+      err.classList.add('hidden');
+      var age = parseFloat($('bmr-age').value);
+      var weightRaw = parseFloat($('bmr-weight').value);
+      var heightCm = units === 'imperial'
+        ? ((parseFloat($('bmr-ft').value) || 0) * 12 + (parseFloat($('bmr-inch').value) || 0)) * 2.54
+        : parseFloat($('bmr-cm').value);
+      var weightKg = units === 'imperial' ? weightRaw * 0.45359237 : weightRaw;
+      var bf = $('bmr-bf-toggle').checked ? parseFloat($('bmr-bf').value) : NaN;
+      if (isNaN(age) || age < 10 || age > 100 || isNaN(weightRaw) || weightKg < 25 || weightKg > 450 || isNaN(heightCm) || heightCm < 100 || heightCm > 250) {
+        err.textContent = 'Please check your entries: age 10 to 100, a realistic height, and a realistic weight.';
+        err.classList.remove('hidden');
+        return;
+      }
+      if ($('bmr-bf-toggle').checked && (isNaN(bf) || bf < 3 || bf > 60)) {
+        err.textContent = 'Body fat percentage should be between 3 and 60.';
+        err.classList.remove('hidden');
+        return;
+      }
+      var bmr, note;
+      if (!isNaN(bf)) {
+        bmr = 370 + 21.6 * weightKg * (1 - bf / 100);
+        note = 'Calculated with the Katch-McArdle formula using your lean body mass.';
+      } else {
+        bmr = 10 * weightKg + 6.25 * heightCm - 5 * age + (sex === 'male' ? 5 : -161);
+        note = 'Calculated with the Mifflin-St Jeor formula, the most accurate widely used BMR equation for most adults.';
+      }
+      $('bmr-value').textContent = fmt(bmr);
+      $('bmr-formula-note').textContent = note;
+      var levels = [
+        ['Sedentary (desk job, little exercise)', 1.2],
+        ['Light (exercise 1 to 3 days a week)', 1.375],
+        ['Moderate (exercise 3 to 5 days a week)', 1.55],
+        ['Very active (hard exercise 6 to 7 days a week)', 1.725],
+        ['Athlete (very hard exercise or physical job)', 1.9],
+      ];
+      $('bmr-activity-rows').innerHTML = levels.map(function (l) {
+        return '<tr><td class="px-4 py-3 font-semibold text-ink-700">' + l[0] + '</td><td class="px-4 py-3 text-ink-500">x ' + l[1] + '</td><td class="px-4 py-3 font-extrabold text-brand-700">' + fmt(bmr * l[1]) + ' kcal</td></tr>';
+      }).join('');
+      $('bmr-results').classList.remove('hidden');
+      $('bmr-results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  })();
+</script>

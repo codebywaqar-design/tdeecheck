@@ -1,0 +1,159 @@
+---
+// Macro calculator: enter calories directly, or estimate them from body stats and a goal.
+---
+
+<div class="bg-white rounded-2xl shadow-lg shadow-brand-900/5 border border-brand-100 p-5 sm:p-7" id="calculator">
+  <form id="mac-form" novalidate>
+    <div class="grid sm:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-bold text-ink-700 mb-2" for="mac-calories">Daily calories (kcal)</label>
+        <input id="mac-calories" type="number" inputmode="numeric" min="1000" max="8000" value="2200" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        <p class="mt-1.5 text-xs text-ink-500">Not sure of your calories? Leave this and use the quick estimate below instead.</p>
+      </div>
+      <div>
+        <label class="block text-sm font-bold text-ink-700 mb-2" for="mac-diet">Diet style</label>
+        <select id="mac-diet" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-brand-500">
+          <option value="30,40,30" selected>Balanced (30% protein, 40% carbs, 30% fat)</option>
+          <option value="40,30,30">High protein (40% protein, 30% carbs, 30% fat)</option>
+          <option value="40,20,40">Low carb (40% protein, 20% carbs, 40% fat)</option>
+          <option value="25,45,30">High carb, athlete (25% protein, 45% carbs, 30% fat)</option>
+          <option value="20,5,75">Keto (20% protein, 5% carbs, 75% fat)</option>
+        </select>
+      </div>
+    </div>
+
+    <details class="mt-5 rounded-xl border border-brand-100 bg-brand-50/60 px-4 py-3">
+      <summary class="font-bold text-sm text-brand-800 cursor-pointer">Quick calorie estimate (optional)</summary>
+      <div class="grid sm:grid-cols-2 gap-4 mt-4">
+        <div>
+          <label class="block text-sm font-bold text-ink-700 mb-2" for="mac-weight">Weight (lb)</label>
+          <input id="mac-weight" type="number" inputmode="decimal" min="50" max="1000" value="165" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+        <div>
+          <label class="block text-sm font-bold text-ink-700 mb-2" for="mac-activity">Activity level</label>
+          <select id="mac-activity" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-brand-500">
+            <option value="1.2">Sedentary</option>
+            <option value="1.375">Light (1 to 3 days a week)</option>
+            <option value="1.55" selected>Moderate (3 to 5 days a week)</option>
+            <option value="1.725">Very active (6 to 7 days a week)</option>
+            <option value="1.9">Athlete</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-bold text-ink-700 mb-2" for="mac-sex">Sex</label>
+          <select id="mac-sex" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-brand-500">
+            <option value="female" selected>Female</option>
+            <option value="male">Male</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-bold text-ink-700 mb-2" for="mac-age">Age and height</label>
+          <div class="grid grid-cols-3 gap-2">
+            <input id="mac-age" type="number" inputmode="numeric" min="10" max="100" value="32" placeholder="Age" aria-label="Age" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-brand-500" />
+            <input id="mac-ft" type="number" inputmode="numeric" min="3" max="8" value="5" placeholder="ft" aria-label="Feet" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-brand-500" />
+            <input id="mac-inch" type="number" inputmode="numeric" min="0" max="11" value="6" placeholder="in" aria-label="Inches" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-bold text-ink-700 mb-2" for="mac-goal">Goal adjustment</label>
+          <select id="mac-goal" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-brand-500">
+            <option value="-500">Lose weight (minus 500 kcal)</option>
+            <option value="-250">Lose slowly (minus 250 kcal)</option>
+            <option value="0" selected>Maintain (no change)</option>
+            <option value="250">Gain slowly (plus 250 kcal)</option>
+            <option value="500">Gain weight (plus 500 kcal)</option>
+          </select>
+        </div>
+        <div class="flex items-end">
+          <button type="button" id="mac-estimate" class="w-full rounded-lg bg-ink-900 text-white font-bold px-4 py-2.5 text-sm hover:bg-ink-700">Use this estimate</button>
+        </div>
+      </div>
+    </details>
+
+    <p id="mac-error" class="hidden mt-4 text-sm font-semibold text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3" role="alert"></p>
+    <button type="submit" class="mt-6 w-full sm:w-auto inline-flex justify-center items-center rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-extrabold px-8 py-3.5 text-base shadow-md shadow-brand-600/20">Calculate my macros</button>
+  </form>
+
+  <div id="mac-results" class="hidden mt-8 border-t border-brand-100 pt-7" aria-live="polite">
+    <div class="rounded-2xl bg-brand-600 text-white p-6 text-center">
+      <p class="text-sm font-bold uppercase tracking-wide text-brand-100">Your daily macros for <span id="mac-cal-label">0</span> kcal</p>
+      <div class="mt-4 grid grid-cols-3 gap-3">
+        <div class="rounded-xl bg-white/10 py-4">
+          <p class="text-3xl font-extrabold"><span id="mac-protein">0</span>g</p>
+          <p class="text-xs font-bold uppercase tracking-wide text-brand-100 mt-1">Protein</p>
+        </div>
+        <div class="rounded-xl bg-white/10 py-4">
+          <p class="text-3xl font-extrabold"><span id="mac-carbs">0</span>g</p>
+          <p class="text-xs font-bold uppercase tracking-wide text-brand-100 mt-1">Carbs</p>
+        </div>
+        <div class="rounded-xl bg-white/10 py-4">
+          <p class="text-3xl font-extrabold"><span id="mac-fat">0</span>g</p>
+          <p class="text-xs font-bold uppercase tracking-wide text-brand-100 mt-1">Fat</p>
+        </div>
+      </div>
+    </div>
+    <div class="mt-6">
+      <div class="flex h-4 rounded-full overflow-hidden" aria-hidden="true">
+        <div id="mac-bar-p" class="bg-brand-500" style="width:30%"></div>
+        <div id="mac-bar-c" class="bg-amber-400" style="width:40%"></div>
+        <div id="mac-bar-f" class="bg-sky-400" style="width:30%"></div>
+      </div>
+      <ul class="mt-3 text-sm text-ink-700 space-y-1.5">
+        <li><span class="inline-block w-2.5 h-2.5 rounded-full bg-brand-500 mr-2"></span>Protein: <strong id="mac-protein-detail"></strong></li>
+        <li><span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-400 mr-2"></span>Carbs: <strong id="mac-carbs-detail"></strong></li>
+        <li><span class="inline-block w-2.5 h-2.5 rounded-full bg-sky-400 mr-2"></span>Fat: <strong id="mac-fat-detail"></strong></li>
+      </ul>
+      <p class="mt-4 text-sm text-ink-700">Per meal across 3 meals, that is roughly <strong id="mac-per-meal"></strong>. Need your calorie number first? Start with the <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator on our homepage</a>.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    function $(id) { return document.getElementById(id); }
+    function fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+
+    $('mac-estimate').addEventListener('click', function () {
+      var age = parseFloat($('mac-age').value);
+      var weightLb = parseFloat($('mac-weight').value);
+      var heightCm = ((parseFloat($('mac-ft').value) || 0) * 12 + (parseFloat($('mac-inch').value) || 0)) * 2.54;
+      var sex = $('mac-sex').value;
+      if (isNaN(age) || isNaN(weightLb) || heightCm < 100) return;
+      var kg = weightLb * 0.45359237;
+      var bmr = 10 * kg + 6.25 * heightCm - 5 * age + (sex === 'male' ? 5 : -161);
+      var tdee = bmr * parseFloat($('mac-activity').value);
+      var target = Math.max(1000, Math.round(tdee + parseFloat($('mac-goal').value)));
+      $('mac-calories').value = target;
+    });
+
+    $('mac-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var err = $('mac-error');
+      err.classList.add('hidden');
+      var cal = parseFloat($('mac-calories').value);
+      if (isNaN(cal) || cal < 1000 || cal > 8000) {
+        err.textContent = 'Please enter a daily calorie amount between 1,000 and 8,000 kcal.';
+        err.classList.remove('hidden');
+        return;
+      }
+      var parts = $('mac-diet').value.split(',').map(Number);
+      var pPct = parts[0], cPct = parts[1], fPct = parts[2];
+      var protein = cal * pPct / 100 / 4;
+      var carbs = cal * cPct / 100 / 4;
+      var fat = cal * fPct / 100 / 9;
+      $('mac-cal-label').textContent = fmt(cal);
+      $('mac-protein').textContent = fmt(protein);
+      $('mac-carbs').textContent = fmt(carbs);
+      $('mac-fat').textContent = fmt(fat);
+      $('mac-bar-p').style.width = pPct + '%';
+      $('mac-bar-c').style.width = cPct + '%';
+      $('mac-bar-f').style.width = fPct + '%';
+      $('mac-protein-detail').textContent = fmt(protein) + ' g (' + pPct + '% of calories, ' + fmt(cal * pPct / 100) + ' kcal)';
+      $('mac-carbs-detail').textContent = fmt(carbs) + ' g (' + cPct + '% of calories, ' + fmt(cal * cPct / 100) + ' kcal)';
+      $('mac-fat-detail').textContent = fmt(fat) + ' g (' + fPct + '% of calories, ' + fmt(cal * fPct / 100) + ' kcal)';
+      $('mac-per-meal').textContent = fmt(protein / 3) + ' g protein, ' + fmt(carbs / 3) + ' g carbs and ' + fmt(fat / 3) + ' g fat per meal';
+      $('mac-results').classList.remove('hidden');
+      $('mac-results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  })();
+</script>

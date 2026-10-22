@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Contact TDEE Check"
+  description="Contact TDEE Check with calculator corrections, content questions, or feedback. Reviewed by Waqar, Dietitian."
+  path="/contact/"
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Contact', path: '/contact/' },
+  ]}
+>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 pt-10">
+    <h1 class="text-4xl font-extrabold tracking-tight text-ink-900">Contact us</h1>
+    <p class="mt-5 text-ink-700 leading-relaxed">
+      Questions about a result, a correction to suggest, or an idea for a new calculator? We read everything and we fix
+      errors fast, because accuracy is the whole point of this site.
+    </p>
+    <div class="mt-8 bg-white border border-brand-100 rounded-2xl p-6 shadow-sm">
+      <h2 class="font-extrabold text-ink-900 text-lg">Email</h2>
+      <p class="mt-2 text-ink-700 leading-relaxed">
+        Write to us at <span class="font-bold text-brand-700">contact [at] tdeecheck.com</span>. We usually reply within
+        2 to 3 working days.
+      </p>
+      <h2 class="mt-6 font-extrabold text-ink-900 text-lg">What to include</h2>
+      <ul class="mt-2 space-y-2 text-ink-700 leading-relaxed list-disc pl-6">
+        <li>The page and calculator you were using</li>
+        <li>The numbers you entered and the result you saw</li>
+        <li>What you expected instead, if the result looked wrong</li>
+      </ul>
+    </div>
+    <h2 class="mt-10 text-2xl font-extrabold text-ink-900">Please note</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      We cannot give personal diet or medical advice by email. For individual guidance, please book a consultation with a
+      registered dietitian or speak to your clinician. For anything health related on this site, start with the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+  </article>
+</BaseLayout>

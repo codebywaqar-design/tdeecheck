@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="About TDEE Check - Dietitian Reviewed Calorie Calculators"
+  description="About TDEE Check: free calorie, TDEE, BMR, macro, and BMI calculators built on published formulas and reviewed by Waqar, Dietitian."
+  path="/about/"
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about/' },
+  ]}
+>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 pt-10">
+    <h1 class="text-4xl font-extrabold tracking-tight text-ink-900">About TDEE Check</h1>
+    <p class="mt-5 text-ink-700 leading-relaxed">
+      TDEE Check exists for one simple reason: most people who struggle with their weight are not lacking willpower, they
+      are lacking a reliable number. Advice like "eat less" is useless without knowing less than what. Our calculators turn
+      your stats into clear daily calorie and macro targets, using the same published formulas that dietitians and
+      researchers use, presented in plain language with no sign up and no paywall.
+    </p>
+    <h2 class="mt-10 text-2xl font-extrabold text-ink-900">Reviewed by a dietitian</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      The content and calculators on this site are reviewed by <strong>Waqar</strong>, a practicing
+      <strong>Dietitian</strong>. That review means the formulas are the right ones, the safety floors are stated honestly,
+      and the guidance matches what a professional would tell a client in a first session: start with a reasonable target,
+      track the trend, adjust in small steps, and never chase extreme deficits. Health content on the internet is full of
+      confident nonsense, so every page here names its formula and its limits.
+    </p>
+    <h2 class="mt-10 text-2xl font-extrabold text-ink-900">How we calculate</h2>
+    <ul class="mt-3 space-y-3 text-ink-700 leading-relaxed list-disc pl-6">
+      <li><strong>BMR:</strong> the Mifflin-St Jeor equation (1990), the best validated prediction formula for most adults, with the Katch-McArdle equation offered when body fat percentage is known.</li>
+      <li><strong>TDEE:</strong> BMR multiplied by a standard activity factor from 1.2 (sedentary) to 1.9 (athlete).</li>
+      <li><strong>Weight change estimates:</strong> based on the widely used approximation that one pound of body fat stores about 3,500 kcal.</li>
+      <li><strong>BMI:</strong> the standard World Health Organization adult categories, always presented with context about what BMI cannot measure.</li>
+    </ul>
+    <h2 class="mt-10 text-2xl font-extrabold text-ink-900">What this site is not</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      TDEE Check is an educational tool, not a clinic. The numbers are estimates for healthy adults and are not a
+      substitute for personal medical advice, diagnosis, or treatment. If you have a medical condition, are pregnant or
+      breastfeeding, or have a history of eating disorders, please work with your own clinician or dietitian. You can read
+      the full <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a> and reach
+      us through the <a class="font-bold text-brand-700 underline" href="/contact/">contact page</a>.
+    </p>
+    <h2 class="mt-10 text-2xl font-extrabold text-ink-900">Start calculating</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      New here? Run your numbers through the <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a>,
+      then explore the <a class="font-bold text-brand-700 underline" href="/calculators/">full calculator set</a> and the
+      <a class="font-bold text-brand-700 underline" href="/blog/how-to-calculate-tdee/">step by step guide</a> on how the
+      math works.
+    </p>
+  </article>
+</BaseLayout>

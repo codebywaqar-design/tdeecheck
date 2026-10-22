@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BmrCalculator from '../../../components/BmrCalculator.astro';
+import Faq from '../../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'BMR Calculator',
+    url: 'https://tdeecheck.com/calculators/bmr-calculator/',
+    applicationCategory: 'HealthApplication',
+    operatingSystem: 'Any',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  },
+];
+
+const faqs = [
+  {
+    q: 'What is a good BMR?',
+    a: 'There is no single good number, because BMR scales with body size. Adult women commonly fall between about 1,200 and 1,600 kcal per day and adult men between about 1,500 and 1,900 kcal. A higher BMR usually just means a larger or more muscular body.',
+  },
+  {
+    q: 'Which BMR formula is most accurate?',
+    a: 'For most adults, the Mifflin-St Jeor equation is the best validated option and is the default here. If you know your body fat percentage accurately, the Katch-McArdle formula, which uses lean body mass, can be better for very lean or very muscular people.',
+  },
+  {
+    q: 'Can I eat at my BMR to lose weight?',
+    a: 'You can, but understand what it means: BMR is your burn in complete rest, so eating at BMR while living normally creates a large deficit. Many people find a moderate deficit of 250 to 500 kcal below TDEE easier to sustain with better energy and adherence.',
+  },
+  {
+    q: 'Does BMR change with age?',
+    a: 'Yes. BMR drifts down with age, mostly because muscle mass tends to fall. Resistance training and staying active are the main levers you control to slow that decline.',
+  },
+];
+---
+
+<BaseLayout
+  title="BMR Calculator - Basal Metabolic Rate (Mifflin-St Jeor)"
+  description="Free BMR calculator using Mifflin-St Jeor, with an optional body fat mode. See your resting calorie burn plus your TDEE at every activity level."
+  path="/calculators/bmr-calculator/"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Calculators', path: '/calculators/' },
+    { name: 'BMR Calculator', path: '/calculators/bmr-calculator/' },
+  ]}
+>
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-8">
+    <div class="max-w-3xl">
+      <h1 class="text-4xl font-extrabold tracking-tight text-ink-900">BMR Calculator</h1>
+      <p class="mt-4 text-lg text-ink-700 leading-relaxed">
+        Your Basal Metabolic Rate is the energy your body burns just staying alive. Calculate it here, then see what
+        it becomes at every activity level, which is your TDEE.
+      </p>
+    </div>
+    <div class="mt-8 max-w-4xl">
+      <BmrCalculator />
+    </div>
+  </section>
+
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 mt-14">
+    <h2 class="text-2xl font-extrabold text-ink-900">What BMR actually measures</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      BMR is measured under strict conditions: awake, lying still, in a warm room, after a night of sleep and a
+      12 hour fast. In that state your body still burns a surprising amount of energy. Your brain alone uses about
+      20 percent of it, and your liver, heart, and kidneys are also expensive organs to run. For most people BMR makes
+      up 60 to 70 percent of all the calories they burn in a day, which is why it is the foundation of every calorie
+      calculation, including the <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator on our homepage</a>.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">The formulas behind this calculator</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      The default is Mifflin-St Jeor: for men, BMR = (10 x kg) + (6.25 x cm) minus (5 x age) + 5, and for women the
+      same equation ends with minus 161. Studies comparing prediction equations against measured BMR consistently rank
+      it at or near the top for the general public. Tick the body fat box and the calculator switches to Katch-McArdle:
+      BMR = 370 + (21.6 x lean body mass in kg). Because it works from lean mass rather than total weight, it handles
+      very muscular and very high body fat bodies more gracefully, as long as the body fat input is honest.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">BMR versus TDEE, the short version</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      BMR is the floor, not the target. Nobody lives at bed rest, so your real daily burn is your BMR multiplied by
+      your lifestyle, which gives your TDEE. Eating plans should be built on TDEE. If you want goal targets and macros
+      rather than the activity table above, the homepage
+      <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a> does that in one step.
+    </p>
+    <p class="mt-6 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Waqar, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+    <Faq faqs={faqs} />
+  </article>
+</BaseLayout>

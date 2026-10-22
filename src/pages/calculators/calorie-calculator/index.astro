@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CalorieCalculator from '../../../components/CalorieCalculator.astro';
+import Faq from '../../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Calorie Calculator',
+    url: 'https://tdeecheck.com/calculators/calorie-calculator/',
+    applicationCategory: 'HealthApplication',
+    operatingSystem: 'Any',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  },
+];
+
+const faqs = [
+  {
+    q: 'How many calories do I need per day?',
+    a: 'It depends on your size, age, sex, and activity. A moderately active woman often maintains on roughly 2,000 to 2,400 kcal and a moderately active man on roughly 2,500 to 2,900 kcal, but individual numbers vary a lot. Enter your own stats above for a personal estimate.',
+  },
+  {
+    q: 'How much of a deficit do I need to lose 1 lb a week?',
+    a: 'About 500 kcal per day below your maintenance level, because a pound of body fat stores roughly 3,500 kcal. Real world results vary week to week, so judge by the trend over 3 or more weeks.',
+  },
+  {
+    q: 'Is 1,200 calories a day enough?',
+    a: 'For most adults it is too low to sustain and can make it hard to cover protein, fiber, and micronutrients. It is a common clinical floor for women under supervision, not a default goal. Smaller deficits reach the same destination with far better adherence.',
+  },
+  {
+    q: 'Why is my calorie target different from my friends?',
+    a: 'Because the inputs differ. Height, weight, age, sex, and activity all feed the formula. Two people of the same weight can differ by several hundred calories a day if one is taller, younger, or has a physical job.',
+  },
+];
+---
+
+<BaseLayout
+  title="Calorie Calculator - Daily Calorie Needs by Goal"
+  description="Free calorie calculator that turns your stats and activity into daily calorie targets for losing, maintaining, or gaining weight, with weekly totals."
+  path="/calculators/calorie-calculator/"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Calculators', path: '/calculators/' },
+    { name: 'Calorie Calculator', path: '/calculators/calorie-calculator/' },
+  ]}
+>
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-8">
+    <div class="max-w-3xl">
+      <h1 class="text-4xl font-extrabold tracking-tight text-ink-900">Calorie Calculator</h1>
+      <p class="mt-4 text-lg text-ink-700 leading-relaxed">
+        How many calories should you actually eat? Enter your details, pick a goal, and get a daily target with every
+        other goal shown beside it for comparison.
+      </p>
+    </div>
+    <div class="mt-8 max-w-4xl">
+      <CalorieCalculator />
+    </div>
+  </section>
+
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 mt-14">
+    <h2 class="text-2xl font-extrabold text-ink-900">How this calculator works</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Behind the scenes it runs the same engine as our
+      <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a>: first your BMR with the Mifflin-St Jeor
+      formula, then multiplied by your activity level to get your maintenance calories, your TDEE. Your chosen goal then
+      adjusts that number. Losing about a pound a week means a 500 kcal daily deficit, gaining slowly means a 250 kcal
+      surplus, and so on. Presenting every goal in one table matters, because the right goal is the one you can stick to
+      for months, not the most aggressive one.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Choosing a sensible goal</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      If you have a lot to lose and your maintenance level is high, a 500 kcal deficit usually feels manageable. If you
+      are already lean, or your maintenance is low, the same 500 kcal cut can mean eating very little food, and a 250 kcal
+      deficit is the smarter play. The same logic applies in reverse for gaining: lean people gain better muscle to fat
+      ratios on a small surplus. Whatever you pick, give it 3 consistent weeks before you judge it. Weight trends, not
+      single days, tell the truth.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Calories are the headline, macros are the detail</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Total calories decide the direction of your weight. Macros decide what that weight change is made of. Enough protein
+      protects muscle in a deficit and builds it in a surplus. Once you have your calorie target, split it with the
+      <a class="font-bold text-brand-700 underline" href="/calculators/macro-calculator/">Macro Calculator</a>, or use the
+      homepage tool, which returns calories and macros together for every goal.
+    </p>
+    <p class="mt-6 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Waqar, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+    <Faq faqs={faqs} />
+  </article>
+</BaseLayout>

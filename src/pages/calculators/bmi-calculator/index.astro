@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BmiCalculator from '../../../components/BmiCalculator.astro';
+import Faq from '../../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'BMI Calculator',
+    url: 'https://tdeecheck.com/calculators/bmi-calculator/',
+    applicationCategory: 'HealthApplication',
+    operatingSystem: 'Any',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  },
+];
+
+const faqs = [
+  {
+    q: 'What is a healthy BMI?',
+    a: 'For most adults, a BMI between 18.5 and 24.9 is classed as the healthy range. It is a population screening range, not a personal verdict. Athletes, older adults, and some ethnic groups can be healthy outside it, which is why context matters.',
+  },
+  {
+    q: 'Why does BMI say I am overweight when I lift weights?',
+    a: 'BMI only uses height and weight, so it cannot tell muscle from fat. A muscular person can land in the overweight band with low body fat and excellent health markers. Waist measurement and body composition give a fuller picture.',
+  },
+  {
+    q: 'Is BMI used for children?',
+    a: 'Not in this form. Children and teens are assessed with BMI percentiles that account for age and sex, because they are still growing. This calculator is for adults only.',
+  },
+  {
+    q: 'How do I lower my BMI safely?',
+    a: 'The same way you lower weight safely: a modest calorie deficit of 250 to 500 kcal below your TDEE, high protein, regular activity, and patience. About 0.5 to 1 lb per week is a realistic, sustainable rate for most people.',
+  },
+];
+---
+
+<BaseLayout
+  title="BMI Calculator - Body Mass Index and Healthy Weight Range"
+  description="Free BMI calculator for adults. Get your Body Mass Index, its category, a visual gauge, and the healthy weight range for your height."
+  path="/calculators/bmi-calculator/"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Calculators', path: '/calculators/' },
+    { name: 'BMI Calculator', path: '/calculators/bmi-calculator/' },
+  ]}
+>
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-8">
+    <div class="max-w-3xl">
+      <h1 class="text-4xl font-extrabold tracking-tight text-ink-900">BMI Calculator</h1>
+      <p class="mt-4 text-lg text-ink-700 leading-relaxed">
+        Body Mass Index is a quick screening number based on your height and weight. Calculate yours, see where it sits,
+        and get the healthy weight range for your height.
+      </p>
+    </div>
+    <div class="mt-8 max-w-4xl">
+      <BmiCalculator />
+    </div>
+  </section>
+
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 mt-14">
+    <h2 class="text-2xl font-extrabold text-ink-900">How BMI is calculated</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      The formula is simple: weight in kilograms divided by height in meters squared. The categories used worldwide for
+      adults are underweight below 18.5, healthy from 18.5 to 24.9, overweight from 25 to 29.9, and the obesity range at
+      30 and above. BMI survives in clinics and research because it is fast, free, and correlates reasonably well with
+      health risk across large populations.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">What BMI does not tell you</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      BMI cannot see composition. It does not know whether your weight is muscle, fat, bone, or water, and it does not know
+      where fat is stored, even though waist fat carries more risk than hip fat. Treat a surprising BMI as a prompt for a
+      better check, not a conclusion. Waist circumference, blood pressure, blood markers, fitness, and how you feel all
+      belong in the picture. Pair your BMI with your calorie numbers from the
+      <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a> and you have a workable starting point
+      either way.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Turning a BMI result into a plan</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      If your BMI sits above the healthy range and the result rings true, the healthy weight range on this page shows a
+      realistic first destination: the top of the range, not the bottom. Reaching it at 0.5 to 1 lb per week is a genuine
+      health win. If your BMI is below range, a gradual surplus and a check in with a clinician are the right next steps.
+      Sudden or unexplained weight change in either direction always deserves a medical look.
+    </p>
+    <p class="mt-6 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Waqar, Dietitian</strong>. BMI is a screening estimate, not a diagnosis. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+    <Faq faqs={faqs} />
+  </article>
+</BaseLayout>

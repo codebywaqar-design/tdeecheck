@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const tools = [
+  {
+    href: '/',
+    name: 'TDEE Calculator',
+    desc: 'Our flagship tool. Maintenance calories plus loss, maintenance, and gain targets with macros for each goal.',
+    tag: 'Most popular',
+  },
+  {
+    href: '/calculators/bmr-calculator/',
+    name: 'BMR Calculator',
+    desc: 'Your Basal Metabolic Rate with the Mifflin-St Jeor formula, plus your calorie burn at every activity level.',
+    tag: 'Foundation',
+  },
+  {
+    href: '/calculators/calorie-calculator/',
+    name: 'Calorie Calculator',
+    desc: 'Daily calorie targets by goal in one clear table, with weekly totals and expected rates of change.',
+    tag: 'By goal',
+  },
+  {
+    href: '/calculators/macro-calculator/',
+    name: 'Macro Calculator',
+    desc: 'Protein, carb, and fat targets in grams for balanced, high protein, low carb, athlete, or keto eating.',
+    tag: 'Macros',
+  },
+  {
+    href: '/calculators/bmi-calculator/',
+    name: 'BMI Calculator',
+    desc: 'Your Body Mass Index, its category, and the healthy weight range for your height, with honest context.',
+    tag: 'Screening',
+  },
+  {
+    href: '/tdee-weight-loss-calculator/',
+    name: 'TDEE Weight Loss Calculator',
+    desc: 'The TDEE engine focused on fat loss, with safe deficit sizes, protein targets, and realistic weekly rates.',
+    tag: 'Fat loss',
+  },
+];
+---
+
+<BaseLayout
+  title="Free Calorie and Nutrition Calculators - TDEE Check"
+  description="All TDEE Check calculators in one place: TDEE, BMR, daily calorie, macro, and BMI calculators, plus the TDEE weight loss calculator. Free, no sign up."
+  path="/calculators/"
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Calculators', path: '/calculators/' },
+  ]}
+>
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-4">
+    <h1 class="text-4xl font-extrabold tracking-tight text-ink-900">Calorie and nutrition calculators</h1>
+    <p class="mt-4 text-lg text-ink-700 leading-relaxed max-w-3xl">
+      Every tool on TDEE Check is free, works instantly in your browser, and is built on published formulas.
+      Start with the TDEE Calculator if you are new, then use the supporting tools to fine tune the details.
+    </p>
+  </section>
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 pb-6">
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {tools.map((t) => (
+        <a href={t.href} class="block bg-white border border-brand-100 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-brand-300 transition">
+          <span class="inline-block text-xs font-extrabold uppercase tracking-wide text-brand-700 bg-brand-50 rounded-full px-2.5 py-1">{t.tag}</span>
+          <h2 class="mt-3 font-extrabold text-ink-900 text-lg">{t.name}</h2>
+          <p class="mt-1.5 text-sm text-ink-700 leading-relaxed">{t.desc}</p>
+          <span class="mt-3 inline-block text-sm font-bold text-brand-700">Open calculator</span>
+        </a>
+      ))}
+    </div>
+    <div class="mt-10 max-w-3xl">
+      <h2 class="text-2xl font-extrabold text-ink-900">How the tools fit together</h2>
+      <p class="mt-3 text-ink-700 leading-relaxed">
+        Think of it as a simple chain. Your <a class="font-bold text-brand-700 underline" href="/calculators/bmr-calculator/">BMR</a> is the base,
+        the energy you burn at rest. Multiply it by your activity level and you get your
+        <a class="font-bold text-brand-700 underline" href="/">TDEE</a>, the calories that maintain your weight.
+        The <a class="font-bold text-brand-700 underline" href="/calculators/calorie-calculator/">calorie calculator</a> turns that
+        maintenance number into a daily target for your goal, and the
+        <a class="font-bold text-brand-700 underline" href="/calculators/macro-calculator/">macro calculator</a> splits the target
+        into protein, carbs, and fat. The <a class="font-bold text-brand-700 underline" href="/calculators/bmi-calculator/">BMI calculator</a>
+        sits alongside as a quick screening check on where your weight sits for your height.
+      </p>
+      <p class="mt-3 text-ink-700 leading-relaxed">
+        All results are estimates for healthy adults, reviewed by Waqar, Dietitian. They are planning tools, not
+        medical advice. Please read the <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>
+        before using any number to change how you eat.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

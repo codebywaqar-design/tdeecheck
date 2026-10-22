@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TdeeCalculator from '../../components/TdeeCalculator.astro';
+import Faq from '../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'TDEE Weight Loss Calculator',
+    url: 'https://tdeecheck.com/tdee-weight-loss-calculator/',
+    applicationCategory: 'HealthApplication',
+    operatingSystem: 'Any',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Person', name: 'Waqar', jobTitle: 'Dietitian' },
+  },
+];
+
+const faqs = [
+  {
+    q: 'How fast should I lose weight?',
+    a: 'For most people, 0.5 to 1 lb per week, roughly 0.5 to 1 percent of body weight for heavier individuals, is the sweet spot: fast enough to stay motivated, slow enough to protect muscle, energy, and adherence. Faster diets usually return as regain.',
+  },
+  {
+    q: 'Why has my weight loss stalled even though I am in a deficit?',
+    a: 'Short stalls of 1 to 3 weeks are usually water retention masking fat loss, and they resolve on their own. If the trend is flat for 3 plus weeks with honest tracking, the usual causes are portion creep, a TDEE that has fallen as you lost weight, or lower daily movement. Recalculate your TDEE and trim 100 to 200 kcal.',
+  },
+  {
+    q: 'Do I need to exercise to lose weight?',
+    a: 'No, the deficit does the work, and diet controls the deficit far more easily than exercise burns calories. But activity protects muscle, health, and your maintenance level afterwards, so walking and resistance training are strongly recommended partners to the deficit.',
+  },
+  {
+    q: 'What deficit is too big?',
+    a: 'If your target lands below 1,200 kcal as a woman or 1,500 kcal as a man, or you feel constantly exhausted, cold, and preoccupied with food, the deficit is likely too aggressive. Choose the mild loss setting and give it time.',
+  },
+];
+---
+
+<BaseLayout
+  title="TDEE Weight Loss Calculator - Safe Deficit and Calorie Targets"
+  description="Free TDEE weight loss calculator. Find your maintenance calories, choose a safe deficit, and get daily calorie and high protein macro targets for steady fat loss."
+  path="/tdee-weight-loss-calculator/"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'TDEE Weight Loss Calculator', path: '/tdee-weight-loss-calculator/' },
+  ]}
+>
+  <section class="bg-gradient-to-b from-brand-50 to-transparent">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 pb-12">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-ink-900">TDEE Weight Loss Calculator</h1>
+        <p class="mt-4 text-lg text-ink-700 leading-relaxed">
+          Fat loss starts with one number: how much you burn. Enter your details and get a safe daily calorie target
+          for steady loss, with high protein macros that protect your muscle while the fat comes off.
+        </p>
+        <p class="mt-3 text-sm font-semibold text-ink-500">Reviewed by Waqar, Dietitian. The weight loss goal below is highlighted for you.</p>
+      </div>
+      <div class="mt-8 max-w-4xl">
+        <TdeeCalculator prefix="wl" emphasis="loss" />
+      </div>
+    </div>
+  </section>
+
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 mt-4">
+    <h2 class="text-3xl font-extrabold text-ink-900">How weight loss with TDEE works</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      Your TDEE is what your body spends in a day. Eat less than that and the shortfall has to come from somewhere, and
+      with enough protein and resistance training it comes mostly from fat stores. The arithmetic most plans use is that
+      one pound of body fat holds about 3,500 kcal, so a 500 kcal daily deficit adds up to roughly a pound a week. It is
+      an approximation, real bodies are messier than spreadsheets, but as a planning rule it has held up well for decades.
+    </p>
+    <h2 class="mt-10 text-3xl font-extrabold text-ink-900">Picking your deficit: mild versus standard</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      The mild weight loss target subtracts 250 kcal and predicts about half a pound a week. The standard weight loss
+      target subtracts 500 kcal and predicts about a pound a week. Choose mild if you are already fairly lean, if your
+      maintenance calories are low, if you have a history of diets collapsing after two hard weeks, or if performance in
+      the gym matters to you. Choose standard if you have more to lose and a higher maintenance level to cut from. The
+      best deficit is not the largest one, it is the largest one you can repeat on your worst week, not just your best one.
+    </p>
+    <h2 class="mt-10 text-3xl font-extrabold text-ink-900">Why the protein target is higher here</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      In a deficit your body would happily burn some muscle along with fat, and muscle is exactly what keeps your
+      metabolism, strength, and shape. Higher protein blunts that loss and is also the most filling way to spend limited
+      calories. That is why the loss targets on this page use a 40 percent protein split, and why we suggest pairing your
+      plan with two to four resistance sessions a week. If you want to explore other splits, the
+      <a class="font-bold text-brand-700 underline" href="/calculators/macro-calculator/">Macro Calculator</a> lets you
+      compare them side by side.
+    </p>
+    <h2 class="mt-10 text-3xl font-extrabold text-ink-900">What to expect week by week</h2>
+    <ul class="mt-4 space-y-3 text-ink-700 leading-relaxed list-disc pl-6">
+      <li><strong>Week 1:</strong> Often a fast drop of 2 to 4 lb as glycogen and water leave. Enjoy it, but know it is not all fat.</li>
+      <li><strong>Weeks 2 to 4:</strong> The rate settles near the predicted 0.5 to 1 lb per week. This is the real pace.</li>
+      <li><strong>Weeks 5 onwards:</strong> Expect plateaus of a week or two where the scale hides progress, then a drop. Judge only the 3 week trend.</li>
+      <li><strong>Every 10 to 15 lb:</strong> Come back and recalculate. A lighter body has a lower TDEE, and last month's deficit slowly shrinks.</li>
+    </ul>
+    <h2 class="mt-10 text-3xl font-extrabold text-ink-900">Safety floors, read this before you start</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      Most adults should not eat below 1,200 kcal per day (women) or 1,500 kcal per day (men) without medical supervision,
+      no matter what a formula suggests. If your calculated loss target hits those floors, use the mild target instead, or
+      add activity to widen the gap from the spending side. If you are pregnant, breastfeeding, under 18, recovering from
+      an eating disorder, or managing a medical condition, talk to your clinician or a dietitian before using a calorie
+      deficit at all.
+    </p>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      Prefer the general tool with every goal side by side? The main
+      <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a> on our homepage shows maintenance and
+      gaining targets too, and our guide on
+      <a class="font-bold text-brand-700 underline" href="/blog/how-to-calculate-tdee/">how to calculate TDEE</a> explains
+      the formula step by step.
+    </p>
+    <p class="mt-8 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Waqar, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+    <Faq faqs={faqs} />
+  </article>
+</BaseLayout>

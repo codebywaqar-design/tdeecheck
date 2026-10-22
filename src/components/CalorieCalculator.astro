@@ -1,0 +1,168 @@
+---
+// Calorie calculator: daily calorie needs by goal, from Mifflin-St Jeor plus activity.
+---
+
+<div class="bg-white rounded-2xl shadow-lg shadow-brand-900/5 border border-brand-100 p-5 sm:p-7" id="calculator">
+  <form id="cal-form" novalidate>
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <p class="font-extrabold text-ink-900 text-lg">Your details</p>
+      <div class="inline-flex rounded-lg bg-brand-50 border border-brand-100 p-1" role="group" aria-label="Units">
+        <button type="button" data-units="imperial" class="cal-units-btn px-3 py-1.5 rounded-md text-sm font-bold bg-brand-600 text-white">Imperial (lb, ft)</button>
+        <button type="button" data-units="metric" class="cal-units-btn px-3 py-1.5 rounded-md text-sm font-bold text-ink-700">Metric (kg, cm)</button>
+      </div>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-4 mt-5">
+      <div>
+        <span class="block text-sm font-bold text-ink-700 mb-2">Sex</span>
+        <div class="grid grid-cols-2 gap-2">
+          <button type="button" data-sex="female" class="cal-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm border-brand-600 bg-brand-50 text-brand-800">Female</button>
+          <button type="button" data-sex="male" class="cal-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm border-brand-100 bg-white text-ink-700">Male</button>
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-bold text-ink-700 mb-2" for="cal-age">Age (years)</label>
+        <input id="cal-age" type="number" inputmode="numeric" min="10" max="100" value="32" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+      </div>
+      <div>
+        <span class="block text-sm font-bold text-ink-700 mb-2">Height</span>
+        <div id="cal-height-imperial" class="grid grid-cols-2 gap-2">
+          <input id="cal-ft" type="number" inputmode="numeric" min="3" max="8" value="5" placeholder="ft" aria-label="Feet" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          <input id="cal-inch" type="number" inputmode="numeric" min="0" max="11" value="6" placeholder="in" aria-label="Inches" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+        <div id="cal-height-metric" class="hidden">
+          <input id="cal-cm" type="number" inputmode="numeric" min="100" max="250" value="168" placeholder="cm" aria-label="Centimeters" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-bold text-ink-700 mb-2" for="cal-weight">Weight <span id="cal-weight-unit" class="font-semibold text-ink-500">(lb)</span></label>
+        <input id="cal-weight" type="number" inputmode="decimal" min="50" max="1000" value="165" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+      </div>
+      <div>
+        <label class="block text-sm font-bold text-ink-700 mb-2" for="cal-activity">Activity level</label>
+        <select id="cal-activity" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-brand-500">
+          <option value="1.2">Sedentary: desk job, little or no exercise</option>
+          <option value="1.375">Light: exercise 1 to 3 days a week</option>
+          <option value="1.55" selected>Moderate: exercise 3 to 5 days a week</option>
+          <option value="1.725">Very active: hard exercise 6 to 7 days a week</option>
+          <option value="1.9">Athlete: very hard exercise, physical job or training twice a day</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-bold text-ink-700 mb-2" for="cal-goal">Your goal</label>
+        <select id="cal-goal" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-brand-500">
+          <option value="-500">Lose weight (about 1 lb per week)</option>
+          <option value="-250">Lose weight slowly (about 0.5 lb per week)</option>
+          <option value="0" selected>Maintain my weight</option>
+          <option value="250">Gain weight slowly (about 0.5 lb per week)</option>
+          <option value="500">Gain weight (about 1 lb per week)</option>
+        </select>
+      </div>
+    </div>
+    <p id="cal-error" class="hidden mt-4 text-sm font-semibold text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3" role="alert"></p>
+    <button type="submit" class="mt-6 w-full sm:w-auto inline-flex justify-center items-center rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-extrabold px-8 py-3.5 text-base shadow-md shadow-brand-600/20">Calculate my calories</button>
+  </form>
+
+  <div id="cal-results" class="hidden mt-8 border-t border-brand-100 pt-7" aria-live="polite">
+    <div class="rounded-2xl bg-brand-600 text-white p-6 text-center">
+      <p class="text-sm font-bold uppercase tracking-wide text-brand-100">Your daily calorie target</p>
+      <p class="mt-1 text-5xl font-extrabold"><span id="cal-target">0</span> <span class="text-xl font-bold">kcal / day</span></p>
+      <p id="cal-maintain-note" class="mt-2 text-brand-100 font-semibold"></p>
+    </div>
+    <h3 class="mt-8 font-extrabold text-ink-900 text-lg">All goals at a glance</h3>
+    <div class="mt-4 overflow-x-auto rounded-xl border border-brand-100">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-brand-50 text-left">
+            <th class="px-4 py-3 font-extrabold text-ink-900">Goal</th>
+            <th class="px-4 py-3 font-extrabold text-ink-900">Calories per day</th>
+            <th class="px-4 py-3 font-extrabold text-ink-900">Calories per week</th>
+            <th class="px-4 py-3 font-extrabold text-ink-900">Expected change</th>
+          </tr>
+        </thead>
+        <tbody id="cal-goal-rows" class="divide-y divide-brand-50"></tbody>
+      </table>
+    </div>
+    <p id="cal-floor-note" class="hidden mt-4 text-sm font-semibold text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3"></p>
+    <p class="mt-4 text-sm text-ink-700">For the full picture with macro targets for every goal, use the <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator on our homepage</a>.</p>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var units = 'imperial';
+    var sex = 'female';
+    function $(id) { return document.getElementById(id); }
+    function fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+
+    document.querySelectorAll('.cal-units-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        units = b.getAttribute('data-units');
+        document.querySelectorAll('.cal-units-btn').forEach(function (x) {
+          var active = x.getAttribute('data-units') === units;
+          x.className = 'cal-units-btn px-3 py-1.5 rounded-md text-sm font-bold ' + (active ? 'bg-brand-600 text-white' : 'text-ink-700');
+        });
+        $('cal-height-imperial').classList.toggle('hidden', units !== 'imperial');
+        $('cal-height-metric').classList.toggle('hidden', units !== 'metric');
+        $('cal-weight-unit').textContent = units === 'imperial' ? '(lb)' : '(kg)';
+        var w = parseFloat($('cal-weight').value);
+        if (!isNaN(w)) $('cal-weight').value = units === 'imperial' ? Math.round(w * 2.20462) : Math.round(w / 2.20462);
+      });
+    });
+    document.querySelectorAll('.cal-sex-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        sex = b.getAttribute('data-sex');
+        document.querySelectorAll('.cal-sex-btn').forEach(function (x) {
+          var active = x.getAttribute('data-sex') === sex;
+          x.className = 'cal-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm ' + (active ? 'border-brand-600 bg-brand-50 text-brand-800' : 'border-brand-100 bg-white text-ink-700');
+        });
+      });
+    });
+
+    $('cal-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var err = $('cal-error');
+      err.classList.add('hidden');
+      var age = parseFloat($('cal-age').value);
+      var weightRaw = parseFloat($('cal-weight').value);
+      var heightCm = units === 'imperial'
+        ? ((parseFloat($('cal-ft').value) || 0) * 12 + (parseFloat($('cal-inch').value) || 0)) * 2.54
+        : parseFloat($('cal-cm').value);
+      var weightKg = units === 'imperial' ? weightRaw * 0.45359237 : weightRaw;
+      var activity = parseFloat($('cal-activity').value);
+      var goalDelta = parseFloat($('cal-goal').value);
+      if (isNaN(age) || age < 10 || age > 100 || isNaN(weightRaw) || weightKg < 25 || weightKg > 450 || isNaN(heightCm) || heightCm < 100 || heightCm > 250) {
+        err.textContent = 'Please check your entries: age 10 to 100, a realistic height, and a realistic weight.';
+        err.classList.remove('hidden');
+        return;
+      }
+      var bmr = 10 * weightKg + 6.25 * heightCm - 5 * age + (sex === 'male' ? 5 : -161);
+      var tdee = bmr * activity;
+      var target = Math.max(1000, tdee + goalDelta);
+      $('cal-target').textContent = fmt(target);
+      $('cal-maintain-note').textContent = 'Your maintenance level (TDEE) is ' + fmt(tdee) + ' kcal per day. Your goal adjusts that by ' + (goalDelta === 0 ? 'nothing' : fmt(Math.abs(goalDelta)) + ' kcal') + '.';
+      var goals = [
+        ['Lose weight (about 1 lb per week)', -500],
+        ['Lose weight slowly (about 0.5 lb per week)', -250],
+        ['Maintain weight', 0],
+        ['Gain slowly (about 0.5 lb per week)', 250],
+        ['Gain weight (about 1 lb per week)', 500],
+      ];
+      $('cal-goal-rows').innerHTML = goals.map(function (g) {
+        var cal = Math.max(1000, tdee + g[1]);
+        var lb = (cal - tdee) * 7 / 3500;
+        var change = Math.abs(lb) < 0.05 ? 'Holds steady' : (lb < 0 ? 'Lose about ' : 'Gain about ') + (units === 'imperial' ? Math.abs(lb).toFixed(1) + ' lb per week' : (Math.abs(lb) * 0.4536).toFixed(2) + ' kg per week');
+        var hl = g[1] === goalDelta ? ' class="bg-brand-50"' : '';
+        return '<tr' + hl + '><td class="px-4 py-3 font-semibold text-ink-700">' + g[0] + '</td><td class="px-4 py-3 font-extrabold text-brand-700">' + fmt(cal) + ' kcal</td><td class="px-4 py-3 text-ink-700">' + fmt(cal * 7) + ' kcal</td><td class="px-4 py-3 text-ink-700">' + change + '</td></tr>';
+      }).join('');
+      var floor = $('cal-floor-note');
+      if (target <= 1200 && goalDelta < 0) {
+        floor.textContent = 'Safety note: very low calorie targets are hard to sustain and can miss key nutrients. Most adults should not eat below 1,200 kcal (women) or 1,500 kcal (men) without medical supervision. A slower goal is often the better plan.';
+        floor.classList.remove('hidden');
+      } else {
+        floor.classList.add('hidden');
+      }
+      $('cal-results').classList.remove('hidden');
+      $('cal-results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  })();
+</script>
