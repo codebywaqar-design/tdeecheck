@@ -81,10 +81,21 @@
     var sex = 'female';
     function $(id) { return document.getElementById(id); }
     function fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+    function flag(id, bad) {
+      var el = $(id);
+      if (!el) return;
+      el.classList.toggle('ring-2', bad);
+      el.classList.toggle('ring-red-400', bad);
+    }
+    document.querySelectorAll('#bmr-form input').forEach(function (el) {
+      el.addEventListener('input', function () { el.classList.remove('ring-2', 'ring-red-400'); });
+    });
 
     document.querySelectorAll('.bmr-units-btn').forEach(function (b) {
       b.addEventListener('click', function () {
-        units = b.getAttribute('data-units');
+        var next = b.getAttribute('data-units');
+        if (next === units) return;
+        units = next;
         document.querySelectorAll('.bmr-units-btn').forEach(function (x) {
           var active = x.getAttribute('data-units') === units;
           x.className = 'bmr-units-btn px-3 py-1.5 rounded-md text-sm font-bold ' + (active ? 'bg-brand-600 text-white' : 'text-ink-700');
@@ -92,6 +103,21 @@
         $('bmr-height-imperial').classList.toggle('hidden', units !== 'imperial');
         $('bmr-height-metric').classList.toggle('hidden', units !== 'metric');
         $('bmr-weight-unit').textContent = units === 'imperial' ? '(lb)' : '(kg)';
+        if (units === 'metric') {
+          if ($('bmr-ft').value !== '' || $('bmr-inch').value !== '') {
+            $('bmr-cm').value = Math.round(((parseFloat($('bmr-ft').value) || 0) * 12 + (parseFloat($('bmr-inch').value) || 0)) * 2.54);
+          }
+        } else {
+          var cmVal = parseFloat($('bmr-cm').value);
+          if (!isNaN(cmVal)) {
+            var totalIn = cmVal / 2.54;
+            var ftVal = Math.floor(totalIn / 12);
+            var inVal = Math.round(totalIn - ftVal * 12);
+            if (inVal === 12) { ftVal += 1; inVal = 0; }
+            $('bmr-ft').value = ftVal;
+            $('bmr-inch').value = inVal;
+          }
+        }
         var w = parseFloat($('bmr-weight').value);
         if (!isNaN(w)) $('bmr-weight').value = units === 'imperial' ? Math.round(w * 2.20462) : Math.round(w / 2.20462);
       });
@@ -120,13 +146,21 @@
         : parseFloat($('bmr-cm').value);
       var weightKg = units === 'imperial' ? weightRaw * 0.45359237 : weightRaw;
       var bf = $('bmr-bf-toggle').checked ? parseFloat($('bmr-bf').value) : NaN;
-      if (isNaN(age) || age < 10 || age > 100 || isNaN(weightRaw) || weightKg < 25 || weightKg > 450 || isNaN(heightCm) || heightCm < 100 || heightCm > 250) {
-        err.textContent = 'Please check your entries: age 10 to 100, a realistic height, and a realistic weight.';
+      var ageBad = isNaN(age) || age < 10 || age > 100;
+      var weightBad = isNaN(weightRaw) || weightKg < 25 || weightKg > 450;
+      var heightBad = isNaN(heightCm) || heightCm < 100 || heightCm > 250;
+      flag('bmr-age', ageBad);
+      flag('bmr-weight', weightBad);
+      if (units === 'imperial') { flag('bmr-ft', heightBad); flag('bmr-inch', heightBad); } else { flag('bmr-cm', heightBad); }
+      if (ageBad || weightBad || heightBad) {
+        err.textContent = 'Please enter valid values for the highlighted fields.';
         err.classList.remove('hidden');
         return;
       }
-      if ($('bmr-bf-toggle').checked && (isNaN(bf) || bf < 3 || bf > 60)) {
-        err.textContent = 'Body fat percentage should be between 3 and 60.';
+      var bfBad = $('bmr-bf-toggle').checked && (isNaN(bf) || bf < 3 || bf > 60);
+      flag('bmr-bf', bfBad);
+      if (bfBad) {
+        err.textContent = 'Please enter valid values for the highlighted fields.';
         err.classList.remove('hidden');
         return;
       }

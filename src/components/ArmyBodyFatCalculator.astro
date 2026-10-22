@@ -80,6 +80,15 @@
     var units = 'imperial';
     var sex = 'male';
     function $(id) { return document.getElementById(id); }
+    function flag(id, bad) {
+      var el = $(id);
+      if (!el) return;
+      el.classList.toggle('ring-2', bad);
+      el.classList.toggle('ring-red-400', bad);
+    }
+    document.querySelectorAll('#army-form input').forEach(function (el) {
+      el.addEventListener('input', function () { el.classList.remove('ring-2', 'ring-red-400'); });
+    });
 
     var standards = {
       male: { '17-20': 20, '21-27': 22, '28-39': 24, '40+': 26 },
@@ -127,8 +136,14 @@
       var neck = toInches(parseFloat($('army-neck').value));
       var waist = toInches(parseFloat($('army-waist').value));
       var hip = toInches(parseFloat($('army-hip').value));
-      if (isNaN(height) || height < 48 || height > 84 || isNaN(neck) || neck < 8 || neck > 30 || isNaN(waist) || waist < 18 || waist > 80) {
-        err.textContent = 'Please check your measurements: a realistic height, neck, and waist.';
+      var heightBad = isNaN(height) || height < 48 || height > 84;
+      var neckBad = isNaN(neck) || neck < 8 || neck > 30;
+      var waistBad = isNaN(waist) || waist < 18 || waist > 80;
+      flag('army-height', heightBad);
+      flag('army-neck', neckBad);
+      flag('army-waist', waistBad);
+      if (heightBad || neckBad || waistBad) {
+        err.textContent = 'Please enter valid values for the highlighted fields.';
         err.classList.remove('hidden');
         return;
       }
@@ -141,7 +156,14 @@
         }
         bf = 86.010 * Math.log10(waist - neck) - 70.041 * Math.log10(height) + 36.76;
       } else {
-        if (isNaN(hip) || hip < 20 || hip > 80 || waist + hip - neck < 1) {
+        var hipBad = isNaN(hip) || hip < 20 || hip > 80;
+        flag('army-hip', hipBad);
+        if (hipBad) {
+          err.textContent = 'Please enter valid values for the highlighted fields.';
+          err.classList.remove('hidden');
+          return;
+        }
+        if (waist + hip - neck < 1) {
           err.textContent = 'For women, please add a realistic hip measurement, taken at the widest point of the hips.';
           err.classList.remove('hidden');
           return;

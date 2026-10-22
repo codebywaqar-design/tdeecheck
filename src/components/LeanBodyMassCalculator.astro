@@ -77,10 +77,21 @@
     function $(id) { return document.getElementById(id); }
     function fmt(n) { return Math.round(n).toLocaleString('en-US'); }
     function one(n) { return n.toFixed(1); }
+    function flag(id, bad) {
+      var el = $(id);
+      if (!el) return;
+      el.classList.toggle('ring-2', bad);
+      el.classList.toggle('ring-red-400', bad);
+    }
+    document.querySelectorAll('#lbm-form input').forEach(function (el) {
+      el.addEventListener('input', function () { el.classList.remove('ring-2', 'ring-red-400'); });
+    });
 
     document.querySelectorAll('.lbm-units-btn').forEach(function (b) {
       b.addEventListener('click', function () {
-        units = b.getAttribute('data-units');
+        var next = b.getAttribute('data-units');
+        if (next === units) return;
+        units = next;
         document.querySelectorAll('.lbm-units-btn').forEach(function (x) {
           var active = x.getAttribute('data-units') === units;
           x.className = 'lbm-units-btn px-3 py-1.5 rounded-md text-sm font-bold ' + (active ? 'bg-brand-600 text-white' : 'text-ink-700');
@@ -88,6 +99,21 @@
         $('lbm-height-imperial').classList.toggle('hidden', units !== 'imperial');
         $('lbm-height-metric').classList.toggle('hidden', units !== 'metric');
         $('lbm-weight-unit').textContent = units === 'imperial' ? '(lb)' : '(kg)';
+        if (units === 'metric') {
+          if ($('lbm-ft').value !== '' || $('lbm-inch').value !== '') {
+            $('lbm-cm').value = Math.round(((parseFloat($('lbm-ft').value) || 0) * 12 + (parseFloat($('lbm-inch').value) || 0)) * 2.54);
+          }
+        } else {
+          var cmVal = parseFloat($('lbm-cm').value);
+          if (!isNaN(cmVal)) {
+            var totalIn = cmVal / 2.54;
+            var ftVal = Math.floor(totalIn / 12);
+            var inVal = Math.round(totalIn - ftVal * 12);
+            if (inVal === 12) { ftVal += 1; inVal = 0; }
+            $('lbm-ft').value = ftVal;
+            $('lbm-inch').value = inVal;
+          }
+        }
         var w = parseFloat($('lbm-weight').value);
         if (!isNaN(w)) $('lbm-weight').value = units === 'imperial' ? Math.round(w * 2.20462) : Math.round(w / 2.20462);
       });
@@ -113,13 +139,19 @@
       var weightKg = units === 'imperial' ? weightRaw * 0.45359237 : weightRaw;
       var bfRaw = $('lbm-bf').value.trim();
       var bf = bfRaw === '' ? NaN : parseFloat(bfRaw);
-      if (isNaN(weightRaw) || weightKg < 25 || weightKg > 450 || isNaN(heightCm) || heightCm < 100 || heightCm > 250) {
-        err.textContent = 'Please check your entries: a realistic height and weight.';
+      var weightBad = isNaN(weightRaw) || weightKg < 25 || weightKg > 450;
+      var heightBad = isNaN(heightCm) || heightCm < 100 || heightCm > 250;
+      flag('lbm-weight', weightBad);
+      if (units === 'imperial') { flag('lbm-ft', heightBad); flag('lbm-inch', heightBad); } else { flag('lbm-cm', heightBad); }
+      if (weightBad || heightBad) {
+        err.textContent = 'Please enter valid values for the highlighted fields.';
         err.classList.remove('hidden');
         return;
       }
-      if (!isNaN(bf) && (bf < 3 || bf > 60)) {
-        err.textContent = 'Body fat percentage should be between 3 and 60, or left empty.';
+      var bfBad = !isNaN(bf) && (bf < 3 || bf > 60);
+      flag('lbm-bf', bfBad);
+      if (bfBad) {
+        err.textContent = 'Please enter valid values for the highlighted fields.';
         err.classList.remove('hidden');
         return;
       }

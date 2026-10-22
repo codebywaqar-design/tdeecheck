@@ -83,10 +83,21 @@
     var units = 'imperial';
     function $(id) { return document.getElementById(id); }
     function fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+    function flag(id, bad) {
+      var el = $(id);
+      if (!el) return;
+      el.classList.toggle('ring-2', bad);
+      el.classList.toggle('ring-red-400', bad);
+    }
+    document.querySelectorAll('#preg-form input').forEach(function (el) {
+      el.addEventListener('input', function () { el.classList.remove('ring-2', 'ring-red-400'); });
+    });
 
     document.querySelectorAll('.preg-units-btn').forEach(function (b) {
       b.addEventListener('click', function () {
-        units = b.getAttribute('data-units');
+        var next = b.getAttribute('data-units');
+        if (next === units) return;
+        units = next;
         document.querySelectorAll('.preg-units-btn').forEach(function (x) {
           var active = x.getAttribute('data-units') === units;
           x.className = 'preg-units-btn px-3 py-1.5 rounded-md text-sm font-bold ' + (active ? 'bg-brand-600 text-white' : 'text-ink-700');
@@ -94,6 +105,21 @@
         $('preg-height-imperial').classList.toggle('hidden', units !== 'imperial');
         $('preg-height-metric').classList.toggle('hidden', units !== 'metric');
         $('preg-weight-unit').textContent = units === 'imperial' ? '(lb)' : '(kg)';
+        if (units === 'metric') {
+          if ($('preg-ft').value !== '' || $('preg-inch').value !== '') {
+            $('preg-cm').value = Math.round(((parseFloat($('preg-ft').value) || 0) * 12 + (parseFloat($('preg-inch').value) || 0)) * 2.54);
+          }
+        } else {
+          var cmVal = parseFloat($('preg-cm').value);
+          if (!isNaN(cmVal)) {
+            var totalIn = cmVal / 2.54;
+            var ftVal = Math.floor(totalIn / 12);
+            var inVal = Math.round(totalIn - ftVal * 12);
+            if (inVal === 12) { ftVal += 1; inVal = 0; }
+            $('preg-ft').value = ftVal;
+            $('preg-inch').value = inVal;
+          }
+        }
         var w = parseFloat($('preg-weight').value);
         if (!isNaN(w)) $('preg-weight').value = units === 'imperial' ? Math.round(w * 2.20462) : Math.round(w / 2.20462);
       });
@@ -111,8 +137,14 @@
       var weightKg = units === 'imperial' ? weightRaw * 0.45359237 : weightRaw;
       var activity = parseFloat($('preg-activity').value);
       var addition = parseFloat($('preg-trimester').value);
-      if (isNaN(age) || age < 15 || age > 55 || isNaN(weightRaw) || weightKg < 30 || weightKg > 450 || isNaN(heightCm) || heightCm < 100 || heightCm > 250) {
-        err.textContent = 'Please check your entries: age 15 to 55, a realistic height, and a realistic weight.';
+      var ageBad = isNaN(age) || age < 15 || age > 55;
+      var weightBad = isNaN(weightRaw) || weightKg < 30 || weightKg > 450;
+      var heightBad = isNaN(heightCm) || heightCm < 100 || heightCm > 250;
+      flag('preg-age', ageBad);
+      flag('preg-weight', weightBad);
+      if (units === 'imperial') { flag('preg-ft', heightBad); flag('preg-inch', heightBad); } else { flag('preg-cm', heightBad); }
+      if (ageBad || weightBad || heightBad) {
+        err.textContent = 'Please enter valid values for the highlighted fields.';
         err.classList.remove('hidden');
         return;
       }

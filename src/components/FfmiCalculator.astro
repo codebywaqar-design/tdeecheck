@@ -87,6 +87,15 @@
     var sex = 'male';
     function $(id) { return document.getElementById(id); }
     function fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+    function flag(id, bad) {
+      var el = $(id);
+      if (!el) return;
+      el.classList.toggle('ring-2', bad);
+      el.classList.toggle('ring-red-400', bad);
+    }
+    document.querySelectorAll('#ffmi-form input').forEach(function (el) {
+      el.addEventListener('input', function () { el.classList.remove('ring-2', 'ring-red-400'); });
+    });
 
     var scale = [
       { label: 'Below average', range: 'Under 18', test: function (v) { return v < 18; } },
@@ -100,7 +109,9 @@
 
     document.querySelectorAll('.ffmi-units-btn').forEach(function (b) {
       b.addEventListener('click', function () {
-        units = b.getAttribute('data-units');
+        var next = b.getAttribute('data-units');
+        if (next === units) return;
+        units = next;
         document.querySelectorAll('.ffmi-units-btn').forEach(function (x) {
           var active = x.getAttribute('data-units') === units;
           x.className = 'ffmi-units-btn px-3 py-1.5 rounded-md text-sm font-bold ' + (active ? 'bg-brand-600 text-white' : 'text-ink-700');
@@ -108,6 +119,21 @@
         $('ffmi-height-imperial').classList.toggle('hidden', units !== 'imperial');
         $('ffmi-height-metric').classList.toggle('hidden', units !== 'metric');
         $('ffmi-weight-unit').textContent = units === 'imperial' ? '(lb)' : '(kg)';
+        if (units === 'metric') {
+          if ($('ffmi-ft').value !== '' || $('ffmi-inch').value !== '') {
+            $('ffmi-cm').value = Math.round(((parseFloat($('ffmi-ft').value) || 0) * 12 + (parseFloat($('ffmi-inch').value) || 0)) * 2.54);
+          }
+        } else {
+          var cmVal = parseFloat($('ffmi-cm').value);
+          if (!isNaN(cmVal)) {
+            var totalIn = cmVal / 2.54;
+            var ftVal = Math.floor(totalIn / 12);
+            var inVal = Math.round(totalIn - ftVal * 12);
+            if (inVal === 12) { ftVal += 1; inVal = 0; }
+            $('ffmi-ft').value = ftVal;
+            $('ffmi-inch').value = inVal;
+          }
+        }
         var w = parseFloat($('ffmi-weight').value);
         if (!isNaN(w)) $('ffmi-weight').value = units === 'imperial' ? Math.round(w * 2.20462) : Math.round(w / 2.20462);
       });
@@ -132,8 +158,14 @@
         ? ((parseFloat($('ffmi-ft').value) || 0) * 12 + (parseFloat($('ffmi-inch').value) || 0)) * 2.54
         : parseFloat($('ffmi-cm').value);
       var weightKg = units === 'imperial' ? weightRaw * 0.45359237 : weightRaw;
-      if (isNaN(weightRaw) || weightKg < 25 || weightKg > 450 || isNaN(heightCm) || heightCm < 100 || heightCm > 250 || isNaN(bf) || bf < 3 || bf > 60) {
-        err.textContent = 'Please check your entries: a realistic height and weight, and a body fat percentage between 3 and 60.';
+      var weightBad = isNaN(weightRaw) || weightKg < 25 || weightKg > 450;
+      var heightBad = isNaN(heightCm) || heightCm < 100 || heightCm > 250;
+      var bfBad = isNaN(bf) || bf < 3 || bf > 60;
+      flag('ffmi-weight', weightBad);
+      flag('ffmi-bf', bfBad);
+      if (units === 'imperial') { flag('ffmi-ft', heightBad); flag('ffmi-inch', heightBad); } else { flag('ffmi-cm', heightBad); }
+      if (weightBad || heightBad || bfBad) {
+        err.textContent = 'Please enter valid values for the highlighted fields.';
         err.classList.remove('hidden');
         return;
       }

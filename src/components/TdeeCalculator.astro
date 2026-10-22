@@ -133,7 +133,18 @@ const sexBtn = (s: string) =>
 
     function $(id) { return document.getElementById(p + '-' + id); }
 
+    function flag(id, bad) {
+      var el = $(id);
+      if (!el) return;
+      el.classList.toggle('ring-2', bad);
+      el.classList.toggle('ring-red-400', bad);
+    }
+    form.querySelectorAll('input').forEach(function (el) {
+      el.addEventListener('input', function () { el.classList.remove('ring-2', 'ring-red-400'); });
+    });
+
     function setUnits(u) {
+      if (u === units) return;
       units = u;
       document.querySelectorAll('.' + p + '-units-btn').forEach(function (b) {
         var active = b.getAttribute('data-units') === u;
@@ -143,6 +154,21 @@ const sexBtn = (s: string) =>
       $('height-imperial').classList.toggle('hidden', u !== 'imperial');
       $('height-metric').classList.toggle('hidden', u !== 'metric');
       $('weight-unit').textContent = u === 'imperial' ? '(lb)' : '(kg)';
+      if (u === 'metric') {
+        if ($('ft').value !== '' || $('inch').value !== '') {
+          $('cm').value = Math.round(((parseFloat($('ft').value) || 0) * 12 + (parseFloat($('inch').value) || 0)) * 2.54);
+        }
+      } else {
+        var cmVal = parseFloat($('cm').value);
+        if (!isNaN(cmVal)) {
+          var totalIn = cmVal / 2.54;
+          var ftVal = Math.floor(totalIn / 12);
+          var inVal = Math.round(totalIn - ftVal * 12);
+          if (inVal === 12) { ftVal += 1; inVal = 0; }
+          $('ft').value = ftVal;
+          $('inch').value = inVal;
+        }
+      }
       var w = parseFloat($('weight').value);
       if (!isNaN(w)) {
         $('weight').value = u === 'imperial' ? Math.round(w * 2.20462) : Math.round(w / 2.20462);
@@ -154,7 +180,7 @@ const sexBtn = (s: string) =>
       document.querySelectorAll('.' + p + '-sex-btn').forEach(function (b) {
         var active = b.getAttribute('data-sex') === s;
         b.setAttribute('aria-checked', active ? 'true' : 'false');
-        b.className = 'rounded-lg border px-3 py-2.5 font-bold text-sm ' + (active ? 'border-brand-600 bg-brand-50 text-brand-800' : 'border-brand-100 bg-white text-ink-700');
+        b.className = p + '-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm ' + (active ? 'border-brand-600 bg-brand-50 text-brand-800' : 'border-brand-100 bg-white text-ink-700');
       });
     }
 
@@ -228,13 +254,21 @@ const sexBtn = (s: string) =>
       var activity = parseFloat($('activity').value);
       var bf = $('bf-toggle').checked ? parseFloat($('bf').value) : NaN;
 
-      if (isNaN(age) || age < 10 || age > 100 || isNaN(weightRaw) || weightKg < 25 || weightKg > 450 || isNaN(heightCm) || heightCm < 100 || heightCm > 250) {
-        err.textContent = 'Please check your entries: age 10 to 100, a realistic height, and a realistic weight.';
+      var ageBad = isNaN(age) || age < 10 || age > 100;
+      var weightBad = isNaN(weightRaw) || weightKg < 25 || weightKg > 450;
+      var heightBad = isNaN(heightCm) || heightCm < 100 || heightCm > 250;
+      flag('age', ageBad);
+      flag('weight', weightBad);
+      if (units === 'imperial') { flag('ft', heightBad); flag('inch', heightBad); } else { flag('cm', heightBad); }
+      if (ageBad || weightBad || heightBad) {
+        err.textContent = 'Please enter valid values for the highlighted fields.';
         err.classList.remove('hidden');
         return;
       }
-      if ($('bf-toggle').checked && (isNaN(bf) || bf < 3 || bf > 60)) {
-        err.textContent = 'Body fat percentage should be between 3 and 60. Leave the box unticked if you are not sure.';
+      var bfBad = $('bf-toggle').checked && (isNaN(bf) || bf < 3 || bf > 60);
+      flag('bf', bfBad);
+      if (bfBad) {
+        err.textContent = 'Please enter valid values for the highlighted fields.';
         err.classList.remove('hidden');
         return;
       }

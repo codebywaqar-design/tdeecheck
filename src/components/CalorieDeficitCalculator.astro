@@ -77,10 +77,21 @@
     var sex = 'female';
     function $(id) { return document.getElementById(id); }
     function fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+    function flag(id, bad) {
+      var el = $(id);
+      if (!el) return;
+      el.classList.toggle('ring-2', bad);
+      el.classList.toggle('ring-red-400', bad);
+    }
+    document.querySelectorAll('#def-form input').forEach(function (el) {
+      el.addEventListener('input', function () { el.classList.remove('ring-2', 'ring-red-400'); });
+    });
 
     document.querySelectorAll('.def-units-btn').forEach(function (b) {
       b.addEventListener('click', function () {
-        units = b.getAttribute('data-units');
+        var next = b.getAttribute('data-units');
+        if (next === units) return;
+        units = next;
         document.querySelectorAll('.def-units-btn').forEach(function (x) {
           var active = x.getAttribute('data-units') === units;
           x.className = 'def-units-btn px-3 py-1.5 rounded-md text-sm font-bold ' + (active ? 'bg-brand-600 text-white' : 'text-ink-700');
@@ -89,6 +100,21 @@
         $('def-height-metric').classList.toggle('hidden', units !== 'metric');
         $('def-weight-unit').textContent = units === 'imperial' ? '(lb)' : '(kg)';
         $('def-goal-unit').textContent = units === 'imperial' ? '(lb)' : '(kg)';
+        if (units === 'metric') {
+          if ($('def-ft').value !== '' || $('def-inch').value !== '') {
+            $('def-cm').value = Math.round(((parseFloat($('def-ft').value) || 0) * 12 + (parseFloat($('def-inch').value) || 0)) * 2.54);
+          }
+        } else {
+          var cmVal = parseFloat($('def-cm').value);
+          if (!isNaN(cmVal)) {
+            var totalIn = cmVal / 2.54;
+            var ftVal = Math.floor(totalIn / 12);
+            var inVal = Math.round(totalIn - ftVal * 12);
+            if (inVal === 12) { ftVal += 1; inVal = 0; }
+            $('def-ft').value = ftVal;
+            $('def-inch').value = inVal;
+          }
+        }
         var w = parseFloat($('def-weight').value);
         if (!isNaN(w)) $('def-weight').value = units === 'imperial' ? Math.round(w * 2.20462) : Math.round(w / 2.20462);
         var g = parseFloat($('def-goal').value);
@@ -118,13 +144,21 @@
       var activity = parseFloat($('def-activity').value);
       var goalRaw = $('def-goal').value.trim() === '' ? NaN : parseFloat($('def-goal').value);
       var goalKg = units === 'imperial' ? goalRaw * 0.45359237 : goalRaw;
-      if (isNaN(age) || age < 10 || age > 100 || isNaN(weightRaw) || weightKg < 25 || weightKg > 450 || isNaN(heightCm) || heightCm < 100 || heightCm > 250) {
-        err.textContent = 'Please check your entries: age 10 to 100, a realistic height, and a realistic weight.';
+      var ageBad = isNaN(age) || age < 10 || age > 100;
+      var weightBad = isNaN(weightRaw) || weightKg < 25 || weightKg > 450;
+      var heightBad = isNaN(heightCm) || heightCm < 100 || heightCm > 250;
+      flag('def-age', ageBad);
+      flag('def-weight', weightBad);
+      if (units === 'imperial') { flag('def-ft', heightBad); flag('def-inch', heightBad); } else { flag('def-cm', heightBad); }
+      if (ageBad || weightBad || heightBad) {
+        err.textContent = 'Please enter valid values for the highlighted fields.';
         err.classList.remove('hidden');
         return;
       }
-      if (!isNaN(goalRaw) && (goalKg < 25 || goalKg > 450)) {
-        err.textContent = 'Please check your goal weight, or leave it empty.';
+      var goalBad = !isNaN(goalRaw) && (goalKg < 25 || goalKg > 450);
+      flag('def-goal', goalBad);
+      if (goalBad) {
+        err.textContent = 'Please enter valid values for the highlighted fields.';
         err.classList.remove('hidden');
         return;
       }

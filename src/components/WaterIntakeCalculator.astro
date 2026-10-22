@@ -55,10 +55,21 @@
     var units = 'imperial';
     function $(id) { return document.getElementById(id); }
     function fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+    function flag(id, bad) {
+      var el = $(id);
+      if (!el) return;
+      el.classList.toggle('ring-2', bad);
+      el.classList.toggle('ring-red-400', bad);
+    }
+    document.querySelectorAll('#water-form input').forEach(function (el) {
+      el.addEventListener('input', function () { el.classList.remove('ring-2', 'ring-red-400'); });
+    });
 
     document.querySelectorAll('.water-units-btn').forEach(function (b) {
       b.addEventListener('click', function () {
-        units = b.getAttribute('data-units');
+        var next = b.getAttribute('data-units');
+        if (next === units) return;
+        units = next;
         document.querySelectorAll('.water-units-btn').forEach(function (x) {
           var active = x.getAttribute('data-units') === units;
           x.className = 'water-units-btn px-3 py-1.5 rounded-md text-sm font-bold ' + (active ? 'bg-brand-600 text-white' : 'text-ink-700');
@@ -76,8 +87,12 @@
       var weightRaw = parseFloat($('water-weight').value);
       var minutes = parseFloat($('water-exercise').value);
       var weightKg = units === 'imperial' ? weightRaw * 0.45359237 : weightRaw;
-      if (isNaN(weightRaw) || weightKg < 25 || weightKg > 450 || isNaN(minutes) || minutes < 0 || minutes > 600) {
-        err.textContent = 'Please check your entries: a realistic body weight, and exercise between 0 and 600 minutes.';
+      var weightBad = isNaN(weightRaw) || weightKg < 25 || weightKg > 450;
+      var minutesBad = isNaN(minutes) || minutes < 0 || minutes > 600;
+      flag('water-weight', weightBad);
+      flag('water-exercise', minutesBad);
+      if (weightBad || minutesBad) {
+        err.textContent = 'Please enter valid values for the highlighted fields.';
         err.classList.remove('hidden');
         return;
       }

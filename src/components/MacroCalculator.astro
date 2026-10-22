@@ -68,6 +68,7 @@
           <button type="button" id="mac-estimate" class="w-full rounded-lg bg-ink-900 text-white font-bold px-4 py-2.5 text-sm hover:bg-ink-700">Use this estimate</button>
         </div>
       </div>
+      <p id="mac-estimate-note" class="hidden mt-3 text-sm font-bold text-brand-700"></p>
     </details>
 
     <p id="mac-error" class="hidden mt-4 text-sm font-semibold text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3" role="alert"></p>
@@ -112,6 +113,15 @@
   (function () {
     function $(id) { return document.getElementById(id); }
     function fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+    function flag(id, bad) {
+      var el = $(id);
+      if (!el) return;
+      el.classList.toggle('ring-2', bad);
+      el.classList.toggle('ring-red-400', bad);
+    }
+    document.querySelectorAll('#mac-form input').forEach(function (el) {
+      el.addEventListener('input', function () { el.classList.remove('ring-2', 'ring-red-400'); });
+    });
 
     $('mac-estimate').addEventListener('click', function () {
       var age = parseFloat($('mac-age').value);
@@ -124,6 +134,12 @@
       var tdee = bmr * parseFloat($('mac-activity').value);
       var target = Math.max(1000, Math.round(tdee + parseFloat($('mac-goal').value)));
       $('mac-calories').value = target;
+      var calInput = $('mac-calories');
+      calInput.classList.add('ring-2', 'ring-brand-500');
+      setTimeout(function () { calInput.classList.remove('ring-2', 'ring-brand-500'); }, 1500);
+      var note = $('mac-estimate-note');
+      note.textContent = 'Calories filled in from your details. Now press Calculate.';
+      note.classList.remove('hidden');
     });
 
     $('mac-form').addEventListener('submit', function (e) {
@@ -131,8 +147,10 @@
       var err = $('mac-error');
       err.classList.add('hidden');
       var cal = parseFloat($('mac-calories').value);
-      if (isNaN(cal) || cal < 1000 || cal > 8000) {
-        err.textContent = 'Please enter a daily calorie amount between 1,000 and 8,000 kcal.';
+      var calBad = isNaN(cal) || cal < 1000 || cal > 8000;
+      flag('mac-calories', calBad);
+      if (calBad) {
+        err.textContent = 'Please enter valid values for the highlighted fields.';
         err.classList.remove('hidden');
         return;
       }
