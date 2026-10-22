@@ -28,6 +28,9 @@
 ## Guides
 
 - [How to Calculate Your TDEE: A Step by Step Guide](https://tdeecheck.com/blog/how-to-calculate-tdee/): The formula, a worked example, activity multipliers and the mistakes that skew results.
+- [TDEE vs BMR: What Is the Difference and Which Do You Need?](https://tdeecheck.com/blog/tdee-vs-bmr/): BMR is the resting floor, TDEE is the full day. How the two connect, a worked example, and which number to eat to.
+- [How Accurate Are TDEE Calculators? (And How to Fix Your Number)](https://tdeecheck.com/blog/how-accurate-are-tdee-calculators/): Formulas land within about 10 percent for most people. Where the error hides and the 2 to 3 week test that finds your true TDEE.
+- [What Is a Calorie Deficit? Sizes, Safety and a Worked Example](https://tdeecheck.com/blog/what-is-a-calorie-deficit/): The four deficit sizes compared, the 3,500 kcal rule explained as an approximation, safety floors and a step by step build.
 
 ## About
 

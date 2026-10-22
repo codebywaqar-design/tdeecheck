@@ -1,0 +1,161 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Faq from '../../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'What Is a Calorie Deficit? Sizes, Safety and a Worked Example',
+    description: 'A calorie deficit means eating less than you burn. Compare the four deficit sizes, learn the safety floors, and build yours from your TDEE step by step.',
+    url: 'https://tdeecheck.com/blog/what-is-a-calorie-deficit/',
+    image: 'https://tdeecheck.com/images/calorie-deficit-guide-hero.webp',
+    author: { '@type': 'Person', name: 'Farah Akram', jobTitle: 'Dietitian' },
+    publisher: { '@type': 'Organization', name: 'TDEE Check', url: 'https://tdeecheck.com/' },
+    datePublished: '2026-10-22',
+    dateModified: '2026-10-22',
+  },
+];
+
+const faqs = [
+  {
+    q: 'How big should my calorie deficit be?',
+    a: 'For most people, 500 kcal a day is the sensible default, giving about a pound a week. If you are smaller, leaner or close to your goal weight, 250 to 300 kcal is gentler and easier to hold. If you are larger with a high TDEE, 750 kcal can work. As a rough band, eating about 10 to 20 percent below your TDEE is a sane place to live, whatever that works out to in calories.',
+  },
+  {
+    q: 'Is a 1,000 calorie deficit safe?',
+    a: 'Only when the maths leaves a safe target behind. If your TDEE is 3,200, eating 2,200 is comfortable and well above every floor. If your TDEE is 2,000, a 1,000 kcal deficit means eating 1,000 kcal a day, below the safety floors for everyone, and that is not a plan to run without medical supervision. Judge the deficit by the target it leaves, not by the size of the subtraction.',
+  },
+  {
+    q: 'Why am I not losing weight in a calorie deficit?',
+    a: 'Usually one of three things. Intake is being undercounted, most often cooking oils, drinks, sauces and untracked weekends. Or water retention is masking fat loss for one to three weeks, which is common when starting exercise or eating more salt. Or your TDEE has genuinely dropped as you have lost weight. Check the trend across three to four weeks and tighten the logging before you cut calories further.',
+  },
+  {
+    q: 'How long can I stay in a calorie deficit?',
+    a: 'There is no fixed limit, but long diets get harder: hunger rises, energy falls and your burn adapts downward as you get lighter. Many people do well with blocks of 8 to 12 weeks at a moderate deficit, a maintenance break, then another block if needed. If you feel unwell, dizzy or unable to function, stop and talk to a qualified professional rather than pushing through.',
+  },
+  {
+    q: 'Do I need to exercise to be in a calorie deficit?',
+    a: 'No. A deficit is about the gap between intake and burn, and food alone controls the intake side completely. Exercise still earns its place: it protects your muscle while you lose, raises the TDEE side of the equation, and improves health in ways dieting cannot. But a hard workout followed by an untracked 600 kcal snack leaves no deficit at all, which is why the eating side does the heavy lifting.',
+  },
+];
+---
+
+<BaseLayout
+  title="What Is a Calorie Deficit? Sizes, Safety and a Worked Example"
+  description="A calorie deficit means eating less than you burn. Compare the four deficit sizes, learn the safety floors, and build yours from your TDEE step by step."
+  path="/blog/what-is-a-calorie-deficit/"
+  ogType="article"
+  ogImage="/images/calorie-deficit-guide-hero.webp"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog/' },
+    { name: 'What Is a Calorie Deficit', path: '/blog/what-is-a-calorie-deficit/' },
+  ]}
+>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 pt-10">
+    <p class="text-sm font-bold text-brand-700 uppercase tracking-wide">Guide · Reviewed by Farah Akram, Dietitian</p>
+    <h1 class="mt-2 text-4xl font-extrabold tracking-tight text-ink-900">What is a calorie deficit?</h1>
+    <p class="mt-5 text-lg text-ink-700 leading-relaxed">
+      A calorie deficit is the one non-negotiable ingredient inside every weight loss diet ever sold: you eat fewer
+      calories than your body burns, and it covers the difference from stored energy, mostly body fat. Everything
+      else, the meal timing, the food rules, the branded plans, is decoration around that single fact. This guide
+      explains it properly: how big a deficit to choose, what the famous 3,500 kcal rule actually says, where the
+      safety floors sit, and how to build your own number step by step from your TDEE.
+    </p>
+    <img
+      src="/images/calorie-deficit-guide-hero.webp"
+      alt="Illustration of a calorie deficit, a balanced plate beside daily energy burn icons and a gentle downward trend"
+      width="2048"
+      height="1152"
+      class="mt-8 w-full rounded-2xl border border-brand-100"
+      loading="eager"
+    />
+
+    <h2 class="mt-10 text-2xl font-extrabold text-ink-900">The definition, in one breath</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Your body burns a certain amount of energy each day, your TDEE. Eat more than that and the surplus is stored.
+      Eat less than that and you are in a calorie deficit, and the shortfall has to come from somewhere, so your
+      body draws on its stores. That is the whole mechanism. The deficit is measured in calories per day, and its
+      size, not your willpower rating or your diet's brand name, decides how fast the stored energy gets used. If
+      you do not know your TDEE yet, our
+      <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a> finds it in under a minute, and
+      every number below starts from there.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">The four standard deficit sizes</h2>
+    <div class="mt-4 overflow-x-auto rounded-xl border border-brand-100 bg-white">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-brand-50 text-left">
+            <th class="px-4 py-3 font-extrabold text-ink-900">Daily deficit</th>
+            <th class="px-4 py-3 font-extrabold text-ink-900">Weekly total</th>
+            <th class="px-4 py-3 font-extrabold text-ink-900">Expected loss per week</th>
+            <th class="px-4 py-3 font-extrabold text-ink-900">Best suited to</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-brand-50">
+          <tr><td class="px-4 py-3 font-semibold">250 kcal</td><td class="px-4 py-3">1,750 kcal</td><td class="px-4 py-3">About 0.5 lb</td><td class="px-4 py-3">Small amounts to lose, leaner people, easiest to sustain</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">500 kcal</td><td class="px-4 py-3">3,500 kcal</td><td class="px-4 py-3">About 1 lb</td><td class="px-4 py-3">The standard choice for most people</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">750 kcal</td><td class="px-4 py-3">5,250 kcal</td><td class="px-4 py-3">About 1.5 lb</td><td class="px-4 py-3">Larger bodies with a high TDEE and more to lose</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">1,000 kcal</td><td class="px-4 py-3">7,000 kcal</td><td class="px-4 py-3">About 2 lb</td><td class="px-4 py-3">The upper end, demanding, only when the remaining target stays safe</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Read the last column before the third. The right size is mostly a question of how much room your TDEE gives
+      you: a deficit has to leave behind a daily target you can actually eat enough on.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">The 3,500 kcal rule, handled honestly</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      The weekly loss figures above come from a simple piece of arithmetic: a pound of body fat stores roughly
+      3,500 kcal of energy. Multiply a 500 kcal daily deficit by seven days and you get 3,500, hence "about a pound
+      a week". It is a useful planning approximation and nothing more. Real bodies are not spreadsheets. As you get
+      lighter your burn falls, so the same intake slowly becomes a smaller deficit. Some of what you lose early is
+      water, not fat. Some of a large deficit comes from lean tissue rather than fat. Over months, real loss
+      usually runs slower than the straight line suggests, which is why we always say to judge a deficit by your
+      three to four week weight trend, never by one weigh in.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Build your deficit in four steps</h2>
+    <ul class="mt-3 space-y-3 text-ink-700 leading-relaxed list-disc pl-6">
+      <li><strong>Find your TDEE.</strong> Use the calculator honestly, with the activity level below the flattering one if you are unsure.</li>
+      <li><strong>Pick a size.</strong> Start at 500 kcal, or 250 kcal if you are smaller, leaner, or new to tracking. Bigger is a later decision, not a starting one.</li>
+      <li><strong>Check the floor.</strong> Your target should not fall below about 1,200 kcal a day for women or 1,500 for men. If it does, shrink the deficit, not the floor.</li>
+      <li><strong>Track and review.</strong> Hold the target for 2 to 3 weeks, watch the weekly average weight, and adjust by 100 to 200 kcal only if the trend disagrees with the plan.</li>
+    </ul>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">A worked example</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Our standard example across this site is a woman of 32, 5 ft 6 in, 165 lb, training three to five days a
+      week, with a TDEE of 2,287 kcal. She chooses the standard 500 kcal deficit: 2,287 minus 500 gives a target of
+      <strong>1,787 kcal a day</strong>. Check the floor: 1,787 sits comfortably above the 1,200 kcal minimum for
+      women, so the plan is sound. Expected loss is about a pound a week on the 3,500 kcal approximation, and she
+      will confirm that against her real trend after three weeks rather than expecting the arithmetic to be exact.
+      Our <a class="font-bold text-brand-700 underline" href="/calculators/calorie-deficit-calculator/">Calorie
+      Deficit Calculator</a> runs all four deficit sizes against your own TDEE at once, including the floor check.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Why bigger is not better</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      If 500 is good, why not 1,000? Because the body pushes back harder as the deficit grows. The share of weight
+      lost from muscle rather than fat rises, which lowers your future burn. Hunger and food preoccupation climb,
+      so adherence collapses, usually within weeks. Training quality drops, everyday movement quietly shrinks as
+      your body economises, and the plateau arrives sooner. Add the risk of genuine nutrient gaps at very low
+      intakes and the pattern is clear: a moderate deficit held for months removes far more fat than an aggressive
+      one abandoned by week three. Our
+      <a class="font-bold text-brand-700 underline" href="/tdee-weight-loss-calculator/">TDEE Weight Loss
+      Calculator</a> builds these targets with the floors already applied, if you would rather start from your goal
+      than from a deficit size.
+    </p>
+
+    <p class="mt-8 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Farah Akram, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+
+    <Faq faqs={faqs} title="Calorie deficit questions" />
+  </article>
+</BaseLayout>

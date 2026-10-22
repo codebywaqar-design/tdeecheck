@@ -1,0 +1,173 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Faq from '../../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'TDEE vs BMR: What Is the Difference and Which Do You Need?',
+    description: 'BMR is the calories you burn at rest. TDEE is everything you burn in a day. See how they differ, one worked example, and which number sets your target.',
+    url: 'https://tdeecheck.com/blog/tdee-vs-bmr/',
+    image: 'https://tdeecheck.com/images/tdee-vs-bmr-hero.webp',
+    author: { '@type': 'Person', name: 'Farah Akram', jobTitle: 'Dietitian' },
+    publisher: { '@type': 'Organization', name: 'TDEE Check', url: 'https://tdeecheck.com/' },
+    datePublished: '2026-10-22',
+    dateModified: '2026-10-22',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Is TDEE always higher than BMR?',
+    a: 'Yes. TDEE starts with BMR and adds everything else you do in a day, so it is always the bigger number. Even on a fully sedentary day the multiplier is 1.2, which puts TDEE about 20 percent above BMR. The gap grows with activity: a very active person can have a TDEE more than 70 percent above their BMR.',
+  },
+  {
+    q: 'Should I eat my BMR calories to lose weight?',
+    a: 'No. BMR is a floor, not a target. It is roughly what your body needs at complete rest to keep your organs running. Eating at that level leaves almost nothing for the energy cost of moving, working and digesting, and it is hard to meet your nutrient needs that low. A deficit of 250 to 500 kcal below TDEE is the safer and more sustainable route.',
+  },
+  {
+    q: 'What percentage of my TDEE is my BMR?',
+    a: 'For most adults BMR makes up about 60 to 70 percent of TDEE. The more active you are, the smaller that share becomes, because movement takes a bigger slice. For a sedentary person BMR can be over 80 percent of the total burn, which is why small amounts of daily movement change the total so noticeably.',
+  },
+  {
+    q: 'Can my BMR or TDEE change over time?',
+    a: 'Yes, both move with your body. Losing weight lowers BMR slightly because a smaller body costs less to run, and it lowers TDEE for the same reason. Gaining muscle nudges BMR up, and aging slowly lowers it. Recalculate after every 10 to 15 lb of weight change, or whenever your routine changes in a big way.',
+  },
+  {
+    q: 'Which number matters more, BMR or TDEE?',
+    a: 'For eating decisions, TDEE. Your calorie targets for losing, maintaining or gaining all come from TDEE. BMR matters as background: it explains most of your burn, it is the starting input for every TDEE formula, and it marks the level below which you should not plan to eat for any length of time.',
+  },
+];
+---
+
+<BaseLayout
+  title="TDEE vs BMR: What Is the Difference and Which Do You Need?"
+  description="BMR is the calories you burn at rest. TDEE is everything you burn in a day. See how they differ, one worked example, and which number sets your target."
+  path="/blog/tdee-vs-bmr/"
+  ogType="article"
+  ogImage="/images/tdee-vs-bmr-hero.webp"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog/' },
+    { name: 'TDEE vs BMR', path: '/blog/tdee-vs-bmr/' },
+  ]}
+>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 pt-10">
+    <p class="text-sm font-bold text-brand-700 uppercase tracking-wide">Guide · Reviewed by Farah Akram, Dietitian</p>
+    <h1 class="mt-2 text-4xl font-extrabold tracking-tight text-ink-900">TDEE vs BMR: what is the difference?</h1>
+    <p class="mt-5 text-lg text-ink-700 leading-relaxed">
+      BMR and TDEE sit behind almost every calorie target you have ever been given, and they are mixed up with each
+      other constantly. One is the cost of keeping you alive on a day you never get out of bed. The other is the cost
+      of your actual life, work, steps, workouts and all. Confusing them is not a small rounding error: for many
+      people the two numbers differ by 500 kcal or more, which is the size of a whole meal. This guide defines both
+      in plain language, shows how one is built from the other, runs one person through both numbers, and settles
+      which one you should actually eat to.
+    </p>
+    <img
+      src="/images/tdee-vs-bmr-hero.webp"
+      alt="Illustration contrasting BMR and TDEE, a person resting on one side and the same person living an active day on the other"
+      width="2048"
+      height="1152"
+      class="mt-8 w-full rounded-2xl border border-brand-100"
+      loading="eager"
+    />
+
+    <h2 class="mt-10 text-2xl font-extrabold text-ink-900">BMR: the cost of staying alive</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Your Basal Metabolic Rate is the energy your body spends at complete rest just to keep itself running: your
+      heartbeat, breathing, body temperature, cell repair and brain activity. No walking to the kitchen, no digesting
+      lunch, no fidgeting at your desk. Picture the burn of a day spent motionless in bed at a comfortable
+      temperature, and you have BMR.
+    </p>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      It is a bigger number than most people expect. For most adults, BMR accounts for about 60 to 70 percent of
+      everything they burn across a whole day, which means the majority of your energy goes on simply existing. You
+      can change it only slowly: it rises slightly with more muscle mass and falls slightly as you lose weight or
+      get older. The standard way to estimate it is the Mifflin-St Jeor formula, which needs only your sex, age,
+      height and weight. Our <a class="font-bold text-brand-700 underline" href="/calculators/bmr-calculator/">BMR
+      Calculator</a> runs it for you in seconds.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">TDEE: the cost of your actual day</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      TDEE stands for Total Daily Energy Expenditure, and it means exactly what it says: every calorie you burn
+      across a full day, BMR included. It has four parts:
+    </p>
+    <ul class="mt-3 space-y-3 text-ink-700 leading-relaxed list-disc pl-6">
+      <li><strong>BMR</strong>, the resting burn above, usually 60 to 70 percent of the total.</li>
+      <li><strong>The thermic effect of food</strong>, the energy cost of digesting what you eat, roughly 10 percent of intake.</li>
+      <li><strong>NEAT</strong>, non-exercise activity thermogenesis: steps, standing, housework, carrying shopping, even fidgeting. This varies enormously between people and is the most underestimated part of the day.</li>
+      <li><strong>Exercise activity</strong>, your actual workouts, which for most people is a smaller slice than they hope.</li>
+    </ul>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Nobody can measure all four parts at home, so calculators fold the last three into a single activity
+      multiplier, from 1.2 for a sedentary lifestyle up to 1.9 for athletes, and multiply your BMR by it. That one
+      step is the entire difference between the two numbers, and our
+      <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a> does it for you instantly.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">The two numbers, side by side</h2>
+    <div class="mt-4 overflow-x-auto rounded-xl border border-brand-100 bg-white">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-brand-50 text-left">
+            <th class="px-4 py-3 font-extrabold text-ink-900">Question</th>
+            <th class="px-4 py-3 font-extrabold text-ink-900">BMR</th>
+            <th class="px-4 py-3 font-extrabold text-ink-900">TDEE</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-brand-50">
+          <tr><td class="px-4 py-3 font-semibold">What it counts</td><td class="px-4 py-3">Resting body functions only</td><td class="px-4 py-3">Resting functions plus all movement and digestion</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">Typical size</td><td class="px-4 py-3">About 60 to 70 percent of your daily burn</td><td class="px-4 py-3">Your full daily burn, 100 percent</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">How it is estimated</td><td class="px-4 py-3">Mifflin-St Jeor, from sex, age, height and weight</td><td class="px-4 py-3">BMR multiplied by an activity factor, 1.2 to 1.9</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">What you use it for</td><td class="px-4 py-3">A floor and the starting point of every calculation</td><td class="px-4 py-3">Setting the calorie target you actually eat to</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">One person, both numbers</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Take the example used across this site: a woman of 32, 5 ft 6 in tall, weighing 165 lb. Her BMR works out to
+      about <strong>1,475 kcal</strong>. That is her floor, the cost of a day spent entirely in bed. Now give her a
+      real life. On desk bound days with little movement, her TDEE is 1,475 x 1.2, about <strong>1,770 kcal</strong>.
+      On her usual routine, training three to five days a week, it is 1,475 x 1.55, about <strong>2,287
+      kcal</strong>, the figure our calculator shows. Same body, same BMR, three very different totals depending on
+      the day she is living.
+    </p>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      This is why a bare "calories per day" figure quoted without context means so little. The honest number is
+      always BMR plus an honest account of your activity, and the activity half of that sentence is where most of
+      the error creeps in.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Which number do you actually need?</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      For almost every decision, it is TDEE. To <strong>maintain</strong> your weight, eat close to your TDEE. To
+      <strong>lose</strong> weight, eat below it: a deficit of 250 to 500 kcal is the standard starting point, and
+      our <a class="font-bold text-brand-700 underline" href="/calculators/calorie-deficit-calculator/">Calorie
+      Deficit Calculator</a> turns that into daily targets. To <strong>gain</strong> weight or muscle, eat above it,
+      usually by 250 to 300 kcal. BMR still earns its place in all three cases, as the sanity floor: a target that
+      falls below your BMR deserves a second look, because you are planning to eat less than your body needs at
+      complete rest.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">The common mistake: eating at your BMR</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      A persistent piece of advice tells people to eat their BMR to lose weight. It confuses the floor with the
+      target. For our example, it would mean eating 1,475 kcal while burning 2,287, a deficit of over 800 kcal a
+      day. On paper the weight falls faster. In real life that usually means strong hunger, low energy, poor
+      training, and a diet that is very hard to keep nutritionally complete, so most people abandon it within
+      weeks. A moderate deficit below TDEE moves the same scale in the same direction, just at a pace you can
+      actually live with.
+    </p>
+
+    <p class="mt-8 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Farah Akram, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+
+    <Faq faqs={faqs} title="TDEE vs BMR questions" />
+  </article>
+</BaseLayout>

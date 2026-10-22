@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Faq from '../../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'How Accurate Are TDEE Calculators? (And How to Fix Your Number)',
+    description: 'Most TDEE calculators land within about 10 percent, but activity guesses can skew things more. Learn where the error hides and how to fix your number.',
+    url: 'https://tdeecheck.com/blog/how-accurate-are-tdee-calculators/',
+    image: 'https://tdeecheck.com/images/tdee-accuracy-hero.webp',
+    author: { '@type': 'Person', name: 'Farah Akram', jobTitle: 'Dietitian' },
+    publisher: { '@type': 'Organization', name: 'TDEE Check', url: 'https://tdeecheck.com/' },
+    datePublished: '2026-10-22',
+    dateModified: '2026-10-22',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Why is my TDEE different on every calculator?',
+    a: 'Because calculators are not all doing the same sum. Some use Mifflin-St Jeor, others use the older Harris-Benedict equation or Katch-McArdle, and each site defines its activity levels slightly differently, so the multiplier attached to "moderate" varies. Differences of 100 to 300 kcal between calculators are normal. Pick one, use it consistently, and correct it with your own weight trend.',
+  },
+  {
+    q: 'Can a TDEE calculator just be wrong for me?',
+    a: 'Yes. It produces an estimate from population averages, and individual bodies vary. For most people the error is within about 10 percent, but for some it reaches 15 to 20 percent, especially when activity level is guessed too high or body composition is far from average. That is a reason to test the number, not a reason to distrust the method.',
+  },
+  {
+    q: 'How do I find my true TDEE?',
+    a: 'Eat at a consistent, honestly tracked intake for 2 to 3 weeks and weigh yourself several mornings a week. If your weekly average weight is stable, your intake equals your burn, and that intake is your true TDEE. If the trend drifts down, your TDEE is higher than you are eating; if it drifts up, it is lower. Adjust by 100 to 200 kcal and repeat once.',
+  },
+  {
+    q: 'Are fitness trackers more accurate than calculators?',
+    a: 'Not usually for calories. Watches estimate exercise burn from heart rate and movement, and studies of wearables find wide errors on energy expenditure, sometimes larger than a formula estimate. Trackers are genuinely useful for step counts and for keeping your activity consistent from week to week. For your actual calorie burn, your weight trend over several weeks is the most reliable measure you own.',
+  },
+  {
+    q: 'How often should I recalculate my TDEE?',
+    a: 'After every 10 to 15 lb of weight change, because a lighter body burns less at rest and in motion. Also recalculate when your routine changes in a lasting way, such as a new physical job, an injury layoff, or a big change in training volume. If neither has changed, checking every couple of months is plenty.',
+  },
+];
+---
+
+<BaseLayout
+  title="How Accurate Are TDEE Calculators? (And How to Fix Your Number)"
+  description="Most TDEE calculators land within about 10 percent, but activity guesses can skew things more. Learn where the error hides and how to fix your number."
+  path="/blog/how-accurate-are-tdee-calculators/"
+  ogType="article"
+  ogImage="/images/tdee-accuracy-hero.webp"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog/' },
+    { name: 'TDEE Calculator Accuracy', path: '/blog/how-accurate-are-tdee-calculators/' },
+  ]}
+>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 pt-10">
+    <p class="text-sm font-bold text-brand-700 uppercase tracking-wide">Guide · Reviewed by Farah Akram, Dietitian</p>
+    <h1 class="mt-2 text-4xl font-extrabold tracking-tight text-ink-900">How accurate are TDEE calculators?</h1>
+    <p class="mt-5 text-lg text-ink-700 leading-relaxed">
+      The honest answer is: close, but not exact. A good TDEE calculator puts most people within about 10 percent of
+      their real daily burn, and for some people the miss is larger, up to 15 or 20 percent. That sounds like a
+      failure, but it is actually how the tool is meant to be used. The formula hands you a well informed starting
+      estimate. Your own weight trend over the following weeks then tells you the truth, and one small adjustment
+      gets you to a personal number that no formula could have given you on day one. This guide explains where the
+      error hides, and then walks through the exact test that fixes it.
+    </p>
+    <img
+      src="/images/tdee-accuracy-hero.webp"
+      alt="Illustration of a TDEE calculator estimate being checked against real world results on a weighing scale"
+      width="2048"
+      height="1152"
+      class="mt-8 w-full rounded-2xl border border-brand-100"
+      loading="eager"
+    />
+
+    <h2 class="mt-10 text-2xl font-extrabold text-ink-900">What "accurate" means for a formula</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      A TDEE calculator chains two estimates together. First it predicts your BMR, and here the news is good: the
+      Mifflin-St Jeor equation used by our <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a>
+      is the most thoroughly validated of the common formulas, and in validation studies it lands within about 10
+      percent of measured resting burn for most adults, more reliably than older equations. But "most" is not
+      "all". A minority of people fall outside that band in either direction, because no equation can see your
+      muscle mass, your thyroid, your medications or your genetics. It knows four things about you, and it does
+      well with them, but four things is all it knows.
+    </p>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      The second estimate, the activity multiplier, is where the bigger errors live, because it is chosen by you,
+      from a short list, based on your impression of your own week. That is the part to watch.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Four reasons your number can be off</h2>
+    <ul class="mt-3 space-y-3 text-ink-700 leading-relaxed list-disc pl-6">
+      <li><strong>Activity is self reported.</strong> Most people overestimate how active they are. Training four days a week feels "very active", but if the other twenty hours a day are spent in a chair, the honest multiplier is usually moderate. One step too high on the multiplier adds 200 to 300 kcal that you never burn.</li>
+      <li><strong>NEAT varies invisibly.</strong> Non-exercise movement, your steps, standing, chores and restlessness, can differ by several hundred calories a day between two people of identical size. No dropdown menu can capture it, and it quietly explains many "the formula does not work for me" stories.</li>
+      <li><strong>The formula sees weight, not composition.</strong> Muscle tissue burns more than fat tissue at rest, so at the same body weight a lean, muscular person genuinely burns more than a softer person. A weight only formula gives both of them the same number.</li>
+      <li><strong>Your week is not an average week.</strong> Weekends, holidays, training blocks, illness and busy seasons at work all move your real burn around. A calculator describes your typical week; if your typical week keeps changing, the target keeps missing.</li>
+    </ul>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">The 2 to 3 week test that finds your real TDEE</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Forget formulas for a moment. Your body keeps perfect accounts, and the scale reads them back to you. Eat at a
+      consistent intake, close to your calculated TDEE, and track it honestly, including drinks, oils and weekends.
+      Weigh yourself on several mornings each week, after the bathroom and before breakfast, and compare weekly
+      averages rather than single days, because water weight makes single days meaningless. If your average is flat
+      across 2 to 3 weeks, your intake equals your burn: that intake is your true TDEE, whatever the calculator
+      said. If the trend drifts down, your real TDEE is higher than you are eating. If it drifts up, it is lower.
+      Adjust by 100 to 200 kcal, repeat once, and you are done. Our
+      <a class="font-bold text-brand-700 underline" href="/blog/how-to-calculate-tdee/">step by step guide to
+      calculating TDEE</a> shows the hand calculation behind the starting number.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">A worked adjustment</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Take our standard example: a woman of 32, 5 ft 6 in, 165 lb, whose calculator result is a TDEE of 2,287 kcal.
+      She decides to test it before dieting. Tracking honestly, her real average intake settles at 2,100 kcal a day,
+      and across three weeks her weekly average weight does not move. Flat weight means intake and burn are equal,
+      so her true TDEE is about <strong>2,100 kcal</strong>, not 2,287. The formula overshot by roughly 190 kcal,
+      about 8 percent, well inside the normal error band, most likely because her non-exercise movement is lower
+      than the moderate multiplier assumes. The fix costs her nothing: her targets are simply rebuilt from 2,100.
+      Maintenance is 2,100, and a standard 500 kcal deficit now means 1,600 rather than 1,787. Without the test she
+      would have dieted on 1,787, lost more slowly than expected, and blamed herself for arithmetic.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">When a body fat percentage helps</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      If you know your body fat percentage from a DEXA scan, a good impedance scale or calipers, you can remove one
+      of the formula's blind spots. The Katch-McArdle equation calculates BMR from lean body mass instead of total
+      weight, so a muscular person and a softer person of the same weight get different, more realistic numbers.
+      The calculator on our homepage accepts an optional body fat percentage and switches to Katch-McArdle
+      automatically when you enter one. If you think in kilograms and centimeters rather than pounds and inches,
+      the same tool opens in metric on our
+      <a class="font-bold text-brand-700 underline" href="/tdee-calculator-kg/">TDEE Calculator (kg)</a> page.
+    </p>
+
+    <p class="mt-8 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Farah Akram, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+
+    <Faq faqs={faqs} title="TDEE accuracy questions" />
+  </article>
+</BaseLayout>
