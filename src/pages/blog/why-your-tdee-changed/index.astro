@@ -1,0 +1,167 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Faq from '../../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Why Your TDEE Changed: 7 Reasons Your Number Moves',
+    description: 'Your TDEE is not fixed. Weight change, muscle, daily steps, aging, dieting itself, sleep and plain water weight all move it. The 7 reasons, and what to do.',
+    url: 'https://tdeecheck.com/blog/why-your-tdee-changed/',
+    image: 'https://tdeecheck.com/images/why-tdee-changed-hero.webp',
+    author: { '@type': 'Person', name: 'Farah Akram', jobTitle: 'Dietitian' },
+    publisher: { '@type': 'Organization', name: 'TDEE Check', url: 'https://tdeecheck.com/' },
+    datePublished: '2026-10-22',
+    dateModified: '2026-10-22',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Does my TDEE go down as I lose weight?',
+    a: 'Yes, and by a predictable amount. A smaller body needs less energy at rest and costs less to move, so every 10 to 15 lb lost trims roughly 100 to 200 kcal from your daily burn. This is physics, not damage. Recalculate at your new weight and rebuild any deficit from the updated number.',
+  },
+  {
+    q: 'Does dieting permanently slow your metabolism?',
+    a: 'No. Dieting does cause a real extra dip called adaptive thermogenesis, where the body trims background movement and becomes slightly more efficient, but it is usually modest, on the order of tens to a couple of hundred calories, and it eases as you return to maintenance eating. The large lasting fall people notice is almost always the smaller body itself, not a broken metabolism.',
+  },
+  {
+    q: 'How much does age lower TDEE each decade?',
+    a: 'Roughly 1 to 2 percent per decade from about age 30, when the change comes from losing muscle and moving less rather than from age itself. People who keep training and stay active lose far less. That is why two people of the same age can honestly have TDEEs hundreds of calories apart.',
+  },
+  {
+    q: 'Why is my weight up this week if my calories did not change?',
+    a: 'Almost certainly water. Glycogen stores bind water, a salty meal pulls water in, hard training inflames muscle tissue that holds fluid, and hormonal cycles shift retention by several pounds. None of that is fat, and none of it means your TDEE changed. Compare weekly averages over three or more weeks before concluding anything.',
+  },
+  {
+    q: 'How often should I recalculate my TDEE?',
+    a: 'After every 10 to 15 lb of weight change in either direction, and whenever your routine changes in a lasting way. If you are maintaining and nothing has changed, your old number still stands; TDEE follows your body and your life, not the calendar.',
+  },
+];
+---
+
+<BaseLayout
+  title="Why Your TDEE Changed: 7 Reasons Your Number Moves"
+  description="Your TDEE is not fixed. Weight change, muscle, daily steps, aging, dieting itself, sleep and plain water weight all move it. The 7 reasons, and what to do."
+  path="/blog/why-your-tdee-changed/"
+  ogType="article"
+  ogImage="/images/why-tdee-changed-hero.webp"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog/' },
+    { name: 'Why Your TDEE Changed', path: '/blog/why-your-tdee-changed/' },
+  ]}
+>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 pt-10">
+    <p class="text-sm font-bold text-brand-700 uppercase tracking-wide">Guide · Reviewed by Farah Akram, Dietitian</p>
+    <h1 class="mt-2 text-4xl font-extrabold tracking-tight text-ink-900">Why your TDEE changed</h1>
+    <p class="mt-5 text-lg text-ink-700 leading-relaxed">
+      It unsettles people. The calories that maintained your weight last year now creep upward on the scale, or
+      you recalculate after a few months and the calculator hands back a smaller number than it did before. It
+      feels like the ground moved, and in a sense it did: TDEE is not a fixed trait like your height. It is a
+      running total of your current body and your current life, and when either changes, the number follows. Here
+      are the seven reasons it moves, roughly in the order people meet them, with what to do about each.
+    </p>
+    <img
+      src="/images/why-tdee-changed-hero.webp"
+      alt="Illustration of the same person at different weights, ages and activity levels, each with a different daily calorie burn"
+      width="2048"
+      height="1152"
+      class="mt-8 w-full rounded-2xl border border-brand-100"
+      loading="eager"
+    />
+
+    <h2 class="mt-10 text-2xl font-extrabold text-ink-900">1. Your weight changed, so the machine changed size</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      This is the biggest and least mysterious reason. A heavier body has more tissue to keep alive and more mass
+      to carry up stairs, so it burns more doing everything. Lose weight and every line item shrinks: your BMR
+      falls, your walks cost less, even fidgeting gets cheaper. Each 10 to 15 lb lost typically lowers TDEE by
+      roughly 100 to 200 kcal a day, and gaining does the same in reverse. It is the main reason diets stall on
+      unchanged calories, and the fix is dull and reliable: recalculate at your new weight. What to do: rerun the
+      <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a> whenever the scale has moved 10
+      to 15 lb, and rebuild your target from the new figure.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">2. Your muscle mass changed</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Two people can weigh the same and burn noticeably different amounts, because muscle tissue costs more to
+      maintain than fat tissue. Build muscle over a training block and your resting burn creeps up even before
+      your weight changes much. Lose muscle, through inactivity, illness or a badly run diet with too little
+      protein, and your burn falls even if the scale barely moves. The effect per pound is modest, a few calories
+      a day, but across five or ten pounds of muscle it becomes real money. What to do: keep resistance training
+      and protein in place especially while losing weight, so the tissue you shed is fat rather than the engine
+      itself.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">3. Your everyday movement drifted</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      The calories you burn outside formal exercise, called NEAT, are the most volatile part of TDEE. A new desk
+      job, a longer commute, a winter that keeps you indoors, an injury, a baby: each can cut thousands of steps
+      from your day without you ever deciding to move less. Dropping from 10,000 steps to 5,000 can quietly remove
+      a few hundred calories of daily burn, more than many workouts add. Because nobody logs this movement, it is
+      the change people most often miss when they swear nothing has changed. What to do: check your step trend
+      before blaming your metabolism, and if your life has genuinely become more sedentary, calculate at the
+      honest level, as our
+      <a class="font-bold text-brand-700 underline" href="/sedentary-tdee-calculator/">Sedentary TDEE
+      Calculator</a> does, then add movement back deliberately where you can.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">4. You are older than the last time you checked</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Aging lowers TDEE slowly, roughly 1 to 2 percent per decade from about age 30, and mostly by the side door:
+      muscle quietly lost year by year, and days that gradually contain less physical work and play. The formula
+      knows this, which is why age is one of its four inputs; the same stats at 45 simply return a lower number
+      than at 25. What to do: treat the decline as a nudge about muscle, not a sentence. People who train keep
+      most of the tissue, and with it most of the burn.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">5. Dieting itself turned the volume down</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Beyond the smaller body, a sustained deficit triggers adaptive thermogenesis: you fidget less, sit more
+      still, move a little more efficiently, and hormones that drive hunger and energy shift against you. The body
+      is defending its stores, exactly as it evolved to. The effect is real but usually modest, tens to a couple of
+      hundred calories, not the catastrophic metabolic damage of diet folklore, and it relaxes when you return to
+      maintenance. What to do: expect it, keep deficits moderate so the adaptation stays small, and consider
+      planned periods at maintenance on long diets rather than one endless grind.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">6. Your sleep and stress changed</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Poor sleep rarely rewires your resting metabolism directly. What it reliably does is change your behavior
+      the next day: you move less, skip the walk, train softer, and feel hungrier while you do it, a combination
+      that lowers burn and raises intake at once. Chronic stress works a similar trade through fatigue and comfort
+      eating. A rough month can therefore look exactly like a changed TDEE even though the machinery is untouched.
+      What to do: before recalculating anything, restore sleep for a couple of weeks and see whether your old
+      number starts working again. Often it does.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">7. It did not change; your measurement did</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Sometimes the number is steady and the evidence is lying. Scale weight includes water held with glycogen,
+      water pulled in by a salty restaurant meal, fluid in muscles repairing after hard training, and hormonal
+      shifts across the month. Any of these can add two to five pounds for days and bury a real trend, convincing
+      you that maintenance stopped working when fat loss or maintenance is proceeding fine underneath. What to do:
+      weigh on several mornings, compare weekly averages, and demand three weeks of honest data before concluding
+      your TDEE moved. Our guide to
+      <a class="font-bold text-brand-700 underline" href="/blog/how-accurate-are-tdee-calculators/">how accurate
+      TDEE calculators are</a> walks through that testing method in full.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">When to recalculate</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Keep it simple. Recalculate your TDEE after every 10 to 15 lb of weight change in either direction, when
+      your daily routine changes in a lasting way, and when progress stalls for three full weeks at an intake that
+      used to work. Outside those moments, leave the number alone and let your weekly weight average, the most
+      honest instrument you own, tell you whether it still fits.
+    </p>
+
+    <p class="mt-8 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Farah Akram, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+
+    <Faq faqs={faqs} title="Changing TDEE questions" />
+  </article>
+</BaseLayout>

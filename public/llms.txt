@@ -31,6 +31,9 @@
 - [TDEE vs BMR: What Is the Difference and Which Do You Need?](https://tdeecheck.com/blog/tdee-vs-bmr/): BMR is the resting floor, TDEE is the full day. How the two connect, a worked example, and which number to eat to.
 - [How Accurate Are TDEE Calculators? (And How to Fix Your Number)](https://tdeecheck.com/blog/how-accurate-are-tdee-calculators/): Formulas land within about 10 percent for most people. Where the error hides and the 2 to 3 week test that finds your true TDEE.
 - [What Is a Calorie Deficit? Sizes, Safety and a Worked Example](https://tdeecheck.com/blog/what-is-a-calorie-deficit/): The four deficit sizes compared, the 3,500 kcal rule explained as an approximation, safety floors and a step by step build.
+- [What Is a Good TDEE? Average TDEE by Age, Sex and Activity](https://tdeecheck.com/blog/average-tdee/): Typical TDEE ranges for women and men at four activity levels, how age lowers the number, and why your own tested figure matters more than any average.
+- [How to Use TDEE for Weight Loss: The Safe Deficit Guide](https://tdeecheck.com/blog/tdee-for-weight-loss/): The step by step method: find maintenance, choose a 250 to 500 kcal deficit, set protein, track and adjust, with safety floors and plateau fixes.
+- [Why Your TDEE Changed: 7 Reasons Your Number Moves](https://tdeecheck.com/blog/why-your-tdee-changed/): Weight change, muscle, step drift, aging, adaptive thermogenesis, sleep and water weight: why maintenance calories move and when to recalculate.
 
 ## About
 

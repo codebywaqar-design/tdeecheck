@@ -1,0 +1,166 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Faq from '../../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'How to Use TDEE for Weight Loss: The Safe Deficit Guide',
+    description: 'Use your TDEE to lose weight safely: pick a 250 to 500 kcal deficit, set your protein, track for 2 to 3 weeks, and adjust without breaching safe floors.',
+    url: 'https://tdeecheck.com/blog/tdee-for-weight-loss/',
+    image: 'https://tdeecheck.com/images/tdee-weight-loss-guide-hero.webp',
+    author: { '@type': 'Person', name: 'Farah Akram', jobTitle: 'Dietitian' },
+    publisher: { '@type': 'Organization', name: 'TDEE Check', url: 'https://tdeecheck.com/' },
+    datePublished: '2026-10-22',
+    dateModified: '2026-10-22',
+  },
+];
+
+const faqs = [
+  {
+    q: 'How much below my TDEE should I eat to lose weight?',
+    a: 'For most people, 250 to 500 kcal below maintenance, or about 10 to 20 percent of your TDEE, is the range that produces steady loss without misery. That usually works out to roughly half a pound to a pound per week. Larger deficits lose faster on paper but cost muscle, energy and adherence, so they rarely win over a few months.',
+  },
+  {
+    q: 'Can I eat below 1,200 calories to lose weight faster?',
+    a: 'We do not recommend it. Below about 1,200 kcal a day for women and 1,500 for men, it becomes very hard to cover protein, fiber and micronutrient needs, and the risks of muscle loss, fatigue and rebound eating climb. If your calculated target lands below those floors, the correct fix is a smaller deficit, not a lower target. Very low calorie diets belong under medical supervision.',
+  },
+  {
+    q: 'How fast should I lose weight on a TDEE deficit?',
+    a: 'A safe and sustainable rate is about 0.5 to 1 percent of your body weight per week. For a 165 lb person that is roughly 0.8 to 1.6 lb a week, with the slower end suiting leaner people and the faster end suiting people with more to lose. Week to week the scale will wobble with water; judge the rate on monthly trends.',
+  },
+  {
+    q: 'Why did my weight loss stop even though I eat the same calories?',
+    a: 'Because your TDEE fell to meet them. A lighter body burns less at rest and costs less to move, and your body also trims some background movement while dieting. The calories that were once a deficit are now your maintenance. Recalculate your TDEE at your new weight and rebuild the deficit from there.',
+  },
+  {
+    q: 'Do I need to recalculate my TDEE as I lose weight?',
+    a: 'Yes. Recalculate after every 10 to 15 lb lost, and rebuild your target from the new number. Ten pounds can lower your maintenance by roughly 100 to 200 kcal a day, which is enough to stall a small deficit completely if you keep eating to the old figure.',
+  },
+];
+---
+
+<BaseLayout
+  title="How to Use TDEE for Weight Loss: The Safe Deficit Guide"
+  description="Use your TDEE to lose weight safely: pick a 250 to 500 kcal deficit, set your protein, track for 2 to 3 weeks, and adjust without breaching safe floors."
+  path="/blog/tdee-for-weight-loss/"
+  ogType="article"
+  ogImage="/images/tdee-weight-loss-guide-hero.webp"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog/' },
+    { name: 'TDEE for Weight Loss', path: '/blog/tdee-for-weight-loss/' },
+  ]}
+>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 pt-10">
+    <p class="text-sm font-bold text-brand-700 uppercase tracking-wide">Guide · Reviewed by Farah Akram, Dietitian</p>
+    <h1 class="mt-2 text-4xl font-extrabold tracking-tight text-ink-900">How to use TDEE for weight loss</h1>
+    <p class="mt-5 text-lg text-ink-700 leading-relaxed">
+      Every sensible diet is secretly the same diet: eat a bit less than you burn, for long enough. Your TDEE is
+      what turns that idea into a number. It tells you exactly where maintenance sits, so your deficit can be
+      chosen rather than guessed, and small enough to live with rather than survived for a fortnight. This guide
+      walks through the process step by step, the same sequence our reviewers use: find your number, take a modest
+      slice off it, protect your protein, then let your real results steer the adjustments.
+    </p>
+    <img
+      src="/images/tdee-weight-loss-guide-hero.webp"
+      alt="Illustration of a calorie target set just below daily energy burn, with a plate of food and a gentle downward weight trend"
+      width="2048"
+      height="1152"
+      class="mt-8 w-full rounded-2xl border border-brand-100"
+      loading="eager"
+    />
+
+    <h2 class="mt-10 text-2xl font-extrabold text-ink-900">Step 1: Find your maintenance number</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Weight loss starts from maintenance, not from a generic diet number like 1,500. Run your stats through our
+      <a class="font-bold text-brand-700 underline" href="/tdee-weight-loss-calculator/">TDEE Weight Loss
+      Calculator</a>, being honest about activity: pick the level that describes your whole week, not your best
+      workout day. The result is an estimate, and that is fine. You are going to test it against your own results
+      in step 4, which matters more than the formula's precision on day one.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Step 2: Pick a deficit you can keep</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Subtract 250 to 500 kcal from your TDEE, or take off 10 to 20 percent if your maintenance is unusually high
+      or low. That range produces roughly half a pound to a pound of loss per week, the pace at which hunger stays
+      manageable and training still feels possible. Our
+      <a class="font-bold text-brand-700 underline" href="/calculators/calorie-deficit-calculator/">Calorie Deficit
+      Calculator</a> shows the target for four deficit sizes side by side. If you are new to this, start at the
+      small end. A deficit you keep for six months beats a heroic one you abandon in week three, every time.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Step 3: Set protein before anything else</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      In a deficit your body will happily burn muscle along with fat unless you give it a reason not to. Protein is
+      that reason, along with some resistance training. Aim for about 0.7 to 1 gram of protein per pound of body
+      weight per day. It protects lean tissue, keeps you fuller per calorie than any other macro, and is the single
+      highest value change most dieters can make. Set it first, then let carbohydrates and fats fill the remaining
+      calories in whatever split you enjoy and can repeat. If the idea of a deficit itself is new, our guide to
+      <a class="font-bold text-brand-700 underline" href="/blog/what-is-a-calorie-deficit/">what a calorie deficit
+      is</a> explains the mechanics before you build one.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Step 4: Track for 2 to 3 weeks, then adjust</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Eat at your target consistently and track it honestly, weekends included. Weigh yourself several mornings a
+      week and compare weekly averages. If you are losing at the expected rate, change nothing. If three weeks pass
+      with no downward trend, trim another 100 to 200 kcal or add movement, but not both at once, so you know what
+      worked. If you are losing much faster than planned and feeling drained, add 100 to 200 kcal back. This loop,
+      measure then nudge, is the whole method; the calculator only starts it.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">What a safe rate of loss looks like</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Aim for about 0.5 to 1 percent of your body weight per week. Heavier people can sit near the top of that
+      range; leaner people should stay near the bottom, because the closer you are to essential body fat, the more
+      of each lost pound risks being muscle. Expect the first week to look deceptively fast as water and glycogen
+      leave, and later weeks to look deceptively slow. Judge by the month, not the morning.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">The floors are not negotiable</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      As a general safety guide, most adults should not eat below <strong>1,200 kcal per day for women or 1,500
+      kcal per day for men</strong> without medical supervision. If your deficit math produces a target below those
+      floors, your deficit is too big for your size: shrink the deficit and accept the slower rate. This matters
+      most for smaller, sedentary people, whose maintenance may be only 1,600 to 1,800 to begin with. There is no
+      prize for finishing a diet quickly, and a real risk in finishing it malnourished.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">A worked example</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Our standard example is a woman of 32, 5 ft 6 in, 165 lb, moderately active, with a maintenance TDEE of
+      <strong>2,287 kcal</strong>. A standard 500 kcal deficit sets her target at <strong>1,787 kcal</strong>,
+      comfortably above the 1,200 floor. Her protein target at 0.7 to 1 gram per pound is about 115 to 165 grams a
+      day; she picks the middle, near 130 grams. The arithmetic predicts about a pound a week, and her job for the
+      first three weeks is only to eat near 1,787, train as usual, and watch the weekly average. If it falls by
+      roughly a pound a week, the plan is working and nothing changes.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">When the scale stalls: plateaus</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      A stall after real progress is usually arithmetic, not betrayal. You now weigh less, so you burn less: every
+      10 to 15 lb lost lowers maintenance by roughly 100 to 200 kcal a day. The target that was a deficit at 165 lb
+      can be mere maintenance at 150 lb. The fix is to recalculate your TDEE at your new weight and rebuild the
+      deficit from the new figure, the same steps as before with smaller numbers. Before recalculating, give any
+      stall three honest weeks, because water retention regularly hides two weeks of fat loss and then releases it
+      all at once.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Three mistakes that quietly erase a deficit</h2>
+    <ul class="mt-3 space-y-3 text-ink-700 leading-relaxed list-disc pl-6">
+      <li><strong>The deficit is too big.</strong> A 1,000 kcal deficit feels virtuous for ten days, then hunger, poor sleep and rebound eating hand the calories back with interest. Most long term success stories are built on the boring 300 to 500 range.</li>
+      <li><strong>Weekends erase the week.</strong> Five careful days at a 500 kcal deficit save 2,500 kcal. Two untracked days of restaurants, drinks and snacks can return all of it. Your weekly average intake is your real intake, so the weekend belongs in the plan, not outside it.</li>
+      <li><strong>Liquid calories slip past.</strong> Sweetened coffee, juice, smoothies and alcohol carry hundreds of calories that barely dent hunger and are the easiest to forget when tracking. Swap or count them before you cut food further.</li>
+    </ul>
+
+    <p class="mt-8 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Farah Akram, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+
+    <Faq faqs={faqs} title="TDEE weight loss questions" />
+  </article>
+</BaseLayout>
