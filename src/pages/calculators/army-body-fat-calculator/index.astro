@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ArmyBodyFatCalculator from '../../../components/ArmyBodyFatCalculator.astro';
+import Faq from '../../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Army Body Fat Calculator',
+    url: 'https://tdeecheck.com/calculators/army-body-fat-calculator/',
+    applicationCategory: 'HealthApplication',
+    operatingSystem: 'Any',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Person', name: 'Waqar', jobTitle: 'Dietitian' },
+  },
+];
+
+const faqs = [
+  {
+    q: 'How does the US Army measure body fat?',
+    a: 'With a tape measure, using the circumference method set out in Army regulation AR 600-9. Men are measured at the neck and the waist at the navel. Women are measured at the neck, the waist, and the hip. Those measurements, with height, go into the official formulas this calculator uses, and the result is compared with the maximum allowed for the soldier\'s age group and sex.',
+  },
+  {
+    q: 'What are the Army body fat standards?',
+    a: 'Maximum body fat is 20 percent for men aged 17 to 20, 22 percent at 21 to 27, 24 percent at 28 to 39, and 26 percent at 40 and over. For women the maximums are 30, 32, 34, and 36 percent in the same age groups. Soldiers who exceed their maximum are normally enrolled in the Army Body Composition Program.',
+  },
+  {
+    q: 'How accurate is the Army tape test?',
+    a: 'Against laboratory methods such as DEXA, the circumference formulas usually land within about 3 to 4 percentage points for most people. The method can overestimate body fat in very muscular soldiers with thick necks and underestimate it in people who carry fat mostly on the hips and legs. It is a screening standard, not a clinical measurement.',
+  },
+  {
+    q: 'Where exactly do I measure?',
+    a: 'Neck: around the neck just below the Adam\'s apple, tape level and snug, not tight. Waist: around the navel, at the end of a normal breath out, stomach relaxed. Hip (women): around the widest point of the hips and glutes, feet together. The Army records measurements to the nearest half inch and takes each one more than once.',
+  },
+  {
+    q: 'Why does neck size change my body fat result?',
+    a: 'The formulas use the neck as a rough marker of lean frame size. Two people with the same waist but different neck sizes get different results, and the one with the thicker neck scores leaner, on the logic that a thick neck usually reflects muscle rather than fat. It is also why neck training and posture can noticeably change a tape test result.',
+  },
+];
+---
+
+<BaseLayout
+  title="Army Body Fat Calculator - US Army Circumference Method"
+  description="Free Army body fat calculator using the official US Army circumference method. Tape test your body fat percentage and check it against Army age standards."
+  path="/calculators/army-body-fat-calculator/"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Calculators', path: '/calculators/' },
+    { name: 'Army Body Fat Calculator', path: '/calculators/army-body-fat-calculator/' },
+  ]}
+>
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-8">
+    <div class="max-w-3xl">
+      <h1 class="text-4xl font-extrabold tracking-tight text-ink-900">Army Body Fat Calculator</h1>
+      <p class="mt-4 text-lg text-ink-700 leading-relaxed">
+        This is the US Army tape test, exactly as the service runs it. Grab a soft tape measure, take your neck,
+        waist, and hip measurements, and see your body fat percentage against the official standard for your age
+        group.
+      </p>
+    </div>
+    <div class="mt-8 max-w-4xl">
+      <ArmyBodyFatCalculator />
+    </div>
+  </section>
+
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 mt-14">
+    <h2 class="text-2xl font-extrabold text-ink-900">The Army tape test, explained</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      When a soldier exceeds the Army's screening weight for their height, body composition is checked with the
+      circumference method instead of the scale. The method was developed for the US military because it is cheap,
+      fast, and can be run anywhere with a tape measure. For men it uses one difference, waist minus neck. For
+      women it uses waist plus hip minus neck. Those figures, with height, go into logarithmic formulas published in
+      Army regulation, and the output is an estimated body fat percentage. This calculator uses those exact
+      formulas, the same ones behind every official tape test, rather than the generic estimates used by most online
+      tools.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">The standards by age and sex</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      The Army allows body fat to rise slightly with age. Your result is compared only with the row that matches
+      your sex and age group:
+    </p>
+    <div class="mt-4 overflow-x-auto rounded-xl border border-brand-100">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-brand-50 text-left">
+            <th class="px-4 py-3 font-extrabold text-ink-900">Age group</th>
+            <th class="px-4 py-3 font-extrabold text-ink-900">Men, maximum body fat</th>
+            <th class="px-4 py-3 font-extrabold text-ink-900">Women, maximum body fat</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-brand-50">
+          <tr><td class="px-4 py-3 font-semibold text-ink-700">17 to 20</td><td class="px-4 py-3 text-ink-700">20%</td><td class="px-4 py-3 text-ink-700">30%</td></tr>
+          <tr><td class="px-4 py-3 font-semibold text-ink-700">21 to 27</td><td class="px-4 py-3 text-ink-700">22%</td><td class="px-4 py-3 text-ink-700">32%</td></tr>
+          <tr><td class="px-4 py-3 font-semibold text-ink-700">28 to 39</td><td class="px-4 py-3 text-ink-700">24%</td><td class="px-4 py-3 text-ink-700">34%</td></tr>
+          <tr><td class="px-4 py-3 font-semibold text-ink-700">40 and over</td><td class="px-4 py-3 text-ink-700">26%</td><td class="px-4 py-3 text-ink-700">36%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">How to take measurements that do not lie</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Small measuring errors move the result a lot, because the waist and neck are subtracted from each other. A
+      half inch of wishful thinking on the waist can shift your body fat by roughly a full percentage point.
+      Measure in the morning before a big meal, stand straight, and keep the tape level and snug without digging
+      into the skin. Waist goes at the navel, as the calculator asks. Take every
+      measurement twice and use the average. If you are above standard and want to fix it with food rather than
+      guesswork, work out your intake with the
+      <a class="font-bold text-brand-700 underline" href="/calculators/calorie-deficit-calculator/">Calorie Deficit Calculator</a>
+      and your maintenance level with the <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a>.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Tape test versus other body fat methods</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      The tape test sits in the middle of the accuracy ladder. It beats BMI, which cannot separate muscle from fat
+      at all (compare your own numbers on the <a class="font-bold text-brand-700 underline" href="/calculators/bmi-calculator/">BMI Calculator</a>),
+      and it is roughly level with good caliper testing when the measurer is careful. DEXA scans and hydrostatic
+      weighing are more precise but cost money and need a lab. For tracking your own progress the tape test has one
+      underrated strength: repeatability. If you measure the same way, in the same places, every two weeks, the
+      trend it shows is honest even if the absolute number is a point or two off. Pair it with your
+      <a class="font-bold text-brand-700 underline" href="/calculators/lean-body-mass-calculator/">lean body mass</a>
+      estimate and you get a full picture of what is changing as you train.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Above standard? A sensible way back</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      If your result is over the line, the gap is usually smaller than it feels. Because the formula works off the
+      waist minus neck difference for men, losing an inch at the waist is worth roughly 2 to 3 percentage points,
+      and that inch typically takes four to eight weeks of steady deficit eating, not a crash diet. Set your intake
+      with the deficit calculator linked above, keep protein high to protect muscle and, yes, neck size, and keep
+      training, especially pressing, rows, and loaded carries, because muscle lost on a hard diet makes the tape
+      test harder, not easier. Avoid the classic tape week traps: dehydration, laxatives, and sauna suits move scale
+      weight and skin tightness for a day, but they shrink the neck about as fast as the waist, wreck your
+      performance, and can be genuinely dangerous. Remeasure every two weeks under the same conditions and trust
+      the trend.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">A note for civilians using this test</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      You do not need to be a soldier for this calculator to be useful. It is one of the few body fat methods that
+      needs nothing but a tape measure, it has decades of use behind it, and its standards give you concrete
+      benchmarks to aim at, which most body fat estimates lack. Keep the civilian caveat in mind though: the Army
+      maximums are administrative standards chosen for a young, active population, not health thresholds. A result a
+      point or two above the 21 to 27 row is not a medical finding, and a result under it does not prove fitness.
+      Use the number as one honest signal among several, alongside your waist size, fitness, and how your clothes
+      fit.
+    </p>
+    <p class="mt-6 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Waqar, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+    <Faq faqs={faqs} />
+  </article>
+</BaseLayout>

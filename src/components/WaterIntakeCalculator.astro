@@ -1,0 +1,96 @@
+---
+// Water intake calculator: base 35 ml per kg of body weight, plus 350 ml per 30 min of exercise.
+---
+
+<div class="bg-white rounded-2xl shadow-lg shadow-brand-900/5 border border-brand-100 p-5 sm:p-7" id="calculator">
+  <form id="water-form" novalidate>
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <p class="font-extrabold text-ink-900 text-lg">Your details</p>
+      <div class="inline-flex rounded-lg bg-brand-50 border border-brand-100 p-1" role="group" aria-label="Units">
+        <button type="button" data-units="imperial" class="water-units-btn px-3 py-1.5 rounded-md text-sm font-bold bg-brand-600 text-white">Imperial (lb)</button>
+        <button type="button" data-units="metric" class="water-units-btn px-3 py-1.5 rounded-md text-sm font-bold text-ink-700">Metric (kg)</button>
+      </div>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-4 mt-5">
+      <div>
+        <label class="block text-sm font-bold text-ink-700 mb-2" for="water-weight">Body weight <span id="water-weight-unit" class="font-semibold text-ink-500">(lb)</span></label>
+        <input id="water-weight" type="number" inputmode="decimal" min="50" max="1000" value="165" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+      </div>
+      <div>
+        <label class="block text-sm font-bold text-ink-700 mb-2" for="water-exercise">Exercise per day (minutes)</label>
+        <input id="water-exercise" type="number" inputmode="numeric" min="0" max="600" value="30" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        <p class="mt-1.5 text-xs text-ink-500">Training, sport, or hard physical work. Leave at 0 on rest days.</p>
+      </div>
+    </div>
+    <p id="water-error" class="hidden mt-4 text-sm font-semibold text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3" role="alert"></p>
+    <button type="submit" class="mt-6 w-full sm:w-auto inline-flex justify-center items-center rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-extrabold px-8 py-3.5 text-base shadow-md shadow-brand-600/20">Calculate my water intake</button>
+  </form>
+
+  <div id="water-results" class="hidden mt-8 border-t border-brand-100 pt-7" aria-live="polite">
+    <div class="rounded-2xl bg-brand-600 text-white p-6 text-center">
+      <p class="text-sm font-bold uppercase tracking-wide text-brand-100">Your daily water target</p>
+      <p class="mt-1 text-5xl font-extrabold"><span id="water-liters">0</span> <span class="text-xl font-bold">liters / day</span></p>
+      <p id="water-base-note" class="mt-3 text-sm text-brand-100"></p>
+    </div>
+    <div class="mt-4 grid gap-4 sm:grid-cols-3">
+      <div class="rounded-xl border border-brand-100 bg-brand-50/60 p-5 text-center">
+        <p class="text-sm font-bold text-ink-500 uppercase tracking-wide">Milliliters</p>
+        <p class="mt-1 text-2xl font-extrabold text-brand-700"><span id="water-ml">0</span> ml</p>
+      </div>
+      <div class="rounded-xl border border-brand-100 bg-brand-50/60 p-5 text-center">
+        <p class="text-sm font-bold text-ink-500 uppercase tracking-wide">US fluid ounces</p>
+        <p class="mt-1 text-2xl font-extrabold text-brand-700"><span id="water-oz">0</span> fl oz</p>
+      </div>
+      <div class="rounded-xl border border-brand-100 bg-brand-50/60 p-5 text-center">
+        <p class="text-sm font-bold text-ink-500 uppercase tracking-wide">Glasses (240 ml)</p>
+        <p class="mt-1 text-2xl font-extrabold text-brand-700">about <span id="water-glasses">0</span></p>
+      </div>
+    </div>
+    <p class="mt-4 text-sm text-ink-700">This is the water to drink across the day. Food adds more on top, roughly a fifth of your total daily water usually comes from meals, soups, and fruit.</p>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var units = 'imperial';
+    function $(id) { return document.getElementById(id); }
+    function fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+
+    document.querySelectorAll('.water-units-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        units = b.getAttribute('data-units');
+        document.querySelectorAll('.water-units-btn').forEach(function (x) {
+          var active = x.getAttribute('data-units') === units;
+          x.className = 'water-units-btn px-3 py-1.5 rounded-md text-sm font-bold ' + (active ? 'bg-brand-600 text-white' : 'text-ink-700');
+        });
+        $('water-weight-unit').textContent = units === 'imperial' ? '(lb)' : '(kg)';
+        var w = parseFloat($('water-weight').value);
+        if (!isNaN(w)) $('water-weight').value = units === 'imperial' ? Math.round(w * 2.20462) : Math.round(w / 2.20462);
+      });
+    });
+
+    $('water-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var err = $('water-error');
+      err.classList.add('hidden');
+      var weightRaw = parseFloat($('water-weight').value);
+      var minutes = parseFloat($('water-exercise').value);
+      var weightKg = units === 'imperial' ? weightRaw * 0.45359237 : weightRaw;
+      if (isNaN(weightRaw) || weightKg < 25 || weightKg > 450 || isNaN(minutes) || minutes < 0 || minutes > 600) {
+        err.textContent = 'Please check your entries: a realistic body weight, and exercise between 0 and 600 minutes.';
+        err.classList.remove('hidden');
+        return;
+      }
+      var baseMl = weightKg * 35;
+      var exerciseMl = (minutes / 30) * 350;
+      var totalMl = baseMl + exerciseMl;
+      $('water-liters').textContent = (totalMl / 1000).toFixed(2);
+      $('water-ml').textContent = fmt(totalMl);
+      $('water-oz').textContent = fmt(totalMl / 29.5735);
+      $('water-glasses').textContent = (totalMl / 240).toFixed(1);
+      $('water-base-note').textContent = 'That is ' + fmt(baseMl) + ' ml for your body weight, plus ' + fmt(exerciseMl) + ' ml for ' + minutes + ' minutes of exercise.';
+      $('water-results').classList.remove('hidden');
+      $('water-results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  })();
+</script>

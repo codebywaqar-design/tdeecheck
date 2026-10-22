@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PregnancyCalorieCalculator from '../../../components/PregnancyCalorieCalculator.astro';
+import Faq from '../../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Pregnancy Calorie Calculator',
+    url: 'https://tdeecheck.com/calculators/pregnancy-calorie-calculator/',
+    applicationCategory: 'HealthApplication',
+    operatingSystem: 'Any',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Person', name: 'Waqar', jobTitle: 'Dietitian' },
+  },
+];
+
+const faqs = [
+  {
+    q: 'How many extra calories do I need in each trimester?',
+    a: 'The widely used figures are no extra calories in the first trimester, about 340 extra kcal per day in the second trimester, and about 450 extra kcal per day in the third. These are the additions this calculator applies on top of your maintenance calories. They assume you started pregnancy in the healthy weight range; needs can differ if you started underweight or with obesity.',
+  },
+  {
+    q: 'Am I really eating for two?',
+    a: 'Not in the way the saying suggests. Your baby is small, and even in the third trimester the extra need is roughly one substantial snack, about 450 kcal, not a second set of meals. Eating for two in appetite usually leads to gaining well above the recommended range, which raises risks for you and the baby. Think eating for 1.2, not 2.',
+  },
+  {
+    q: 'How much weight should I gain during pregnancy?',
+    a: 'Standard guidance based on your pre-pregnancy BMI is: underweight (BMI under 18.5), gain 28 to 40 lb; healthy weight (18.5 to 24.9), gain 25 to 35 lb; overweight (25 to 29.9), gain 15 to 25 lb; obesity (30 or over), gain 11 to 20 lb. Your own care team may set a different target, especially for twins, and their advice wins over any general range.',
+  },
+  {
+    q: 'Can I try to lose weight while pregnant?',
+    a: 'Intentional weight loss during pregnancy is generally not recommended, even for women who start with obesity, because the baby depends on a steady supply of energy and nutrients. If weight is a concern, the usual approach is to aim for the low end of the recommended gain range under medical supervision. Please discuss it with your doctor or midwife rather than dieting on your own.',
+  },
+  {
+    q: 'What if nausea means I cannot eat my target in the first trimester?',
+    a: 'That is extremely common, and the first trimester needs no extra calories, so small frequent meals, plain carbohydrate foods, and fluids between meals are a reasonable focus. Most women make up ground naturally in the second trimester. Persistent vomiting, inability to keep fluids down, or losing weight needs a prompt conversation with your care team.',
+  },
+];
+---
+
+<BaseLayout
+  title="Pregnancy Calorie Calculator - How Much to Eat by Trimester"
+  description="Free pregnancy calorie calculator. Find your maintenance calories plus the extra energy you need in trimester one, two, or three, from your own body stats."
+  path="/calculators/pregnancy-calorie-calculator/"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Calculators', path: '/calculators/' },
+    { name: 'Pregnancy Calorie Calculator', path: '/calculators/pregnancy-calorie-calculator/' },
+  ]}
+>
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-8">
+    <div class="max-w-3xl">
+      <h1 class="text-4xl font-extrabold tracking-tight text-ink-900">Pregnancy Calorie Calculator</h1>
+      <p class="mt-4 text-lg text-ink-700 leading-relaxed">
+        Pregnancy raises your energy needs by a surprisingly modest amount, and the increase changes by trimester.
+        Enter your details and trimester to see your maintenance calories plus the standard addition for this stage.
+      </p>
+      <p class="mt-3 text-sm font-semibold text-ink-500">Reviewed by Waqar, Dietitian. An estimate to discuss with your doctor or midwife, not a prescription.</p>
+    </div>
+    <div class="mt-8 max-w-4xl">
+      <PregnancyCalorieCalculator />
+    </div>
+  </section>
+
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 mt-14">
+    <p class="rounded-xl bg-amber-50 border border-amber-200 px-5 py-4 text-sm font-semibold text-ink-700">
+      Important: pregnancy calorie needs are individual. Your starting weight, whether you are carrying more than
+      one baby, your blood sugar, and your medical history can all change the right target. Use this page as a
+      starting estimate and confirm your personal target with your doctor or midwife.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Why pregnancy changes your calorie needs</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Growing a baby costs energy in three ways. The baby, placenta, and uterus are new tissue that has to be
+      built. Your blood volume and heart workload rise, so your resting metabolism climbs through pregnancy. And
+      you are carrying extra weight everywhere you go, which makes every step cost more. The total bill across a
+      full pregnancy averages roughly 200 to 300 kcal a day, but it is heavily back loaded: almost nothing extra is
+      needed while the embryo is tiny in the first trimester, and the real demand arrives in the second half. That
+      is why this calculator starts from your own maintenance level, worked out with the same Mifflin-St Jeor
+      method as our main <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a>, and then adds
+      the trimester amount on top.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">The extra calories, trimester by trimester</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      First trimester: no addition. Your body adapts early, and nausea often reduces intake anyway, so holding
+      your normal maintenance is the goal. Second trimester: about 340 extra kcal a day, roughly a sandwich, or a
+      bowl of Greek yogurt with fruit and a handful of nuts. Third trimester: about 450 extra kcal a day, roughly a
+      small extra meal. These figures come from the energy cost estimates used in standard obstetric nutrition
+      guidance. They assume a healthy starting weight. If you started pregnancy underweight, your team may want a
+      larger addition; if you started with obesity, a smaller one, and those individual calls belong to your care
+      team, not a calculator.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Healthy weight gain ranges</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Eating to the target above should land most women inside the recommended gain range for their starting BMI:
+      28 to 40 lb if you started underweight, 25 to 35 lb from a healthy weight, 15 to 25 lb if you started
+      overweight, and 11 to 20 lb if you started with obesity. If you do not know your pre-pregnancy BMI, our
+      <a class="font-bold text-brand-700 underline" href="/calculators/bmi-calculator/">BMI Calculator</a> can work
+      it out from your pre-pregnancy weight. Gain is not linear: a pound or two in the first trimester, then
+      roughly a pound a week in the second half for the healthy weight range, is a typical pattern. Sudden rapid
+      gain, or no gain at all in the second half, is worth raising at your next appointment.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Where the extra calories should come from</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Quality matters more than the exact count. Protein needs rise in pregnancy, so anchor meals around protein
+      foods, and spread the addition across the day rather than adding one large meal. Folate rich foods such as
+      lentils, beans, and leafy greens, iron rich foods paired with vitamin C, calcium, and oily fish once or twice
+      a week all do real work. Fluids matter too, and our
+      <a class="font-bold text-brand-700 underline" href="/calculators/water-intake-calculator/">Water Intake Calculator</a>
+      gives a sensible daily drinking target. After the birth, the energy question changes again, and our
+      <a class="font-bold text-brand-700 underline" href="/calculators/breastfeeding-calorie-calculator/">Breastfeeding Calorie Calculator</a>
+      picks the story up from there.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Special cases a calculator cannot see</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Twins and higher multiples need more energy than a single baby, and the recommended gain ranges are higher
+      too, so do not run this calculator twice and add the results; ask your care team for your target instead.
+      The same applies if you have gestational diabetes, high blood pressure, a history of eating disorders, or you
+      are a teenager still growing yourself. Very active women, including those continuing serious training, should
+      also treat the activity setting with care: choose the level that matches your current training honestly and
+      watch your gain trend, because appetite and fatigue often adjust intake better than any table. And if your
+      weight gain is running persistently outside your range in either direction, that is information for your next
+      appointment, not a reason to cut or force calories on your own.
+    </p>
+    <p class="mt-6 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Waqar, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+    <Faq faqs={faqs} />
+  </article>
+</BaseLayout>

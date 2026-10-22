@@ -1,0 +1,171 @@
+---
+// Calorie deficit calculator: Mifflin-St Jeor TDEE, then 250 / 500 / 750 / 1000 kcal deficits.
+// Safety floors: targets never go below 1,200 kcal (women) or 1,500 kcal (men); clamped cards warn.
+---
+
+<div class="bg-white rounded-2xl shadow-lg shadow-brand-900/5 border border-brand-100 p-5 sm:p-7" id="calculator">
+  <form id="def-form" novalidate>
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <p class="font-extrabold text-ink-900 text-lg">Your details</p>
+      <div class="inline-flex rounded-lg bg-brand-50 border border-brand-100 p-1" role="group" aria-label="Units">
+        <button type="button" data-units="imperial" class="def-units-btn px-3 py-1.5 rounded-md text-sm font-bold bg-brand-600 text-white">Imperial (lb, ft)</button>
+        <button type="button" data-units="metric" class="def-units-btn px-3 py-1.5 rounded-md text-sm font-bold text-ink-700">Metric (kg, cm)</button>
+      </div>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-4 mt-5">
+      <div>
+        <span class="block text-sm font-bold text-ink-700 mb-2">Sex</span>
+        <div class="grid grid-cols-2 gap-2">
+          <button type="button" data-sex="female" class="def-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm border-brand-600 bg-brand-50 text-brand-800">Female</button>
+          <button type="button" data-sex="male" class="def-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm border-brand-100 bg-white text-ink-700">Male</button>
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-bold text-ink-700 mb-2" for="def-age">Age (years)</label>
+        <input id="def-age" type="number" inputmode="numeric" min="10" max="100" value="32" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+      </div>
+      <div>
+        <span class="block text-sm font-bold text-ink-700 mb-2">Height</span>
+        <div id="def-height-imperial" class="grid grid-cols-2 gap-2">
+          <input id="def-ft" type="number" inputmode="numeric" min="3" max="8" value="5" placeholder="ft" aria-label="Feet" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          <input id="def-inch" type="number" inputmode="numeric" min="0" max="11" value="6" placeholder="in" aria-label="Inches" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+        <div id="def-height-metric" class="hidden">
+          <input id="def-cm" type="number" inputmode="numeric" min="100" max="250" value="168" placeholder="cm" aria-label="Centimeters" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-bold text-ink-700 mb-2" for="def-weight">Weight <span id="def-weight-unit" class="font-semibold text-ink-500">(lb)</span></label>
+        <input id="def-weight" type="number" inputmode="decimal" min="50" max="1000" value="165" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+      </div>
+      <div>
+        <label class="block text-sm font-bold text-ink-700 mb-2" for="def-activity">Activity level</label>
+        <select id="def-activity" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-brand-500">
+          <option value="1.2">Sedentary: desk job, little or no exercise</option>
+          <option value="1.375">Light: exercise 1 to 3 days a week</option>
+          <option value="1.55" selected>Moderate: exercise 3 to 5 days a week</option>
+          <option value="1.725">Very active: hard exercise 6 to 7 days a week</option>
+          <option value="1.9">Athlete: very hard exercise, physical job or training twice a day</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-bold text-ink-700 mb-2" for="def-goal">Goal weight <span class="font-semibold text-ink-500">(optional)</span> <span id="def-goal-unit" class="font-semibold text-ink-500">(lb)</span></label>
+        <input id="def-goal" type="number" inputmode="decimal" min="50" max="1000" placeholder="e.g. 145" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        <p class="mt-1.5 text-xs text-ink-500">Add a goal weight and each card estimates how many weeks it takes to get there.</p>
+      </div>
+    </div>
+    <p id="def-error" class="hidden mt-4 text-sm font-semibold text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3" role="alert"></p>
+    <button type="submit" class="mt-6 w-full sm:w-auto inline-flex justify-center items-center rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-extrabold px-8 py-3.5 text-base shadow-md shadow-brand-600/20">Calculate my deficit</button>
+  </form>
+
+  <div id="def-results" class="hidden mt-8 border-t border-brand-100 pt-7" aria-live="polite">
+    <div class="rounded-2xl bg-brand-600 text-white p-6 text-center">
+      <p class="text-sm font-bold uppercase tracking-wide text-brand-100">Your maintenance calories (TDEE)</p>
+      <p class="mt-1 text-5xl font-extrabold"><span id="def-tdee">0</span> <span class="text-xl font-bold">kcal / day</span></p>
+      <p id="def-formula-note" class="mt-3 text-sm text-brand-100"></p>
+    </div>
+    <h3 class="mt-8 font-extrabold text-ink-900 text-lg">Four deficit sizes, compared</h3>
+    <p class="mt-1 text-sm text-ink-500">Weekly loss uses the standard planning rule of about 3,500 kcal per pound of fat (7,700 kcal per kg). Real loss varies week to week.</p>
+    <div id="def-cards" class="mt-4 grid gap-4 md:grid-cols-2"></div>
+    <p id="def-goal-note" class="hidden mt-4 text-sm font-semibold text-ink-700 bg-brand-50 border border-brand-100 rounded-lg px-4 py-3"></p>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var units = 'imperial';
+    var sex = 'female';
+    function $(id) { return document.getElementById(id); }
+    function fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+
+    document.querySelectorAll('.def-units-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        units = b.getAttribute('data-units');
+        document.querySelectorAll('.def-units-btn').forEach(function (x) {
+          var active = x.getAttribute('data-units') === units;
+          x.className = 'def-units-btn px-3 py-1.5 rounded-md text-sm font-bold ' + (active ? 'bg-brand-600 text-white' : 'text-ink-700');
+        });
+        $('def-height-imperial').classList.toggle('hidden', units !== 'imperial');
+        $('def-height-metric').classList.toggle('hidden', units !== 'metric');
+        $('def-weight-unit').textContent = units === 'imperial' ? '(lb)' : '(kg)';
+        $('def-goal-unit').textContent = units === 'imperial' ? '(lb)' : '(kg)';
+        var w = parseFloat($('def-weight').value);
+        if (!isNaN(w)) $('def-weight').value = units === 'imperial' ? Math.round(w * 2.20462) : Math.round(w / 2.20462);
+        var g = parseFloat($('def-goal').value);
+        if (!isNaN(g)) $('def-goal').value = units === 'imperial' ? Math.round(g * 2.20462) : Math.round(g / 2.20462);
+      });
+    });
+    document.querySelectorAll('.def-sex-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        sex = b.getAttribute('data-sex');
+        document.querySelectorAll('.def-sex-btn').forEach(function (x) {
+          var active = x.getAttribute('data-sex') === sex;
+          x.className = 'def-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm ' + (active ? 'border-brand-600 bg-brand-50 text-brand-800' : 'border-brand-100 bg-white text-ink-700');
+        });
+      });
+    });
+
+    $('def-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var err = $('def-error');
+      err.classList.add('hidden');
+      var age = parseFloat($('def-age').value);
+      var weightRaw = parseFloat($('def-weight').value);
+      var heightCm = units === 'imperial'
+        ? ((parseFloat($('def-ft').value) || 0) * 12 + (parseFloat($('def-inch').value) || 0)) * 2.54
+        : parseFloat($('def-cm').value);
+      var weightKg = units === 'imperial' ? weightRaw * 0.45359237 : weightRaw;
+      var activity = parseFloat($('def-activity').value);
+      var goalRaw = $('def-goal').value.trim() === '' ? NaN : parseFloat($('def-goal').value);
+      var goalKg = units === 'imperial' ? goalRaw * 0.45359237 : goalRaw;
+      if (isNaN(age) || age < 10 || age > 100 || isNaN(weightRaw) || weightKg < 25 || weightKg > 450 || isNaN(heightCm) || heightCm < 100 || heightCm > 250) {
+        err.textContent = 'Please check your entries: age 10 to 100, a realistic height, and a realistic weight.';
+        err.classList.remove('hidden');
+        return;
+      }
+      if (!isNaN(goalRaw) && (goalKg < 25 || goalKg > 450)) {
+        err.textContent = 'Please check your goal weight, or leave it empty.';
+        err.classList.remove('hidden');
+        return;
+      }
+      var bmr = 10 * weightKg + 6.25 * heightCm - 5 * age + (sex === 'male' ? 5 : -161);
+      var tdee = bmr * activity;
+      var floor = sex === 'female' ? 1200 : 1500;
+      $('def-tdee').textContent = fmt(tdee);
+      $('def-formula-note').textContent = 'Your BMR is ' + fmt(bmr) + ' kcal per day (Mifflin-St Jeor), multiplied by your activity level of ' + activity + '. Targets never go below the safety floor of ' + fmt(floor) + ' kcal.';
+      var toLoseKg = isNaN(goalKg) ? NaN : weightKg - goalKg;
+      var deficits = [250, 500, 750, 1000];
+      $('def-cards').innerHTML = deficits.map(function (d) {
+        var rawTarget = tdee - d;
+        var clamped = rawTarget < floor;
+        var target = clamped ? floor : rawTarget;
+        var effDeficit = tdee - target;
+        var weeklyLb = effDeficit * 7 / 3500;
+        var weeklyText = units === 'imperial'
+          ? 'Lose about ' + weeklyLb.toFixed(2).replace(/\.?0+$/, '') + ' lb per week'
+          : 'Lose about ' + (effDeficit * 7 / 7700).toFixed(2).replace(/\.?0+$/, '') + ' kg per week';
+        var html = '<article class="rounded-xl border border-brand-100 bg-brand-50/60 p-5">' +
+          '<h4 class="font-extrabold text-ink-900">' + fmt(d) + ' kcal deficit</h4>' +
+          '<p class="mt-1 text-3xl font-extrabold text-brand-700">' + fmt(target) + ' <span class="text-sm font-bold text-ink-500">kcal / day</span></p>' +
+          '<p class="mt-2 text-sm font-bold text-ink-700">' + weeklyText + '</p>';
+        if (!isNaN(toLoseKg) && toLoseKg > 0 && effDeficit > 0) {
+          var weeks = toLoseKg / (effDeficit * 7 / 7700);
+          html += '<p class="mt-1 text-sm font-semibold text-ink-500">About ' + Math.max(1, Math.round(weeks)) + ' weeks to reach your goal weight</p>';
+        }
+        if (clamped) {
+          html += '<p class="mt-3 text-sm font-semibold text-red-700 bg-red-50 border border-red-200 rounded-lg px-3 py-2">Held at the ' + fmt(floor) + ' kcal safety floor. Your real deficit at this setting is ' + fmt(effDeficit) + ' kcal, so progress is slower but safer.</p>';
+        }
+        return html + '</article>';
+      }).join('');
+      var goalNote = $('def-goal-note');
+      if (!isNaN(toLoseKg) && toLoseKg <= 0) {
+        goalNote.textContent = 'Your goal weight is not below your current weight, so no loss timeline is shown. For gaining targets, use the TDEE Calculator on our homepage.';
+        goalNote.classList.remove('hidden');
+      } else {
+        goalNote.classList.add('hidden');
+      }
+      $('def-results').classList.remove('hidden');
+      $('def-results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  })();
+</script>

@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CalorieDeficitCalculator from '../../../components/CalorieDeficitCalculator.astro';
+import Faq from '../../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Calorie Deficit Calculator',
+    url: 'https://tdeecheck.com/calculators/calorie-deficit-calculator/',
+    applicationCategory: 'HealthApplication',
+    operatingSystem: 'Any',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Person', name: 'Waqar', jobTitle: 'Dietitian' },
+  },
+];
+
+const faqs = [
+  {
+    q: 'What is a calorie deficit?',
+    a: 'A calorie deficit is eating fewer calories than your body burns in a day. Your burn is your TDEE. Eat below it consistently and your body covers the shortfall from stored energy, mostly fat. The size of the gap, the deficit, decides how fast you lose: roughly, a daily deficit of 500 kcal adds up to about 1 lb of loss per week.',
+  },
+  {
+    q: 'Which deficit should I choose?',
+    a: 'For most people the 500 kcal deficit is the best starting point: about 1 lb per week, fast enough to see progress, mild enough to live with. Choose 250 if you are already lean, small, or have a low maintenance level. The 750 and 1,000 kcal options suit people with a lot to lose and a high TDEE, and they get harder to sustain, which is why this calculator never lets a target fall below the safety floors.',
+  },
+  {
+    q: 'Why does the calculator stop at 1,200 or 1,500 kcal?',
+    a: 'Below about 1,200 kcal a day for women and 1,500 kcal a day for men, it becomes very hard to cover protein, fiber, vitamins, and minerals, and muscle loss, fatigue, and hormonal disruption become much more likely. Those floors are widely used minimums for unsupervised dieting. If a deficit setting would take you under the floor, the card holds your target at the floor and says so.',
+  },
+  {
+    q: 'Is 3,500 kcal really one pound of fat?',
+    a: 'It is a planning approximation, not a law of physics. A pound of body fat tissue stores roughly 3,500 kcal, and the rule predicts early weight loss reasonably well. Over months, real loss usually runs a little slower than the rule predicts, because a lighter body burns less and the body adapts in small ways. Use the rule to plan, and your 3 week weight trend to judge.',
+  },
+  {
+    q: 'How fast can I safely lose weight?',
+    a: 'A widely used safe range is about 0.5 to 1 percent of your body weight per week. For a 180 lb person that is roughly 0.9 to 1.8 lb per week. Faster loss raises the share of muscle in what you lose, the risk of gallstones, and the odds of rebound. Slow and repeatable beats fast and abandoned almost every time.',
+  },
+  {
+    q: 'Why is my weight loss slower than the calculator says?',
+    a: 'Usually one of four things: portions creeping up, weekend eating wiping out weekday deficits, water retention hiding fat loss on the scale for a week or two, or a TDEE that has fallen as you have lost weight. Recalculate here every 10 to 15 lb, weigh under the same conditions, and judge the 3 week trend rather than any single morning.',
+  },
+];
+---
+
+<BaseLayout
+  title="Calorie Deficit Calculator - Target Intake and Weekly Loss"
+  description="Free calorie deficit calculator. Compare 250, 500, 750, and 1,000 kcal deficits with safe daily targets, projected weekly loss, and weeks to your goal weight."
+  path="/calculators/calorie-deficit-calculator/"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Calculators', path: '/calculators/' },
+    { name: 'Calorie Deficit Calculator', path: '/calculators/calorie-deficit-calculator/' },
+  ]}
+>
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-8">
+    <div class="max-w-3xl">
+      <h1 class="text-4xl font-extrabold tracking-tight text-ink-900">Calorie Deficit Calculator</h1>
+      <p class="mt-4 text-lg text-ink-700 leading-relaxed">
+        Fat loss is a gap between what you burn and what you eat. This calculator finds your burn, then shows four
+        deficit sizes side by side, with the daily target, the weekly loss to expect, and a timeline if you add a
+        goal weight.
+      </p>
+    </div>
+    <div class="mt-8 max-w-4xl">
+      <CalorieDeficitCalculator />
+    </div>
+  </section>
+
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 mt-14">
+    <h2 class="text-2xl font-extrabold text-ink-900">How a calorie deficit works</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Your body spends energy all day, and the total is your TDEE. Eat exactly that and your weight holds. Eat less
+      and the difference, the deficit, has to come from somewhere, and with enough protein and training it comes
+      mostly from fat stores. The arithmetic of planning is simple: body fat stores about 3,500 kcal per pound
+      (7,700 per kg), so a 500 kcal daily deficit sums to about 3,500 kcal a week, roughly a pound of fat. This
+      calculator works out your TDEE with the Mifflin-St Jeor formula, the same engine as the
+      <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a> on our homepage, then subtracts
+      each deficit size so you can compare your options honestly before choosing one.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Choosing your deficit size</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      The 250 kcal deficit is the quiet option: about half a pound a week, barely noticeable hunger, and the best
+      choice if you are already fairly lean, if your maintenance is low, or if past diets have collapsed under
+      their own harshness. The 500 kcal deficit, about a pound a week, is the standard recommendation and the right
+      default for most people. The 750 kcal option speeds things up for people with a high TDEE and a lot to lose,
+      but meal satisfaction takes real planning. The 1,000 kcal deficit is the aggressive end: about two pounds a
+      week, difficult to sustain, and the setting most likely to hit the safety floor below. Across all four, the
+      research and practical coaching agree on one point: the deficit that works is the one you can still be
+      following in month three.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">The safety floors, and why they exist</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      No card on this page will ever show a target below 1,200 kcal a day for women or 1,500 kcal a day for men.
+      Those are widely used minimum intakes for dieting without medical supervision. Under them, covering your
+      protein, fiber, and micronutrients becomes a puzzle with missing pieces, and the costs show up as muscle loss,
+      brittle energy, hair shedding, and a rebound when the diet inevitably breaks. When a deficit setting would
+      push you under the floor, the card clamps the target at the floor and tells you your real deficit, so the
+      projection stays honest. Smaller bodies simply cannot run large deficits safely, and that is a fact to plan
+      around, not a problem with your willpower. Our
+      <a class="font-bold text-brand-700 underline" href="/tdee-weight-loss-calculator/">TDEE Weight Loss Calculator</a>
+      goes deeper on safe fat loss if you want the full picture.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Making the deficit livable</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      The math sets the target; habits decide whether you hit it. Protein is the highest lever: it protects muscle
+      and is the most filling macronutrient, and the
+      <a class="font-bold text-brand-700 underline" href="/calculators/macro-calculator/">Macro Calculator</a> will
+      split your target into grams. High fiber foods and high water volume foods let you eat satisfying plates for
+      fewer calories, and keeping up with fluids, guided by the
+      <a class="font-bold text-brand-700 underline" href="/calculators/water-intake-calculator/">Water Intake Calculator</a>,
+      blunts the thirst that often masquerades as hunger. Sleep and daily steps matter more than any single workout:
+      both guard your energy expenditure and your appetite hormones. Finally, recalculate every 10 to 15 lb lost. A
+      lighter body has a lower TDEE, and a deficit that is never updated quietly shrinks into maintenance.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">About the timelines on each card</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      When you enter a goal weight, each card estimates the weeks needed by dividing the weight you have to lose by
+      that card's weekly loss rate. Read those numbers as optimistic planning figures, not promises. They assume
+      your deficit and your TDEE both stay fixed, and in real life your TDEE falls as you get lighter, so the later
+      weeks of a long diet run slower than the first ones. Water shifts can also hide two or three weeks of real
+      progress and then release it at once. A good way to use the timelines is to pick the card whose date you can
+      live with, then review every month: if you are within about 20 percent of the predicted pace, the plan is
+      working and needs no change. If you are far behind with honest tracking, nudge the deficit by 100 to 200 kcal
+      or add daily steps before reaching for a bigger cut.
+    </p>
+    <p class="mt-6 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Waqar, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+    <Faq faqs={faqs} />
+  </article>
+</BaseLayout>

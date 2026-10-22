@@ -1,0 +1,133 @@
+---
+// Breastfeeding calorie calculator: Mifflin-St Jeor TDEE (female) plus a milk production allowance.
+// Baby under 6 months: +330 kcal per day. Baby 6 months or older, with solids: +400 kcal per day.
+---
+
+<div class="bg-white rounded-2xl shadow-lg shadow-brand-900/5 border border-brand-100 p-5 sm:p-7" id="calculator">
+  <form id="brf-form" novalidate>
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <p class="font-extrabold text-ink-900 text-lg">Your details</p>
+      <div class="inline-flex rounded-lg bg-brand-50 border border-brand-100 p-1" role="group" aria-label="Units">
+        <button type="button" data-units="imperial" class="brf-units-btn px-3 py-1.5 rounded-md text-sm font-bold bg-brand-600 text-white">Imperial (lb, ft)</button>
+        <button type="button" data-units="metric" class="brf-units-btn px-3 py-1.5 rounded-md text-sm font-bold text-ink-700">Metric (kg, cm)</button>
+      </div>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-4 mt-5">
+      <div>
+        <label class="block text-sm font-bold text-ink-700 mb-2" for="brf-age">Age (years)</label>
+        <input id="brf-age" type="number" inputmode="numeric" min="15" max="55" value="30" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+      </div>
+      <div>
+        <label class="block text-sm font-bold text-ink-700 mb-2" for="brf-baby">Baby's age</label>
+        <select id="brf-baby" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-brand-500">
+          <option value="330" selected>Under 6 months (mostly or fully breastfeeding), +330 kcal</option>
+          <option value="400">6 months or older (breastfeeding alongside solids), +400 kcal</option>
+        </select>
+      </div>
+      <div>
+        <span class="block text-sm font-bold text-ink-700 mb-2">Height</span>
+        <div id="brf-height-imperial" class="grid grid-cols-2 gap-2">
+          <input id="brf-ft" type="number" inputmode="numeric" min="3" max="8" value="5" placeholder="ft" aria-label="Feet" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          <input id="brf-inch" type="number" inputmode="numeric" min="0" max="11" value="5" placeholder="in" aria-label="Inches" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+        <div id="brf-height-metric" class="hidden">
+          <input id="brf-cm" type="number" inputmode="numeric" min="100" max="250" value="165" placeholder="cm" aria-label="Centimeters" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-bold text-ink-700 mb-2" for="brf-weight">Current weight <span id="brf-weight-unit" class="font-semibold text-ink-500">(lb)</span></label>
+        <input id="brf-weight" type="number" inputmode="decimal" min="50" max="1000" value="150" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+      </div>
+      <div class="sm:col-span-2">
+        <label class="block text-sm font-bold text-ink-700 mb-2" for="brf-activity">Activity level</label>
+        <select id="brf-activity" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-brand-500">
+          <option value="1.2">Sedentary: desk job, little or no exercise</option>
+          <option value="1.375" selected>Light: exercise 1 to 3 days a week</option>
+          <option value="1.55">Moderate: exercise 3 to 5 days a week</option>
+          <option value="1.725">Very active: hard exercise 6 to 7 days a week</option>
+          <option value="1.9">Athlete: very hard exercise, physical job or training twice a day</option>
+        </select>
+        <p class="mt-1.5 text-xs text-ink-500">Be honest about the newborn phase: broken sleep and feeding around the clock usually mean light activity, even for women who trained hard before.</p>
+      </div>
+    </div>
+    <p id="brf-error" class="hidden mt-4 text-sm font-semibold text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3" role="alert"></p>
+    <button type="submit" class="mt-6 w-full sm:w-auto inline-flex justify-center items-center rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-extrabold px-8 py-3.5 text-base shadow-md shadow-brand-600/20">Calculate my breastfeeding calories</button>
+  </form>
+
+  <div id="brf-results" class="hidden mt-8 border-t border-brand-100 pt-7" aria-live="polite">
+    <div class="rounded-2xl bg-brand-600 text-white p-6 text-center">
+      <p class="text-sm font-bold uppercase tracking-wide text-brand-100">Your breastfeeding calorie target</p>
+      <p class="mt-1 text-5xl font-extrabold"><span id="brf-target">0</span> <span class="text-xl font-bold">kcal / day</span></p>
+      <p id="brf-breakdown" class="mt-3 text-sm text-brand-100"></p>
+    </div>
+    <div class="mt-4 grid gap-4 sm:grid-cols-2">
+      <div class="rounded-xl border border-brand-100 bg-brand-50/60 p-5 text-center">
+        <p class="text-sm font-bold text-ink-500 uppercase tracking-wide">Your maintenance (TDEE)</p>
+        <p class="mt-1 text-2xl font-extrabold text-brand-700"><span id="brf-tdee">0</span> kcal</p>
+      </div>
+      <div class="rounded-xl border border-brand-100 bg-brand-50/60 p-5 text-center">
+        <p class="text-sm font-bold text-ink-500 uppercase tracking-wide">Milk production allowance</p>
+        <p class="mt-1 text-2xl font-extrabold text-brand-700">+<span id="brf-add">0</span> kcal</p>
+      </div>
+    </div>
+    <p class="mt-4 text-sm text-ink-700" id="brf-loss-note"></p>
+    <p class="mt-4 rounded-xl bg-amber-50 border border-amber-200 px-5 py-4 text-sm font-semibold text-ink-700">
+      This is a general estimate, not medical advice. If your baby is not gaining well, your supply drops, or you
+      feel unwell or constantly exhausted, talk to your doctor, midwife, or a lactation consultant before changing
+      how much you eat.
+    </p>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var units = 'imperial';
+    function $(id) { return document.getElementById(id); }
+    function fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+
+    document.querySelectorAll('.brf-units-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        units = b.getAttribute('data-units');
+        document.querySelectorAll('.brf-units-btn').forEach(function (x) {
+          var active = x.getAttribute('data-units') === units;
+          x.className = 'brf-units-btn px-3 py-1.5 rounded-md text-sm font-bold ' + (active ? 'bg-brand-600 text-white' : 'text-ink-700');
+        });
+        $('brf-height-imperial').classList.toggle('hidden', units !== 'imperial');
+        $('brf-height-metric').classList.toggle('hidden', units !== 'metric');
+        $('brf-weight-unit').textContent = units === 'imperial' ? '(lb)' : '(kg)';
+        var w = parseFloat($('brf-weight').value);
+        if (!isNaN(w)) $('brf-weight').value = units === 'imperial' ? Math.round(w * 2.20462) : Math.round(w / 2.20462);
+      });
+    });
+
+    $('brf-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var err = $('brf-error');
+      err.classList.add('hidden');
+      var age = parseFloat($('brf-age').value);
+      var weightRaw = parseFloat($('brf-weight').value);
+      var heightCm = units === 'imperial'
+        ? ((parseFloat($('brf-ft').value) || 0) * 12 + (parseFloat($('brf-inch').value) || 0)) * 2.54
+        : parseFloat($('brf-cm').value);
+      var weightKg = units === 'imperial' ? weightRaw * 0.45359237 : weightRaw;
+      var activity = parseFloat($('brf-activity').value);
+      var addition = parseFloat($('brf-baby').value);
+      if (isNaN(age) || age < 15 || age > 55 || isNaN(weightRaw) || weightKg < 30 || weightKg > 450 || isNaN(heightCm) || heightCm < 100 || heightCm > 250) {
+        err.textContent = 'Please check your entries: age 15 to 55, a realistic height, and a realistic weight.';
+        err.classList.remove('hidden');
+        return;
+      }
+      var bmr = 10 * weightKg + 6.25 * heightCm - 5 * age - 161;
+      var tdee = bmr * activity;
+      var target = tdee + addition;
+      var gentle = Math.max(1800, target - 500);
+      $('brf-target').textContent = fmt(target);
+      $('brf-tdee').textContent = fmt(tdee);
+      $('brf-add').textContent = fmt(addition);
+      $('brf-breakdown').textContent = 'Maintenance of ' + fmt(tdee) + ' kcal (BMR ' + fmt(bmr) + ' x activity ' + activity + ') plus ' + fmt(addition) + ' kcal for milk production.';
+      $('brf-loss-note').textContent = 'Want to lose weight gradually while nursing? After the first couple of months, a gentle intake around ' + fmt(gentle) + ' kcal per day is commonly used, and a loss of roughly 0.5 kg (about 1 lb) per month is generally considered safe at that pace, as long as your intake stays at or above about 1,800 kcal per day.';
+      $('brf-results').classList.remove('hidden');
+      $('brf-results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  })();
+</script>

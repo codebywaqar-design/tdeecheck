@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import WaterIntakeCalculator from '../../../components/WaterIntakeCalculator.astro';
+import Faq from '../../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Water Intake Calculator',
+    url: 'https://tdeecheck.com/calculators/water-intake-calculator/',
+    applicationCategory: 'HealthApplication',
+    operatingSystem: 'Any',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Person', name: 'Waqar', jobTitle: 'Dietitian' },
+  },
+];
+
+const faqs = [
+  {
+    q: 'How much water should I drink per day?',
+    a: 'A practical starting point is about 35 ml per kilogram of body weight, which gives roughly 2.5 liters for a 70 kg adult before exercise. Official adequate intake figures for total water, including the water in food, are about 3.7 liters a day for men and 2.7 liters for women. Your personal target moves with body size, activity, and climate, which is exactly what this calculator adjusts for.',
+  },
+  {
+    q: 'Do tea and coffee count toward my water intake?',
+    a: 'Yes. Tea, coffee, milk, and even soft drinks are mostly water and they hydrate you. The caffeine in tea and coffee is a mild diuretic, but the fluid in the cup more than makes up for it at normal intakes. Plain water is still the best default, because it adds no calories, sugar, or acid to your teeth.',
+  },
+  {
+    q: 'How much extra water do I need when I exercise?',
+    a: 'Sweat rates commonly run from about 0.5 to 1.5 liters per hour depending on the person, the sport, and the weather. This calculator adds 350 ml for every 30 minutes of exercise as a sensible average allowance. For long or very sweaty sessions, weigh yourself before and after: each kilogram lost is roughly a liter of fluid to replace.',
+  },
+  {
+    q: 'Can drinking water help me lose weight?',
+    a: 'Indirectly, yes. A glass of water before meals slightly reduces how much some people eat, and swapping sugary drinks for water removes calories without any hunger at all. Water does not burn fat by itself, though. The fat loss still comes from the calorie deficit, which you can plan with our Calorie Deficit Calculator.',
+  },
+  {
+    q: 'Can you drink too much water?',
+    a: 'Yes, but it is uncommon. Drinking far more than your kidneys can clear, usually during endurance events combined with forced drinking, can dilute blood sodium, a condition called hyponatremia. For everyday life the risk is low. Spread your intake through the day, drink to thirst during long events, and treat this target as a guide, not a quota to force down.',
+  },
+];
+---
+
+<BaseLayout
+  title="Water Intake Calculator - How Much Water to Drink Daily"
+  description="Free water intake calculator. Enter your weight and daily exercise time to get a personal water target in liters, milliliters, fluid ounces, and glasses."
+  path="/calculators/water-intake-calculator/"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Calculators', path: '/calculators/' },
+    { name: 'Water Intake Calculator', path: '/calculators/water-intake-calculator/' },
+  ]}
+>
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-8">
+    <div class="max-w-3xl">
+      <h1 class="text-4xl font-extrabold tracking-tight text-ink-900">Water Intake Calculator</h1>
+      <p class="mt-4 text-lg text-ink-700 leading-relaxed">
+        Forget fixed glass counts. Your water needs scale with your body and your training. Enter your weight and how
+        much you exercise, and get a daily drinking target in the units you actually think in.
+      </p>
+    </div>
+    <div class="mt-8 max-w-4xl">
+      <WaterIntakeCalculator />
+    </div>
+  </section>
+
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 mt-14">
+    <h2 class="text-2xl font-extrabold text-ink-900">How this water intake calculator works</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      The formula has two parts. Your base need is your body weight in kilograms multiplied by 35 ml. A 70 kg person
+      starts at about 2,450 ml, a 90 kg person at about 3,150 ml. On top of that, the calculator adds 350 ml for
+      every 30 minutes of exercise, to cover what you sweat out while training or working hard. The result is your
+      daily drinking target, shown in liters, milliliters, US fluid ounces, and 240 ml glasses, which is the size of
+      a standard drinking glass. Like every number on this site, it is a well grounded estimate, built the same way
+      as the <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a> builds its calorie estimates:
+      from your body first, then adjusted for your day.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Why body weight beats the eight glasses rule</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      The famous advice to drink eight glasses a day ignores the one thing that matters most: how big you are. A
+      larger body has more cells to service, more blood to keep flowing, and kidneys filtering a larger volume every
+      day. A 50 kg teenager and a 110 kg manual worker following the same eight glass rule would end up at opposite
+      ends of under and over hydrated. Weight based rules fix that, because the target grows and shrinks with the
+      body it has to serve. It is the same reason calorie needs are calculated from weight, height, and age rather
+      than handed out as one number for everyone.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">When you need more than the formula says</h2>
+    <ul class="mt-3 space-y-3 text-ink-700 leading-relaxed list-disc pl-6">
+      <li><strong>Hot or humid weather.</strong> Sweating starts earlier and runs faster, even at rest. Add a glass or two and drink before you feel thirsty.</li>
+      <li><strong>Long sessions.</strong> Past about an hour of hard exercise, the 350 ml per half hour allowance becomes a minimum, and salty food or an electrolyte drink starts to matter.</li>
+      <li><strong>Illness.</strong> Fever, vomiting, and diarrhea all drain fluid quickly. Sip small amounts often, and follow medical advice if you cannot keep fluids down.</li>
+      <li><strong>Pregnancy and breastfeeding.</strong> Needs rise in pregnancy, and milk production uses a large amount of water every day. Our <a class="font-bold text-brand-700 underline" href="/calculators/breastfeeding-calorie-calculator/">Breastfeeding Calorie Calculator</a> covers the energy side of that equation.</li>
+      <li><strong>High protein or high fiber diets.</strong> Both slightly raise the water your body uses for processing and digestion.</li>
+    </ul>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">How to actually hit your target</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Most people who miss their target are not lazy, they are just badly set up. Keep a bottle where you work and
+      refill it on a schedule, drink a glass with every meal as an automatic habit, and front load your intake
+      earlier in the day so you are not chugging a liter before bed. The simplest feedback tool is urine color: pale
+      straw yellow means you are in a good place, dark amber means drink soon, and constantly clear urine with hourly
+      bathroom trips means you can ease off. If you are managing your weight, water works alongside your food plan,
+      and the <a class="font-bold text-brand-700 underline" href="/calculators/calorie-deficit-calculator/">Calorie Deficit Calculator</a>
+      can help you set that side of the plan too.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">The water in food and other drinks</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Your drinking target is not your total water intake. A normal day of eating quietly supplies another half
+      liter to a liter: fruit and vegetables are mostly water, cooked rice and pasta absorb it, and even bread
+      carries some. Tea, coffee, milk, juice, and soft drinks all count toward the total as well, because your body
+      absorbs their water just the same. That is why this calculator sets a target for what you drink and treats
+      food as a bonus on top, rather than pretending you must force down the full physiological total through a
+      bottle. If your diet is unusually dry, heavy on protein bars, dried foods, and few fresh items, lean toward
+      the top of your range. If you eat soup, fruit, and salads daily, the lower end will usually keep you pale
+      straw comfortable.
+    </p>
+    <p class="mt-6 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Waqar, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+    <Faq faqs={faqs} />
+  </article>
+</BaseLayout>

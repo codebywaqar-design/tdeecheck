@@ -9,6 +9,13 @@
 - [Calorie Calculator](https://tdeecheck.com/calculators/calorie-calculator/): Daily calorie targets for losing, maintaining, or gaining weight.
 - [Macro Calculator](https://tdeecheck.com/calculators/macro-calculator/): Daily protein, carbohydrate and fat grams for your calorie target and goal.
 - [BMI Calculator](https://tdeecheck.com/calculators/bmi-calculator/): Body mass index with the standard adult weight categories.
+- [Calorie Deficit Calculator](https://tdeecheck.com/calculators/calorie-deficit-calculator/): Four deficit sizes with safe daily targets, projected weekly loss and goal weight timelines.
+- [Water Intake Calculator](https://tdeecheck.com/calculators/water-intake-calculator/): Your daily water target in liters, milliliters, ounces and glasses, from your weight and exercise time.
+- [Lean Body Mass Calculator](https://tdeecheck.com/calculators/lean-body-mass-calculator/): Lean body mass from the Boer and James formulas, or from your body fat percentage, with fat mass.
+- [FFMI Calculator](https://tdeecheck.com/calculators/ffmi-calculator/): Fat free mass index, raw and normalized, scored on the classic scale up to the natural limit.
+- [Army Body Fat Calculator](https://tdeecheck.com/calculators/army-body-fat-calculator/): Body fat percentage by the US Army circumference method, checked against the standards for your age group.
+- [Pregnancy Calorie Calculator](https://tdeecheck.com/calculators/pregnancy-calorie-calculator/): Maintenance calories plus the extra energy needed in trimester one, two and three.
+- [Breastfeeding Calorie Calculator](https://tdeecheck.com/calculators/breastfeeding-calorie-calculator/): Maintenance calories plus the milk production allowance for babies under and over 6 months.
 - [TDEE Weight Loss Calculator](https://tdeecheck.com/tdee-weight-loss-calculator/): The safe calorie deficit and weekly loss rate for your body and activity level.
 
 ## Guides

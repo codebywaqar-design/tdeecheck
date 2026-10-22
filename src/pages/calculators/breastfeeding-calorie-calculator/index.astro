@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BreastfeedingCalorieCalculator from '../../../components/BreastfeedingCalorieCalculator.astro';
+import Faq from '../../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Breastfeeding Calorie Calculator',
+    url: 'https://tdeecheck.com/calculators/breastfeeding-calorie-calculator/',
+    applicationCategory: 'HealthApplication',
+    operatingSystem: 'Any',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Person', name: 'Waqar', jobTitle: 'Dietitian' },
+  },
+];
+
+const faqs = [
+  {
+    q: 'How many extra calories does breastfeeding need?',
+    a: 'This calculator adds 330 kcal per day while your baby is under 6 months, and 400 kcal per day from 6 months onwards while you are still nursing alongside solids. Making milk costs more energy than that on paper, but in the early months part of the cost is designed to come from the fat stores laid down in pregnancy, which is why the allowance added to your diet is lower than the full production cost.',
+  },
+  {
+    q: 'Can I lose weight while breastfeeding?',
+    a: 'Gradual loss is generally considered safe once feeding is established, usually after the first couple of months. A loss of about 0.5 kg (roughly 1 lb) per month at an intake that stays at or above about 1,800 kcal per day is the pace most guidance points to. Crash diets are a different story: they can cut supply, drain your energy, and are hard on nutrient stores you share with your baby.',
+  },
+  {
+    q: 'Will eating less reduce my milk supply?',
+    a: 'Mild to moderate shortfalls usually do not. Milk production is driven mainly by how often and how fully the breast is emptied, and your body protects milk volume at the expense of your own stores. Severe or prolonged undereating, dehydration, and illness can affect supply. If your baby\'s weight gain slows, talk to your midwife, doctor, or a lactation consultant rather than guessing.',
+  },
+  {
+    q: 'What should I eat while breastfeeding?',
+    a: 'Build meals around protein, calcium rich foods, fruit and vegetables, and whole grains, and keep taking any supplement your care team recommended in pregnancy, especially vitamin D. Oily fish once or twice a week supports the fats your baby\'s brain is built from. Drink to thirst; forcing extra water does not increase supply.',
+  },
+  {
+    q: 'How long should I keep the extra calories?',
+    a: 'For as long as breastfeeding is a major part of your baby\'s diet. Once solids are well established and feeds drop, your true maintenance drifts back toward its pre-pregnancy level, and you can recheck your number with the main TDEE Calculator. Many women taper the allowance naturally because appetite falls as feeding reduces.',
+  },
+];
+---
+
+<BaseLayout
+  title="Breastfeeding Calorie Calculator - Calories While Nursing"
+  description="Free breastfeeding calorie calculator. See your maintenance calories plus the extra energy needed for milk production, for babies under and over 6 months."
+  path="/calculators/breastfeeding-calorie-calculator/"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Calculators', path: '/calculators/' },
+    { name: 'Breastfeeding Calorie Calculator', path: '/calculators/breastfeeding-calorie-calculator/' },
+  ]}
+>
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-8">
+    <div class="max-w-3xl">
+      <h1 class="text-4xl font-extrabold tracking-tight text-ink-900">Breastfeeding Calorie Calculator</h1>
+      <p class="mt-4 text-lg text-ink-700 leading-relaxed">
+        Making milk is real metabolic work, and you need to eat for it. Enter your details and your baby's age to
+        see your maintenance calories plus the production allowance used in standard nutrition guidance.
+      </p>
+      <p class="mt-3 text-sm font-semibold text-ink-500">Reviewed by Waqar, Dietitian. A general estimate, not medical advice for you or your baby.</p>
+    </div>
+    <div class="mt-8 max-w-4xl">
+      <BreastfeedingCalorieCalculator />
+    </div>
+  </section>
+
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 mt-14">
+    <p class="rounded-xl bg-amber-50 border border-amber-200 px-5 py-4 text-sm font-semibold text-ink-700">
+      Important: every feeding journey is different. Premature babies, twins, a baby who is not gaining as
+      expected, or a medical condition for you or your baby all change the picture. If anything feels off, talk to
+      your doctor, midwife, or a lactation consultant before changing how much you eat.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Why breastfeeding raises your calorie needs</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      A fully breastfed baby takes in roughly 750 to 800 ml of milk a day in the early months, and your body spends
+      energy on every milliliter, both the calories in the milk itself and the metabolic cost of making it. Total
+      production cost is commonly estimated around 500 kcal a day. Nature's design is that you do not have to eat
+      all of that: pregnancy fat stores, laid down for exactly this purpose, are expected to contribute part of the
+      cost in the first months. That is why the allowance this calculator adds, and that standard guidance uses,
+      sits below the full production cost, at 330 kcal a day under 6 months and 400 kcal a day from 6 months, when
+      early stores are usually spent and feeding continues alongside solids.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">How your target is calculated</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      The base is your maintenance level, your TDEE, calculated from your age, height, current weight, and activity
+      with the Mifflin-St Jeor equation, the same method as the main
+      <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a>. The production allowance for your
+      baby's age is then added on top. Two honest warnings: activity with a small baby is hard to grade, so choose
+      the level that matches your real days, not your pre-baby routine; and your weight will keep changing, so
+      rerun the numbers every few weeks. If you are still pregnant and planning ahead, the
+      <a class="font-bold text-brand-700 underline" href="/calculators/pregnancy-calorie-calculator/">Pregnancy Calorie Calculator</a>
+      covers the months before this one.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Losing the baby weight, safely</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Most women are keen to lose the pregnancy weight, and breastfeeding itself helps, because those pregnancy fat
+      stores are drawn down to make milk. If you want to help the process along once feeding is established,
+      usually after the first couple of months, keep it gentle: a loss of about 0.5 kg per month is generally
+      considered safe, and intake should stay at or above roughly 1,800 kcal per day. The results panel above shows
+      a gentle intake figure built on exactly those rules. What to avoid is a hard diet: aggressive deficits can
+      shrink supply, flatten your mood and energy at the exact moment sleep is scarce, and pull nutrients from your
+      own bones and stores. When you are ready for a structured plan after weaning, the
+      <a class="font-bold text-brand-700 underline" href="/calculators/calorie-deficit-calculator/">Calorie Deficit Calculator</a>
+      can set it up properly.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Eating and drinking while nursing</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Hunger in the early weeks can be intense, and it is a signal worth honoring: keep substantial snacks where you
+      feed, because you will spend hours there. Protein at every meal, calcium rich foods, and a varied diet cover
+      most needs. Drink to thirst rather than forcing fluids, since drinking beyond thirst does not raise supply;
+      our <a class="font-bold text-brand-700 underline" href="/calculators/water-intake-calculator/">Water Intake Calculator</a>
+      gives a reasonable daily target if you want one. Small amounts of caffeine pass into milk but moderate intake
+      is generally considered fine. Alcohol needs more care: it passes into milk freely, so follow your care team's
+      guidance and time any drink right after a feed.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">What usually happens to weight while nursing</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Most women lose weight gradually in the first six months of breastfeeding even without trying, typically a
+      fraction of a kilogram a month, because milk production quietly spends those pregnancy stores. The pattern is
+      not universal though: some women hold weight until weaning, driven by appetite, broken sleep, and the hormone
+      environment of lactation, and a minority lose faster than they would like. All three patterns can be normal.
+      Judge your own trend over a month, not a week, and treat rapid loss, stalled loss combined with exhaustion, or
+      any worry about your baby's growth as a reason to talk to your care team. The number on this page is a
+      planning anchor for typical feeding, and your own trend, checked monthly, is what refines it.
+    </p>
+    <p class="mt-6 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Waqar, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+    <Faq faqs={faqs} />
+  </article>
+</BaseLayout>

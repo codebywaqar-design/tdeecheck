@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import FfmiCalculator from '../../../components/FfmiCalculator.astro';
+import Faq from '../../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'FFMI Calculator',
+    url: 'https://tdeecheck.com/calculators/ffmi-calculator/',
+    applicationCategory: 'HealthApplication',
+    operatingSystem: 'Any',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Person', name: 'Waqar', jobTitle: 'Dietitian' },
+  },
+];
+
+const faqs = [
+  {
+    q: 'What is a good FFMI?',
+    a: 'For men, a normalized FFMI of 18 to 20 is average for someone who does not train seriously, 20 to 22 reflects a regular lifter, and 22 to 24 is excellent and takes years of consistent training. Most recreational lifters should be pleased with anything above 21. Women typically score about 2 to 3 points lower at the same training level.',
+  },
+  {
+    q: 'What is the natural limit for FFMI?',
+    a: 'Research on drug tested and pre-steroid era athletes, starting with a well known 1995 study by Kouri and colleagues, found that a normalized FFMI around 25 is about the ceiling for natural men. A handful of genetic outliers reach 26 or slightly above. Sustained scores of 28 or more are considered very unlikely without performance enhancing drugs.',
+  },
+  {
+    q: 'What does normalized FFMI mean?',
+    a: 'Raw FFMI penalizes tall people, because lean mass does not grow as fast as height squared. The normalized version adjusts your score to a standard height of 1.8 m (about 5 ft 11 in) using the correction FFMI + 6.1 x (1.8 - your height in m). If you are exactly 1.8 m tall, your raw and normalized scores are the same.',
+  },
+  {
+    q: 'How accurate is this FFMI calculator?',
+    a: 'The math is exact, but the result is only as good as your body fat input. A body fat estimate that is off by 3 points moves your FFMI by roughly a full point. DEXA scans and careful caliper measurements give the best inputs. Guessing your body fat from photos usually flatters you and inflates the score.',
+  },
+  {
+    q: 'How can I increase my FFMI?',
+    a: 'Only two levers exist: add lean mass or lose fat while keeping it. Progressive resistance training two to four times a week, protein around 1.6 to 2.2 g per kg of body weight, and either a small calorie surplus to build or a modest deficit to cut, chosen with the TDEE Calculator, are the whole recipe. Expect a few tenths of a point per year once you are past the beginner stage.',
+  },
+];
+---
+
+<BaseLayout
+  title="FFMI Calculator - Fat Free Mass Index and Natural Limit"
+  description="Free FFMI calculator. Work out your fat free mass index and normalized FFMI from weight, height, and body fat, and see where you sit on the natural scale."
+  path="/calculators/ffmi-calculator/"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Calculators', path: '/calculators/' },
+    { name: 'FFMI Calculator', path: '/calculators/ffmi-calculator/' },
+  ]}
+>
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-8">
+    <div class="max-w-3xl">
+      <h1 class="text-4xl font-extrabold tracking-tight text-ink-900">FFMI Calculator</h1>
+      <p class="mt-4 text-lg text-ink-700 leading-relaxed">
+        BMI cannot tell muscle from fat. FFMI can. Enter your weight, height, and body fat percentage to get your Fat
+        Free Mass Index, raw and height normalized, scored against the classic natural scale.
+      </p>
+    </div>
+    <div class="mt-8 max-w-4xl">
+      <FfmiCalculator />
+    </div>
+  </section>
+
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 mt-14">
+    <h2 class="text-2xl font-extrabold text-ink-900">What FFMI measures, and why BMI cannot</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      FFMI, the Fat Free Mass Index, asks a smarter question than BMI. Instead of dividing your whole weight by your
+      height squared, it first removes the fat. Your lean body mass, everything that is not fat, is divided by your
+      height squared, which gives a score for how much muscle and other lean tissue you carry for your frame. A rugby
+      player and an untrained office worker can share the same BMI of 28 while sitting at completely different FFMI
+      scores, one muscular and one simply heavy. If you want that lean mass figure on its own first, our
+      <a class="font-bold text-brand-700 underline" href="/calculators/lean-body-mass-calculator/">Lean Body Mass Calculator</a>
+      works it out with three methods, and the <a class="font-bold text-brand-700 underline" href="/calculators/bmi-calculator/">BMI Calculator</a>
+      shows the simpler screening number for comparison.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">How the calculation works</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Three steps. First, lean body mass: weight multiplied by (1 minus body fat percentage). An 80 kg man at 15
+      percent body fat carries 68 kg of lean mass. Second, raw FFMI: lean mass divided by height in meters squared,
+      so 68 divided by 1.8 squared (3.24) gives an FFMI of 21.0. Third, normalization: because taller people are
+      slightly penalized by the squared height term, the score is adjusted to a standard height of 1.8 m by adding
+      6.1 x (1.8 minus your height in meters). At exactly 1.8 m tall nothing changes, which is why the example above
+      stays at 21.0, squarely in the above average band. The category shown with your result is based on this
+      normalized score, the same convention used in the research the scale comes from.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Reading the FFMI scale honestly</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      The scale in your results runs from below average (under 18) through average, above average, and excellent,
+      up to superior at 24 to 25.9. Beyond that the labels turn blunt on purpose. The 26 to 27.9 band is marked
+      suspicious, and 28 plus is marked unlikely natural, because decades of data on tested athletes say natural
+      muscle building essentially stops around 25 to 26. Treat those top bands as information, not accusation: a
+      wrong body fat input, especially an underestimated one, can push an honest lifter a band too high. And
+      remember the scale was built from male athletes. Women carry less lean mass at the same training age, and an
+      advanced natural female lifter at 20 to 21 is roughly equivalent to a man at 23 to 24.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Using FFMI to set real goals</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      FFMI is most useful as a reality check on goal weights. If your target physique implies an FFMI of 27 and you
+      train naturally, the plan needs adjusting, not more effort. Work backwards instead: pick a plausible FFMI for
+      your training age, choose a body fat percentage you can actually hold, and the goal weight falls out of the
+      math. Then feed that goal into the <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a>
+      for the calories to reach it, and use the
+      <a class="font-bold text-brand-700 underline" href="/calculators/macro-calculator/">Macro Calculator</a> to set
+      the protein that protects lean mass on the way. Gains of half a point a year are excellent progress for an
+      experienced lifter, so judge your trend over seasons, not weeks.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Mistakes that distort your score</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      The most common error is a flattering body fat input. Smart scales can read several points low for muscular
+      people and several points high for others, and photo comparison charts on the internet are notoriously
+      optimistic. If your score lands in a band that surprises you, question the body fat number before the math.
+      The second mistake is measuring in a strange state: dehydrated after a sauna or a hard cut, or loaded with
+      water and glycogen after a refeed, your weight and apparent lean mass swing by a kilogram or more in a day.
+      Measure in a normal, rested state. Third, remember that FFMI counts all lean tissue, including water and
+      glycogen, so a beginner who gains fast in the first months of creatine and training has not broken the natural
+      scale, they have filled their muscles with fluid. Judge your FFMI on consistent measurements taken months
+      apart, not on your best morning ever.
+    </p>
+    <p class="mt-6 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Waqar, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+    <Faq faqs={faqs} />
+  </article>
+</BaseLayout>

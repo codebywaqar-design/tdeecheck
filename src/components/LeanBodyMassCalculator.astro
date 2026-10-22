@@ -1,0 +1,152 @@
+---
+// Lean body mass calculator: Boer and James formulas, plus the body fat method when BF% is given.
+// Boer men: 0.407W + 0.267H - 19.2; women: 0.252W + 0.473H - 48.3 (W kg, H cm)
+// James men: 1.1W - 128(W/H)^2; women: 1.07W - 148(W/H)^2 (W kg, H cm)
+---
+
+<div class="bg-white rounded-2xl shadow-lg shadow-brand-900/5 border border-brand-100 p-5 sm:p-7" id="calculator">
+  <form id="lbm-form" novalidate>
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <p class="font-extrabold text-ink-900 text-lg">Your details</p>
+      <div class="inline-flex rounded-lg bg-brand-50 border border-brand-100 p-1" role="group" aria-label="Units">
+        <button type="button" data-units="imperial" class="lbm-units-btn px-3 py-1.5 rounded-md text-sm font-bold bg-brand-600 text-white">Imperial (lb, ft)</button>
+        <button type="button" data-units="metric" class="lbm-units-btn px-3 py-1.5 rounded-md text-sm font-bold text-ink-700">Metric (kg, cm)</button>
+      </div>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-4 mt-5">
+      <div>
+        <span class="block text-sm font-bold text-ink-700 mb-2">Sex</span>
+        <div class="grid grid-cols-2 gap-2">
+          <button type="button" data-sex="female" class="lbm-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm border-brand-600 bg-brand-50 text-brand-800">Female</button>
+          <button type="button" data-sex="male" class="lbm-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm border-brand-100 bg-white text-ink-700">Male</button>
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-bold text-ink-700 mb-2" for="lbm-bf">Body fat % <span class="font-semibold text-ink-500">(optional)</span></label>
+        <input id="lbm-bf" type="number" inputmode="decimal" min="3" max="60" placeholder="e.g. 24" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+      </div>
+      <div>
+        <span class="block text-sm font-bold text-ink-700 mb-2">Height</span>
+        <div id="lbm-height-imperial" class="grid grid-cols-2 gap-2">
+          <input id="lbm-ft" type="number" inputmode="numeric" min="3" max="8" value="5" placeholder="ft" aria-label="Feet" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          <input id="lbm-inch" type="number" inputmode="numeric" min="0" max="11" value="6" placeholder="in" aria-label="Inches" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+        <div id="lbm-height-metric" class="hidden">
+          <input id="lbm-cm" type="number" inputmode="numeric" min="100" max="250" value="168" placeholder="cm" aria-label="Centimeters" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-bold text-ink-700 mb-2" for="lbm-weight">Weight <span id="lbm-weight-unit" class="font-semibold text-ink-500">(lb)</span></label>
+        <input id="lbm-weight" type="number" inputmode="decimal" min="50" max="1000" value="165" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+      </div>
+    </div>
+    <p id="lbm-error" class="hidden mt-4 text-sm font-semibold text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3" role="alert"></p>
+    <button type="submit" class="mt-6 w-full sm:w-auto inline-flex justify-center items-center rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-extrabold px-8 py-3.5 text-base shadow-md shadow-brand-600/20">Calculate my lean body mass</button>
+  </form>
+
+  <div id="lbm-results" class="hidden mt-8 border-t border-brand-100 pt-7" aria-live="polite">
+    <div class="rounded-2xl bg-brand-600 text-white p-6 text-center">
+      <p class="text-sm font-bold uppercase tracking-wide text-brand-100">Your lean body mass (Boer formula)</p>
+      <p class="mt-1 text-5xl font-extrabold"><span id="lbm-headline-kg">0</span> <span class="text-xl font-bold">kg</span></p>
+      <p class="mt-2 text-brand-100 font-semibold"><span id="lbm-headline-lb">0</span> lb</p>
+      <p class="mt-3 text-sm text-brand-100">Everything in your body that is not fat: muscle, bone, organs, and water.</p>
+    </div>
+    <h3 class="mt-8 font-extrabold text-ink-900 text-lg">All methods side by side</h3>
+    <div class="mt-4 overflow-x-auto rounded-xl border border-brand-100">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-brand-50 text-left">
+            <th class="px-4 py-3 font-extrabold text-ink-900">Method</th>
+            <th class="px-4 py-3 font-extrabold text-ink-900">Lean mass (kg)</th>
+            <th class="px-4 py-3 font-extrabold text-ink-900">Lean mass (lb)</th>
+            <th class="px-4 py-3 font-extrabold text-ink-900">Fat mass (kg)</th>
+            <th class="px-4 py-3 font-extrabold text-ink-900">Fat mass (lb)</th>
+          </tr>
+        </thead>
+        <tbody id="lbm-rows" class="divide-y divide-brand-50"></tbody>
+      </table>
+    </div>
+    <p class="mt-4 text-sm text-ink-700">The two formulas usually land within a few percent of each other. If you entered a body fat percentage, that row is the most personal estimate of the three, and it also drives our <a class="font-bold text-brand-700 underline" href="/calculators/ffmi-calculator/">FFMI Calculator</a>.</p>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var units = 'imperial';
+    var sex = 'female';
+    function $(id) { return document.getElementById(id); }
+    function fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+    function one(n) { return n.toFixed(1); }
+
+    document.querySelectorAll('.lbm-units-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        units = b.getAttribute('data-units');
+        document.querySelectorAll('.lbm-units-btn').forEach(function (x) {
+          var active = x.getAttribute('data-units') === units;
+          x.className = 'lbm-units-btn px-3 py-1.5 rounded-md text-sm font-bold ' + (active ? 'bg-brand-600 text-white' : 'text-ink-700');
+        });
+        $('lbm-height-imperial').classList.toggle('hidden', units !== 'imperial');
+        $('lbm-height-metric').classList.toggle('hidden', units !== 'metric');
+        $('lbm-weight-unit').textContent = units === 'imperial' ? '(lb)' : '(kg)';
+        var w = parseFloat($('lbm-weight').value);
+        if (!isNaN(w)) $('lbm-weight').value = units === 'imperial' ? Math.round(w * 2.20462) : Math.round(w / 2.20462);
+      });
+    });
+    document.querySelectorAll('.lbm-sex-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        sex = b.getAttribute('data-sex');
+        document.querySelectorAll('.lbm-sex-btn').forEach(function (x) {
+          var active = x.getAttribute('data-sex') === sex;
+          x.className = 'lbm-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm ' + (active ? 'border-brand-600 bg-brand-50 text-brand-800' : 'border-brand-100 bg-white text-ink-700');
+        });
+      });
+    });
+
+    $('lbm-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var err = $('lbm-error');
+      err.classList.add('hidden');
+      var weightRaw = parseFloat($('lbm-weight').value);
+      var heightCm = units === 'imperial'
+        ? ((parseFloat($('lbm-ft').value) || 0) * 12 + (parseFloat($('lbm-inch').value) || 0)) * 2.54
+        : parseFloat($('lbm-cm').value);
+      var weightKg = units === 'imperial' ? weightRaw * 0.45359237 : weightRaw;
+      var bfRaw = $('lbm-bf').value.trim();
+      var bf = bfRaw === '' ? NaN : parseFloat(bfRaw);
+      if (isNaN(weightRaw) || weightKg < 25 || weightKg > 450 || isNaN(heightCm) || heightCm < 100 || heightCm > 250) {
+        err.textContent = 'Please check your entries: a realistic height and weight.';
+        err.classList.remove('hidden');
+        return;
+      }
+      if (!isNaN(bf) && (bf < 3 || bf > 60)) {
+        err.textContent = 'Body fat percentage should be between 3 and 60, or left empty.';
+        err.classList.remove('hidden');
+        return;
+      }
+      var boer = sex === 'male'
+        ? 0.407 * weightKg + 0.267 * heightCm - 19.2
+        : 0.252 * weightKg + 0.473 * heightCm - 48.3;
+      var ratio = weightKg / heightCm;
+      var james = sex === 'male'
+        ? 1.1 * weightKg - 128 * ratio * ratio
+        : 1.07 * weightKg - 148 * ratio * ratio;
+      var rows = [
+        { name: 'Boer formula', lbm: boer },
+        { name: 'James formula', lbm: james },
+      ];
+      if (!isNaN(bf)) rows.push({ name: 'From your body fat (' + bf + '%)', lbm: weightKg * (1 - bf / 100) });
+      $('lbm-headline-kg').textContent = one(boer);
+      $('lbm-headline-lb').textContent = fmt(boer * 2.20462);
+      $('lbm-rows').innerHTML = rows.map(function (r) {
+        var fat = weightKg - r.lbm;
+        return '<tr><td class="px-4 py-3 font-semibold text-ink-700">' + r.name + '</td>' +
+          '<td class="px-4 py-3 font-extrabold text-brand-700">' + one(r.lbm) + '</td>' +
+          '<td class="px-4 py-3 text-ink-700">' + fmt(r.lbm * 2.20462) + '</td>' +
+          '<td class="px-4 py-3 text-ink-700">' + one(fat) + '</td>' +
+          '<td class="px-4 py-3 text-ink-700">' + fmt(fat * 2.20462) + '</td></tr>';
+      }).join('');
+      $('lbm-results').classList.remove('hidden');
+      $('lbm-results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  })();
+</script>

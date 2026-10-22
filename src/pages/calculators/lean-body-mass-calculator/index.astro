@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import LeanBodyMassCalculator from '../../../components/LeanBodyMassCalculator.astro';
+import Faq from '../../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Lean Body Mass Calculator',
+    url: 'https://tdeecheck.com/calculators/lean-body-mass-calculator/',
+    applicationCategory: 'HealthApplication',
+    operatingSystem: 'Any',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Person', name: 'Waqar', jobTitle: 'Dietitian' },
+  },
+];
+
+const faqs = [
+  {
+    q: 'What is lean body mass?',
+    a: 'Lean body mass is your total weight minus your fat mass. It includes muscle, bone, organs, blood, skin, and body water. It is not exactly the same as muscle mass, although muscle is the part of it you can grow the most through training. A typical adult carries roughly 60 to 90 kg of lean mass depending on size and sex.',
+  },
+  {
+    q: 'Which is better, the Boer or the James formula?',
+    a: 'Boer is usually the better default. It was built from a larger, more modern sample and behaves well across normal weight ranges. James can drift at very high or very low weights because of its squared weight to height term. When the two disagree by a lot, a measured body fat percentage, if you have one, is the tiebreaker.',
+  },
+  {
+    q: 'Why does lean body mass matter for calories?',
+    a: 'Lean tissue is what burns most of your energy at rest, so two people of the same weight can have quite different metabolisms. The Katch-McArdle BMR formula uses lean body mass directly, and you can run it on our BMR Calculator by ticking the body fat option. Protein targets are also usually set per kilogram of lean mass or total weight, which is why this number feeds so many other calculations.',
+  },
+  {
+    q: 'How can I increase my lean body mass?',
+    a: 'Progressive resistance training, enough protein (about 1.6 to 2.2 g per kg of body weight), and enough total energy to support training. Beginners can gain lean mass even at maintenance calories. Experienced lifters usually need a small surplus, which you can set with the TDEE Calculator, and plenty of sleep, because muscle is built between sessions, not during them.',
+  },
+  {
+    q: 'Can I lose fat without losing lean body mass?',
+    a: 'Mostly, yes. A moderate deficit, high protein, and continued resistance training protect lean mass well. Very fast diets, very low protein, and dropping training volume are the usual reasons people lose muscle along with fat. Track your lean body mass every month or so during a diet: if it is falling while your weight falls, slow the diet down.',
+  },
+];
+---
+
+<BaseLayout
+  title="Lean Body Mass Calculator - Boer, James, Body Fat Methods"
+  description="Free lean body mass calculator. Compare the Boer and James formulas, or calculate from your body fat percentage, with results in kg and lb plus fat mass."
+  path="/calculators/lean-body-mass-calculator/"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Calculators', path: '/calculators/' },
+    { name: 'Lean Body Mass Calculator', path: '/calculators/lean-body-mass-calculator/' },
+  ]}
+>
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-8">
+    <div class="max-w-3xl">
+      <h1 class="text-4xl font-extrabold tracking-tight text-ink-900">Lean Body Mass Calculator</h1>
+      <p class="mt-4 text-lg text-ink-700 leading-relaxed">
+        Your weight is two things: fat mass and everything else. This calculator estimates the everything else, your
+        lean body mass, with the Boer and James formulas, or directly from your body fat percentage if you know it.
+      </p>
+    </div>
+    <div class="mt-8 max-w-4xl">
+      <LeanBodyMassCalculator />
+    </div>
+  </section>
+
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 mt-14">
+    <h2 class="text-2xl font-extrabold text-ink-900">What lean body mass is, and what it is not</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Lean body mass is the weight of everything in you that is not stored fat: skeletal muscle, bones, organs,
+      blood, skin, connective tissue, and the water inside all of it. People often use it as a synonym for muscle
+      mass, and that is close enough for most conversations, but strictly your muscle is only part of the total,
+      roughly half of it in many adults. Knowing the number still matters, because lean mass is the active tissue
+      that determines most of your resting calorie burn, your strength potential, and how you look at any given body
+      weight. It is also the input behind FFMI, which our
+      <a class="font-bold text-brand-700 underline" href="/calculators/ffmi-calculator/">FFMI Calculator</a> builds
+      on directly.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">The three methods, compared</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      The Boer formula estimates lean mass from weight and height: for men, 0.407 x weight (kg) + 0.267 x height
+      (cm) minus 19.2; for women, 0.252 x weight + 0.473 x height minus 48.3. An 80 kg man who is 180 cm tall gets
+      0.407 x 80 (32.6) plus 0.267 x 180 (48.1) minus 19.2, which is 61.4 kg of lean mass, implying about 23 percent
+      body fat. The James formula uses a weight to height ratio instead: for men, 1.1 x weight minus 128 x (weight
+      divided by height) squared, with different constants for women. The third method is the most direct: if you
+      know your body fat percentage from a DEXA scan, calipers, or a good smart scale, lean mass is simply your
+      weight multiplied by (1 minus body fat). When you enter a body fat value above, all three rows appear
+      together so you can see how much the methods agree for your body.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">What to do with your number</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Three uses cover most people. First, calories: the Katch-McArdle equation turns lean mass into a resting
+      metabolic rate, which the <a class="font-bold text-brand-700 underline" href="/calculators/bmr-calculator/">BMR Calculator</a>
+      runs when you give it a body fat percentage, and which the
+      <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a> then turns into a full daily target.
+      Second, protein: setting intake around 2.0 to 2.4 g per kilogram of lean mass is a practical target in a diet,
+      close to the per kilogram of body weight figures most people use. Third, progress tracking: weigh yourself,
+      remeasure body fat every month or two, and check that lean mass is holding or rising while fat mass falls.
+      That trend tells you more about whether a diet is working than the scale alone ever will.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Why the formulas sometimes disagree</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Boer and James were fitted to real bodies measured decades apart, and both assume a typical relationship
+      between height, weight, and composition. Bodies that break the pattern, very muscular athletes, people with
+      obesity, and the very lean, stretch those assumptions. James in particular can sag at extreme weights because
+      of its squared term. A gap of 1 to 3 kg between the formulas is normal and nothing to worry about. A gap much
+      larger than that is the calculator telling you a formula is guessing, and a real body composition measurement
+      is worth getting before you build a long plan on the number.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Lean body mass across a lifetime</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Lean mass is not a fixed possession. It peaks for most people somewhere in their late twenties to early
+      forties, then drifts down at roughly 1 to 2 percent a decade, faster after sixty, in the process called
+      sarcopenia. That slow loss is a large part of why older adults burn fewer calories, feel weaker, and fall
+      more easily, and it is also why lean body mass is worth knowing at every age, not just for lifters. The good
+      news is that the decline is highly negotiable: resistance training and adequate protein keep older muscles
+      responsive, and studies of masters athletes show lean mass holding close to young adult levels for decades.
+      Rechecking your number here once or twice a year, under similar conditions, turns it into an early warning
+      system. A slow downward drift while your weight stays the same means fat is quietly replacing lean tissue,
+      and that is far easier to reverse when you catch it early.
+    </p>
+    <p class="mt-6 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Waqar, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+    <Faq faqs={faqs} />
+  </article>
+</BaseLayout>

@@ -1,0 +1,169 @@
+---
+// FFMI calculator: lean body mass from body fat, FFMI and height-normalized FFMI.
+---
+
+<div class="bg-white rounded-2xl shadow-lg shadow-brand-900/5 border border-brand-100 p-5 sm:p-7" id="calculator">
+  <form id="ffmi-form" novalidate>
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <p class="font-extrabold text-ink-900 text-lg">Your details</p>
+      <div class="inline-flex rounded-lg bg-brand-50 border border-brand-100 p-1" role="group" aria-label="Units">
+        <button type="button" data-units="imperial" class="ffmi-units-btn px-3 py-1.5 rounded-md text-sm font-bold bg-brand-600 text-white">Imperial (lb, ft)</button>
+        <button type="button" data-units="metric" class="ffmi-units-btn px-3 py-1.5 rounded-md text-sm font-bold text-ink-700">Metric (kg, cm)</button>
+      </div>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-4 mt-5">
+      <div>
+        <span class="block text-sm font-bold text-ink-700 mb-2">Sex</span>
+        <div class="grid grid-cols-2 gap-2">
+          <button type="button" data-sex="female" class="ffmi-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm border-brand-100 bg-white text-ink-700">Female</button>
+          <button type="button" data-sex="male" class="ffmi-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm border-brand-600 bg-brand-50 text-brand-800">Male</button>
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-bold text-ink-700 mb-2" for="ffmi-bf">Body fat %</label>
+        <input id="ffmi-bf" type="number" inputmode="decimal" min="3" max="60" value="15" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+      </div>
+      <div>
+        <span class="block text-sm font-bold text-ink-700 mb-2">Height</span>
+        <div id="ffmi-height-imperial" class="grid grid-cols-2 gap-2">
+          <input id="ffmi-ft" type="number" inputmode="numeric" min="3" max="8" value="5" placeholder="ft" aria-label="Feet" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          <input id="ffmi-inch" type="number" inputmode="numeric" min="0" max="11" value="11" placeholder="in" aria-label="Inches" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+        <div id="ffmi-height-metric" class="hidden">
+          <input id="ffmi-cm" type="number" inputmode="numeric" min="100" max="250" value="180" placeholder="cm" aria-label="Centimeters" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-bold text-ink-700 mb-2" for="ffmi-weight">Weight <span id="ffmi-weight-unit" class="font-semibold text-ink-500">(lb)</span></label>
+        <input id="ffmi-weight" type="number" inputmode="decimal" min="50" max="1000" value="176" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+      </div>
+    </div>
+    <p id="ffmi-error" class="hidden mt-4 text-sm font-semibold text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3" role="alert"></p>
+    <button type="submit" class="mt-6 w-full sm:w-auto inline-flex justify-center items-center rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-extrabold px-8 py-3.5 text-base shadow-md shadow-brand-600/20">Calculate my FFMI</button>
+  </form>
+
+  <div id="ffmi-results" class="hidden mt-8 border-t border-brand-100 pt-7" aria-live="polite">
+    <div class="rounded-2xl bg-brand-600 text-white p-6 text-center">
+      <p class="text-sm font-bold uppercase tracking-wide text-brand-100">Your normalized FFMI</p>
+      <p class="mt-1 text-5xl font-extrabold"><span id="ffmi-normalized">0</span></p>
+      <p id="ffmi-category" class="mt-2 text-brand-100 font-bold"></p>
+      <p id="ffmi-note" class="mt-2 text-sm text-brand-100"></p>
+    </div>
+    <div class="mt-4 grid gap-4 sm:grid-cols-3">
+      <div class="rounded-xl border border-brand-100 bg-brand-50/60 p-5 text-center">
+        <p class="text-sm font-bold text-ink-500 uppercase tracking-wide">FFMI (raw)</p>
+        <p class="mt-1 text-2xl font-extrabold text-brand-700" id="ffmi-raw">0</p>
+      </div>
+      <div class="rounded-xl border border-brand-100 bg-brand-50/60 p-5 text-center">
+        <p class="text-sm font-bold text-ink-500 uppercase tracking-wide">Lean body mass</p>
+        <p class="mt-1 text-2xl font-extrabold text-brand-700"><span id="ffmi-lbm-kg">0</span> kg</p>
+        <p class="text-sm font-semibold text-ink-500"><span id="ffmi-lbm-lb">0</span> lb</p>
+      </div>
+      <div class="rounded-xl border border-brand-100 bg-brand-50/60 p-5 text-center">
+        <p class="text-sm font-bold text-ink-500 uppercase tracking-wide">Fat mass</p>
+        <p class="mt-1 text-2xl font-extrabold text-brand-700"><span id="ffmi-fat-kg">0</span> kg</p>
+        <p class="text-sm font-semibold text-ink-500"><span id="ffmi-fat-lb">0</span> lb</p>
+      </div>
+    </div>
+    <h3 class="mt-8 font-extrabold text-ink-900 text-lg">The FFMI scale, and where you sit</h3>
+    <div class="mt-4 overflow-x-auto rounded-xl border border-brand-100">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-brand-50 text-left">
+            <th class="px-4 py-3 font-extrabold text-ink-900">Normalized FFMI</th>
+            <th class="px-4 py-3 font-extrabold text-ink-900">Category</th>
+          </tr>
+        </thead>
+        <tbody id="ffmi-scale-rows" class="divide-y divide-brand-50"></tbody>
+      </table>
+    </div>
+    <p class="mt-4 text-sm text-ink-700">Your category is scored on the normalized FFMI, which adjusts your score to a height of 1.8 m (about 5 ft 11 in) so tall and short lifters compare fairly.</p>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var units = 'imperial';
+    var sex = 'male';
+    function $(id) { return document.getElementById(id); }
+    function fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+
+    var scale = [
+      { label: 'Below average', range: 'Under 18', test: function (v) { return v < 18; } },
+      { label: 'Average', range: '18 to 19.9', test: function (v) { return v >= 18 && v < 20; } },
+      { label: 'Above average', range: '20 to 21.9', test: function (v) { return v >= 20 && v < 22; } },
+      { label: 'Excellent', range: '22 to 23.9', test: function (v) { return v >= 22 && v < 24; } },
+      { label: 'Superior', range: '24 to 25.9', test: function (v) { return v >= 24 && v < 26; } },
+      { label: 'Suspicious', range: '26 to 27.9', test: function (v) { return v >= 26 && v < 28; } },
+      { label: 'Unlikely natural', range: '28 and above', test: function (v) { return v >= 28; } },
+    ];
+
+    document.querySelectorAll('.ffmi-units-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        units = b.getAttribute('data-units');
+        document.querySelectorAll('.ffmi-units-btn').forEach(function (x) {
+          var active = x.getAttribute('data-units') === units;
+          x.className = 'ffmi-units-btn px-3 py-1.5 rounded-md text-sm font-bold ' + (active ? 'bg-brand-600 text-white' : 'text-ink-700');
+        });
+        $('ffmi-height-imperial').classList.toggle('hidden', units !== 'imperial');
+        $('ffmi-height-metric').classList.toggle('hidden', units !== 'metric');
+        $('ffmi-weight-unit').textContent = units === 'imperial' ? '(lb)' : '(kg)';
+        var w = parseFloat($('ffmi-weight').value);
+        if (!isNaN(w)) $('ffmi-weight').value = units === 'imperial' ? Math.round(w * 2.20462) : Math.round(w / 2.20462);
+      });
+    });
+    document.querySelectorAll('.ffmi-sex-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        sex = b.getAttribute('data-sex');
+        document.querySelectorAll('.ffmi-sex-btn').forEach(function (x) {
+          var active = x.getAttribute('data-sex') === sex;
+          x.className = 'ffmi-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm ' + (active ? 'border-brand-600 bg-brand-50 text-brand-800' : 'border-brand-100 bg-white text-ink-700');
+        });
+      });
+    });
+
+    $('ffmi-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var err = $('ffmi-error');
+      err.classList.add('hidden');
+      var weightRaw = parseFloat($('ffmi-weight').value);
+      var bf = parseFloat($('ffmi-bf').value);
+      var heightCm = units === 'imperial'
+        ? ((parseFloat($('ffmi-ft').value) || 0) * 12 + (parseFloat($('ffmi-inch').value) || 0)) * 2.54
+        : parseFloat($('ffmi-cm').value);
+      var weightKg = units === 'imperial' ? weightRaw * 0.45359237 : weightRaw;
+      if (isNaN(weightRaw) || weightKg < 25 || weightKg > 450 || isNaN(heightCm) || heightCm < 100 || heightCm > 250 || isNaN(bf) || bf < 3 || bf > 60) {
+        err.textContent = 'Please check your entries: a realistic height and weight, and a body fat percentage between 3 and 60.';
+        err.classList.remove('hidden');
+        return;
+      }
+      var heightM = heightCm / 100;
+      var lbmKg = weightKg * (1 - bf / 100);
+      var fatKg = weightKg - lbmKg;
+      var ffmi = lbmKg / (heightM * heightM);
+      var normalized = ffmi + 6.1 * (1.8 - heightM);
+      var category = 'Unlikely natural';
+      for (var i = 0; i < scale.length; i++) {
+        if (scale[i].test(normalized)) { category = scale[i].label; break; }
+      }
+      $('ffmi-normalized').textContent = normalized.toFixed(1);
+      $('ffmi-raw').textContent = ffmi.toFixed(1);
+      $('ffmi-category').textContent = 'Category: ' + category;
+      $('ffmi-note').textContent = sex === 'female'
+        ? 'This scale comes from research on male lifters. Women naturally carry less lean mass and typically score about 2 to 3 points lower at the same training level.'
+        : 'Scores around 25 are widely treated as the practical ceiling for natural lifters.';
+      $('ffmi-lbm-kg').textContent = lbmKg.toFixed(1);
+      $('ffmi-lbm-lb').textContent = fmt(lbmKg * 2.20462);
+      $('ffmi-fat-kg').textContent = fatKg.toFixed(1);
+      $('ffmi-fat-lb').textContent = fmt(fatKg * 2.20462);
+      $('ffmi-scale-rows').innerHTML = scale.map(function (s) {
+        var active = s.label === category;
+        var rowClass = active ? ' class="bg-brand-50"' : '';
+        var label = active ? '<strong>' + s.label + ' (you)</strong>' : s.label;
+        return '<tr' + rowClass + '><td class="px-4 py-3 font-semibold text-ink-700">' + s.range + '</td><td class="px-4 py-3 text-ink-700">' + label + '</td></tr>';
+      }).join('');
+      $('ffmi-results').classList.remove('hidden');
+      $('ffmi-results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  })();
+</script>
