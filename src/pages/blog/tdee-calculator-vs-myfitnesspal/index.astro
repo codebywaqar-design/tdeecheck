@@ -1,0 +1,164 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Faq from '../../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'TDEE Calculator vs MyFitnessPal: Which Should You Use?',
+    description: 'A TDEE calculator sets your calorie number in seconds and shows its math. MyFitnessPal tracks the food you eat. Why their numbers differ, and how to use both well.',
+    url: 'https://tdeecheck.com/blog/tdee-calculator-vs-myfitnesspal/',
+    image: 'https://tdeecheck.com/images/tdee-vs-myfitnesspal-hero.webp',
+    author: { '@type': 'Person', name: 'Farah Akram', jobTitle: 'Dietitian' },
+    publisher: { '@type': 'Organization', name: 'TDEE Check', url: 'https://tdeecheck.com/' },
+    datePublished: '2026-10-23',
+    dateModified: '2026-10-23',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Is the MyFitnessPal calorie goal the same as my TDEE?',
+    a: 'No. Your TDEE is your maintenance level, the intake at which your weight holds steady. The MyFitnessPal goal is an eating target that already has your chosen goal built in, so for weight loss it sits below your TDEE by the deficit you selected, and for gaining it sits above. Comparing the two numbers directly, without that adjustment, makes them look inconsistent when they are actually answering different questions.',
+  },
+  {
+    q: 'Why do a TDEE calculator and MyFitnessPal give me different numbers?',
+    a: 'Three usual reasons. The activity descriptions differ, so the level you pick in each tool may not mean the same thing. The calculator shows raw maintenance while the app goal includes a deficit or surplus. And the app can add exercise calories on top of your goal as you log activity, while a calculator folds average activity into its multiplier from the start. Gaps of 200 to 400 kcal between the two are common and usually explained by one of these.',
+  },
+  {
+    q: 'Can I use a TDEE calculator and MyFitnessPal together?',
+    a: 'Yes, and that is the setup we recommend. Use the calculator to set your calorie and protein targets, because it shows the formula and the maintenance number behind them. Then log your food in the tracker to stay near those targets day to day. If the tracker lets you set a custom calorie goal, enter your calculator figure there so both tools point at the same number.',
+  },
+  {
+    q: 'Which is more accurate, a TDEE calculator or MyFitnessPal?',
+    a: 'They are accurate at different things. The calculator is transparent about its estimate: you can see the formula and adjust the activity level. The tracker is more precise about intake, provided the food entries you pick are correct, but its goal number is still an estimate built from your onboarding answers. In the end neither beats your own data: two to three weeks of honest logging plus your weight trend tells you your real maintenance better than either tool alone.',
+  },
+  {
+    q: 'Do I need an account to find my TDEE?',
+    a: 'Not here. The TDEE Check calculator runs instantly in your browser with no sign up, no email and nothing saved on a server. Tracking apps such as MyFitnessPal do need an account, because their whole job is storing your food log, your history and your targets over time. Which trade off suits you depends on whether you want one number now or a running record.',
+  },
+];
+---
+
+<BaseLayout
+  title="TDEE Calculator vs MyFitnessPal: Which Should You Use?"
+  description="A TDEE calculator sets your calorie number in seconds and shows its math. MyFitnessPal tracks the food you eat. Why their numbers differ, and how to use both well."
+  path="/blog/tdee-calculator-vs-myfitnesspal/"
+  ogType="article"
+  ogImage="/images/tdee-vs-myfitnesspal-hero.webp"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog/' },
+    { name: 'TDEE Calculator vs MyFitnessPal', path: '/blog/tdee-calculator-vs-myfitnesspal/' },
+  ]}
+>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 pt-10">
+    <p class="text-sm font-bold text-brand-700 uppercase tracking-wide">Guide · Reviewed by Farah Akram, Dietitian</p>
+    <h1 class="mt-2 text-4xl font-extrabold tracking-tight text-ink-900">TDEE Calculator vs MyFitnessPal: which should you use?</h1>
+    <p class="mt-5 text-lg text-ink-700 leading-relaxed">
+      People often treat a TDEE calculator and MyFitnessPal as rivals, run both, get two different calorie numbers,
+      and trust neither. The confusion is understandable but the rivalry is false. One tool answers the question
+      "how much should I eat?", the other answers "how much did I actually eat?". They are two halves of the same
+      system, and most of the disagreement between their numbers disappears once you see which half each one is.
+      This guide explains what each tool really does, why their figures differ, and the simple workflow that uses
+      both well.
+    </p>
+    <img
+      src="/images/tdee-vs-myfitnesspal-hero.webp"
+      alt="Illustration comparing a TDEE calculator that sets a calorie target with a food logging app that tracks meals through the day"
+      width="2048"
+      height="1152"
+      class="mt-8 w-full rounded-2xl border border-brand-100"
+      loading="eager"
+    />
+
+    <h2 class="mt-10 text-2xl font-extrabold text-ink-900">What a TDEE calculator does</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      A TDEE calculator sets your number. You enter your sex, age, height, weight and activity level, and it runs a
+      published formula, on this site the Mifflin-St Jeor equation, to estimate your BMR, then multiplies it by an
+      activity factor to get your TDEE, the calories at which your weight holds steady. From that one maintenance
+      figure it shows goal targets: below it to lose, at it to maintain, above it to gain, with macro splits for
+      each. The whole thing takes seconds, needs no account, and shows its math openly, so you can see exactly which
+      assumption moved your number. Our <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a>
+      works this way, and the <a class="font-bold text-brand-700 underline" href="/blog/how-to-calculate-tdee/">step
+      by step guide</a> walks through the same formula by hand.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">What MyFitnessPal does</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      MyFitnessPal is a food logging app. Its strength is a very large food database: you search or scan what you
+      ate, it adds up the calories and macros, and it keeps the record day after day. When you sign up it also gives
+      you a daily calorie goal, produced by its own onboarding method from your stats, the activity setting you pick,
+      and the goal and pace you choose. That goal is an intake target to eat to, not a raw maintenance figure. The
+      app needs an account because storing your log and history is its whole purpose, and alongside its free tier it
+      offers a premium tier with extra features. As a daily diary it is genuinely useful; as a way to understand
+      where your number came from, it tells you much less.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Side by side</h2>
+    <div class="mt-4 overflow-x-auto rounded-xl border border-brand-100 bg-white">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-brand-50 text-left">
+            <th class="px-4 py-3 font-extrabold text-ink-900">Question</th>
+            <th class="px-4 py-3 font-extrabold text-ink-900">TDEE calculator</th>
+            <th class="px-4 py-3 font-extrabold text-ink-900">MyFitnessPal</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-brand-50">
+          <tr><td class="px-4 py-3 font-semibold">Main job</td><td class="px-4 py-3">Sets your calorie and macro targets</td><td class="px-4 py-3">Logs the food you eat against a target</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">Account needed</td><td class="px-4 py-3">No, runs instantly in the browser</td><td class="px-4 py-3">Yes, your log and history live in it</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">Shows its formula</td><td class="px-4 py-3">Yes, Mifflin-St Jeor and the activity multiplier are on the page</td><td class="px-4 py-3">The goal is produced by its own method and settings</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">Food database</td><td class="px-4 py-3">None, it does not log meals</td><td class="px-4 py-3">Very large, with barcode scanning</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">Goal targets</td><td class="px-4 py-3">Maintenance plus loss and gain targets, shown side by side</td><td class="px-4 py-3">One goal based on the target and pace you chose at setup</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">Cost</td><td class="px-4 py-3">Free tool</td><td class="px-4 py-3">Freemium app, free tier plus a premium tier</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Why the two numbers differ</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      If your app goal and your calculator result disagree, it is usually arithmetic, not error. First, the two
+      figures are different kinds of number: the calculator shows raw maintenance, while the app goal already
+      includes your deficit or surplus, so for weight loss it should sit a few hundred calories lower. Second, the
+      activity settings are not standardised. The activity level you pick during app setup is a rough self
+      description, and one tool's "active" is another tool's "moderate", which alone can swing the result by 200
+      kcal or more. Third, a tracker may add exercise calories back on top of your goal as you log workouts, while a
+      calculator already folded your average activity into its multiplier. Add those three effects together and a
+      gap of 200 to 400 kcal is entirely normal. Our guide to
+      <a class="font-bold text-brand-700 underline" href="/blog/how-accurate-are-tdee-calculators/">how accurate TDEE
+      calculators are</a> covers the same ground from the formula side.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">The workflow that uses both well</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Used together, in the right order, the two tools cover each other's blind spots. <strong>Step one:</strong> set
+      your target with the calculator, where you can see the formula, the maintenance figure and the loss or gain
+      targets side by side, and pick the one that matches your goal. <strong>Step two:</strong> log your food in the
+      tracker, using its database to stay honest about intake; if it lets you set a custom goal, enter your
+      calculator number so both tools aim at the same target. <strong>Step three:</strong> every two to three weeks,
+      compare your weight trend with your logged intake. If the trend matches the plan, change nothing. If it does
+      not, adjust the target by 100 to 200 kcal, because your real maintenance, measured in your own life, outranks
+      any estimate. The calculator sets the plan, the tracker runs the days, and your trend referees.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Verdict: which one for which person</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      If you just want your number, quickly and without signing up for anything, the calculator alone is enough, and
+      it is the better place to understand what the number means. If you already log your food daily and like the
+      habit, keep the tracker, but set its goal from a calculator you can inspect rather than accepting a figure you
+      cannot see inside. And if you are serious about a cut or a gain, use both in the workflow above: it takes the
+      transparency of the calculator and the daily honesty of the log, and it corrects itself with your own results
+      instead of arguing about whose estimate was right.
+    </p>
+
+    <p class="mt-8 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Farah Akram, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+
+    <Faq faqs={faqs} title="TDEE calculator vs MyFitnessPal questions" />
+  </article>
+</BaseLayout>

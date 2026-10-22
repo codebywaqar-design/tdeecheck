@@ -24,6 +24,7 @@
 - [TDEE Calculator for Men](https://tdeecheck.com/tdee-calculator-for-men/): The TDEE calculator with the male equation preset, typical male TDEE ranges, bulking targets and the 1,500 kcal floor.
 - [TDEE Calculator (KG)](https://tdeecheck.com/tdee-calculator-kg/): The TDEE calculator opening in kilograms and centimeters, the formula shown purely in metric, with pound and stone conversions.
 - [Sedentary TDEE Calculator](https://tdeecheck.com/sedentary-tdee-calculator/): The TDEE calculator with activity fixed at the sedentary 1.2 level for desk workers, plus NEAT strategies to raise daily burn.
+- [TDEE Calculator to Gain Weight](https://tdeecheck.com/tdee-calculator-to-gain-weight/): The TDEE calculator preset for gaining, with lean and standard surplus sizes, protein targets and realistic gain rates for hardgainers and lifters.
 
 ## Guides
 
@@ -38,6 +39,7 @@
 - [Eating Below Your BMR: Is It Safe?](https://tdeecheck.com/blog/eating-below-your-bmr/): What BMR pays for, why chronic intake below it backfires, who must never do it, and how to take your deficit from TDEE instead.
 - [How Activity Levels Really Work (and Why Most People Overestimate)](https://tdeecheck.com/blog/how-activity-levels-work/): The five multipliers read as jobs and step counts, NEAT explained, a step based self-test, and the cost of picking one level too high.
 - [Reverse Dieting Explained: Raising Calories After a Diet](https://tdeecheck.com/blog/reverse-dieting-explained/): Adding 50 to 150 kcal a week after a diet, what the scale does at first, how long it takes, and when to jump straight to maintenance.
+- [TDEE Calculator vs MyFitnessPal: Which Should You Use?](https://tdeecheck.com/blog/tdee-calculator-vs-myfitnesspal/): One tool sets your number and shows its math, the other logs your food. Why their figures differ and how to combine them in one workflow.
 
 ## About
 

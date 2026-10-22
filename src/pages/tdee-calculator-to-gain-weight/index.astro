@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TdeeCalculator from '../../components/TdeeCalculator.astro';
+import Faq from '../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'TDEE Calculator to Gain Weight',
+    url: 'https://tdeecheck.com/tdee-calculator-to-gain-weight/',
+    applicationCategory: 'HealthApplication',
+    operatingSystem: 'Any',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Person', name: 'Farah Akram', jobTitle: 'Dietitian' },
+  },
+];
+
+const faqs = [
+  {
+    q: 'How many calories above my TDEE do I need to gain weight?',
+    a: 'For most people, 250 to 500 kcal above maintenance is the whole useful range. A surplus of about 250 kcal a day adds roughly half a pound a week, and 500 kcal a day adds about a pound a week. Muscle can only be built so fast, so calories beyond that range are stored mostly as fat rather than turned into extra muscle.',
+  },
+  {
+    q: 'Why am I not gaining weight even though I eat a lot?',
+    a: 'Almost always one of three things: your TDEE is higher than you assumed because your job, steps or training burn more than the estimate, your tracking misses liquid calories, cooking oils, weekends or snacks, or you have only been consistent for a few days at a time. Eat at your target for two full weeks, weigh yourself several mornings a week, and if the trend is flat, add 200 to 300 kcal and test again.',
+  },
+  {
+    q: 'How much protein do I need to gain muscle?',
+    a: 'A solid target is 0.7 to 1 gram of protein per pound of body weight per day, so 105 to 150 g for a 150 lb person. Spread it across three or four meals. Going far above that range does not build muscle faster; the extra protein simply gets burned as energy, so spend the remaining calories on carbs that fuel your training.',
+  },
+  {
+    q: 'Will a bigger surplus build muscle faster?',
+    a: 'No, past a modest point it mostly builds fat. Muscle protein is added at a limited daily rate, and a 250 to 300 kcal surplus already covers that rate for most lifters plus the energy cost of hard training. Doubling the surplus roughly doubles the fat gained alongside the muscle, which you then have to diet off. Slow, lean gaining keeps almost all of the progress.',
+  },
+  {
+    q: 'How long will it take to gain 10 lb?',
+    a: 'At a lean surplus of 250 kcal, about half a pound a week, 10 lb takes roughly five months once you allow for imperfect weeks. At 500 kcal a day it takes about half that time, but a larger share arrives as fat. Beginners gain fastest; experienced lifters should expect the slower end and judge progress by monthly photos, measurements and strength, not single weigh ins.',
+  },
+];
+---
+
+<BaseLayout
+  title="TDEE Calculator to Gain Weight - Surplus Calories and Macros"
+  description="Free TDEE calculator to gain weight. Find your maintenance calories, add a lean surplus of 250 to 500 kcal, and set protein for steady, realistic gains."
+  path="/tdee-calculator-to-gain-weight/"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'TDEE Calculator to Gain Weight', path: '/tdee-calculator-to-gain-weight/' },
+  ]}
+>
+  <section class="bg-gradient-to-b from-brand-50 to-transparent">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 pb-12">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-ink-900">TDEE Calculator to Gain Weight</h1>
+        <p class="mt-4 text-lg text-ink-700 leading-relaxed">
+          Gaining weight on purpose is a numbers problem, just like losing it. You need to know what you burn, then
+          eat a measured amount above it. This calculator opens with a young, lean example already loaded, so one
+          click shows you maintenance, two gaining targets, and the macros for each.
+        </p>
+        <p class="mt-3 text-sm font-semibold text-ink-500">Reviewed by Farah Akram, Dietitian. A lean gaining example is preset below.</p>
+      </div>
+      <div class="mt-8 max-w-4xl">
+        <TdeeCalculator prefix="gw" presetSex="male" presetAge={24} presetFt={6} presetIn={0} presetWeight={150} presetActivity="1.55" />
+      </div>
+    </div>
+  </section>
+
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 mt-4">
+    <h2 class="text-3xl font-extrabold text-ink-900">Who this calculator is for</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      Three groups land here. The first is the underweight: people whose weight sits below where they feel and
+      perform best, often after illness, stress or a few chaotic years of skipped meals. The second is the
+      hardgainer, usually young, lean and active, who swears they eat constantly yet never gains, and who usually
+      turns out to burn far more than they guessed. The third is the athlete or lifter adding mass on purpose, who
+      wants the gain to be as much muscle and as little fat as possible. All three share the same first step: stop
+      guessing at "eat more" and put a real number on what more means.
+    </p>
+    <h2 class="mt-10 text-3xl font-extrabold text-ink-900">The gaining formula, with a worked example</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      The math is identical to every TDEE calculation, Mifflin-St Jeor for BMR, then an activity multiplier. The
+      example loaded above is a man of 24, 6 ft 0 in and 150 lb, training three to five days a week. In metric he
+      is 68.0 kg and 182.9 cm, so his BMR is (10 x 68.0) + (6.25 x 182.9) minus (5 x 24) plus 5, which is 680 +
+      1,143 minus 120 plus 5, about 1,708 kcal per day. At the moderate factor of 1.55 his TDEE is 1,708 x 1.55,
+      about 2,648 kcal per day, or 18,536 kcal a week. That 2,648 is his break-even point: eat at it and his weight
+      holds, eat above it and he gains. Press calculate above and you will land on the same numbers.
+    </p>
+    <h2 class="mt-10 text-3xl font-extrabold text-ink-900">Pick your surplus: lean gain or standard gain</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      A lean surplus of 250 to 300 kcal above TDEE is the default recommendation for anyone who trains. For our
+      example that is 2,898 kcal on the mild weight gain card, up to about 2,948 at the top of the range, and it
+      should add roughly a quarter to half a pound a week, nearly all of it usable. The mild gain card splits its
+      2,898 kcal into about 217 g of protein, 326 g of carbs and 81 g of fat. A standard surplus of 500 kcal, 3,148
+      kcal here, adds about a pound a week and suits true beginners, the very lean, and people whose work is
+      physical all day. Past 500 kcal the muscle building machinery is already running at full speed, so the extra
+      food is stored overwhelmingly as fat. On protein, aim for 0.7 to 1 gram per pound of body weight, 105 to
+      150 g a day for our example; the calculator's percentage split lands above that floor, which comfortably
+      covers it. Our <a class="font-bold text-brand-700 underline" href="/calculators/macro-calculator/">Macro
+      Calculator</a> lets you tune the split by hand.
+    </p>
+    <h2 class="mt-10 text-3xl font-extrabold text-ink-900">How fast should the scale move?</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      Beginners in their first year of serious training can gain close to half a pound a week with most of it
+      muscle. Experienced lifters should expect far less, about 0.5 to 1 percent of body weight per month, and that
+      slower pace is normal progress, not failure. For non lifters gaining back to a healthy weight, a steady half
+      pound a week is a sound target. Watch the waist as your governor: if your waist is climbing noticeably faster
+      than your strength, your appetite or your measurements elsewhere, the surplus is too big, so trim 200 kcal.
+      If four honest weeks pass with no movement in weight or strength, add 200 to 300 kcal and test again.
+    </p>
+    <h2 class="mt-10 text-3xl font-extrabold text-ink-900">Eating tactics when appetite is the limit</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      For hardgainers the problem is rarely knowledge, it is stomach space. Drink some of your surplus: a shake of
+      milk, oats, banana and nut butter can carry 600 kcal without the fullness of a meal. Eat more often, four or
+      five eating occasions instead of two large ones, and keep calorie dense foods in rotation, nuts, cheese, eggs,
+      dried fruit, olive oil and fattier cuts of meat, which add energy without adding volume. Finish meals with the
+      calorie dense items rather than filling up on salad and water first. Small habits, repeated daily, are what
+      turn a surplus on paper into a surplus in real life.
+    </p>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      Going the other way? The <a class="font-bold text-brand-700 underline" href="/tdee-weight-loss-calculator/">TDEE weight loss calculator</a>
+      sizes a safe deficit instead. Men who want the full picture, ranges, cutting and bulking from one number,
+      should see the <a class="font-bold text-brand-700 underline" href="/tdee-calculator-for-men/">TDEE calculator for men</a>.
+      Or run your own stats through the plain <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a>
+      on our homepage with no presets.
+    </p>
+    <p class="mt-8 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Farah Akram, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+    <Faq faqs={faqs} />
+  </article>
+</BaseLayout>
