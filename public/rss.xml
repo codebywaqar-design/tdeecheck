@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>TDEE Check blog</title>
+    <link>https://tdeecheck.com/blog/</link>
+    <description>Practical guides on TDEE, calories, macros and weight management, reviewed by a dietitian.</description>
+    <language>en-us</language>
+    <atom:link href="https://tdeecheck.com/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to Calculate Your TDEE: A Step by Step Guide</title>
+      <link>https://tdeecheck.com/blog/how-to-calculate-tdee/</link>
+      <guid>https://tdeecheck.com/blog/how-to-calculate-tdee/</guid>
+      <pubDate>Wed, 22 Oct 2026 05:00:00 GMT</pubDate>
+      <description>Learn the TDEE formula step by step, with a worked example, the activity multiplier table and the mistakes that make results come out wrong.</description>
+    </item>
+  </channel>
+</rss>

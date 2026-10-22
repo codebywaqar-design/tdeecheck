@@ -1,0 +1,22 @@
+# TDEE Check
+
+> TDEE Check is a free calculator site that helps people find their Total Daily Energy Expenditure (TDEE) and the calories they need to lose, maintain, or gain weight. All tools are free, need no sign up, and run instantly in the browser. Content is reviewed by Waqar, a dietitian.
+
+## Calculators
+
+- [TDEE Calculator](https://tdeecheck.com/): Find your maintenance calories with the Mifflin-St Jeor formula, with cut, bulk and maintenance targets and macro splits.
+- [BMR Calculator](https://tdeecheck.com/calculators/bmr-calculator/): Your basal metabolic rate, the calories your body burns at complete rest.
+- [Calorie Calculator](https://tdeecheck.com/calculators/calorie-calculator/): Daily calorie targets for losing, maintaining, or gaining weight.
+- [Macro Calculator](https://tdeecheck.com/calculators/macro-calculator/): Daily protein, carbohydrate and fat grams for your calorie target and goal.
+- [BMI Calculator](https://tdeecheck.com/calculators/bmi-calculator/): Body mass index with the standard adult weight categories.
+- [TDEE Weight Loss Calculator](https://tdeecheck.com/tdee-weight-loss-calculator/): The safe calorie deficit and weekly loss rate for your body and activity level.
+
+## Guides
+
+- [How to Calculate Your TDEE: A Step by Step Guide](https://tdeecheck.com/blog/how-to-calculate-tdee/): The formula, a worked example, activity multipliers and the mistakes that skew results.
+
+## About
+
+- [About TDEE Check](https://tdeecheck.com/about/): Who runs the site and how the calculators work.
+- [Medical Disclaimer](https://tdeecheck.com/medical-disclaimer/): The calculators give estimates for education, not medical advice.
+- [Contact](https://tdeecheck.com/contact/)

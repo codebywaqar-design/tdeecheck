@@ -12,11 +12,13 @@ interface Props {
   path: string;
   schemas?: Record<string, unknown>[];
   ogType?: string;
+  ogImage?: string;
   crumbs?: Crumb[];
 }
 
-const { title, description, path, schemas = [], ogType = 'website', crumbs } = Astro.props;
+const { title, description, path, schemas = [], ogType = 'website', ogImage = '/images/og-tdee-check.webp', crumbs } = Astro.props;
 const canonical = new URL(path, 'https://tdeecheck.com').toString();
+const ogImageUrl = new URL(ogImage, 'https://tdeecheck.com').toString();
 
 const allSchemas: Record<string, unknown>[] = [...schemas];
 if (crumbs && crumbs.length > 0) {
@@ -50,9 +52,14 @@ const year = new Date().getFullYear();
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <link rel="alternate" type="application/rss+xml" title="TDEE Check blog" href="/rss.xml" />
     {allSchemas.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
   </head>
   <body class="min-h-screen flex flex-col antialiased">
