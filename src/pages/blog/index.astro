@@ -1,11 +1,28 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'TDEE Check blog guides',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'How to Calculate Your TDEE, Step by Step',
+        url: 'https://tdeecheck.com/blog/how-to-calculate-tdee/',
+      },
+    ],
+  },
+];
 ---
 
 <BaseLayout
   title="Blog - TDEE, Calories and Nutrition Guides | TDEE Check"
   description="Practical guides from TDEE Check: how to calculate TDEE, use your numbers, and plan calories and macros. Reviewed by Waqar, Dietitian."
   path="/blog/"
+  schemas={schemas}
   ogType="article"
   crumbs={[
     { name: 'Home', path: '/' },

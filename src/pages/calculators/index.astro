@@ -39,12 +39,27 @@ const tools = [
     tag: 'Fat loss',
   },
 ];
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'TDEE Check calculators',
+    itemListElement: tools.map((t, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: t.name,
+      url: new URL(t.href, 'https://tdeecheck.com').toString(),
+    })),
+  },
+];
 ---
 
 <BaseLayout
   title="Free Calorie and Nutrition Calculators - TDEE Check"
   description="All TDEE Check calculators in one place: TDEE, BMR, daily calorie, macro, and BMI calculators, plus the TDEE weight loss calculator. Free, no sign up."
   path="/calculators/"
+  schemas={schemas}
   crumbs={[
     { name: 'Home', path: '/' },
     { name: 'Calculators', path: '/calculators/' },

@@ -15,6 +15,21 @@ const schemas = [
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
     author: { '@type': 'Person', name: 'Waqar', jobTitle: 'Dietitian' },
   },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'TDEE Check',
+    url: 'https://tdeecheck.com/',
+    publisher: { '@type': 'Organization', name: 'TDEE Check', url: 'https://tdeecheck.com/' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'TDEE Check',
+    url: 'https://tdeecheck.com/',
+    logo: 'https://tdeecheck.com/images/og-tdee-check.webp',
+    founder: { '@type': 'Person', name: 'Waqar', jobTitle: 'Dietitian' },
+  },
 ];
 
 const faqs = [

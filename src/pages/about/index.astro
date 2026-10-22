@@ -1,11 +1,24 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Waqar',
+    jobTitle: 'Dietitian',
+    url: 'https://tdeecheck.com/about/',
+    worksFor: { '@type': 'Organization', name: 'TDEE Check', url: 'https://tdeecheck.com/' },
+    knowsAbout: ['TDEE', 'BMR', 'Calorie planning', 'Macronutrients', 'Weight management'],
+  },
+];
 ---
 
 <BaseLayout
   title="About TDEE Check - Dietitian Reviewed Calorie Calculators"
   description="About TDEE Check: free calorie, TDEE, BMR, macro, and BMI calculators built on published formulas and reviewed by Waqar, Dietitian."
   path="/about/"
+  schemas={schemas}
   crumbs={[
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about/' },
