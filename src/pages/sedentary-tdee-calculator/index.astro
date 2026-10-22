@@ -1,0 +1,149 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TdeeCalculator from '../../components/TdeeCalculator.astro';
+import Faq from '../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Sedentary TDEE Calculator',
+    url: 'https://tdeecheck.com/sedentary-tdee-calculator/',
+    applicationCategory: 'HealthApplication',
+    operatingSystem: 'Any',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Person', name: 'Farah Akram', jobTitle: 'Dietitian' },
+  },
+];
+
+const faqs = [
+  {
+    q: 'What counts as sedentary?',
+    a: 'A sedentary day means sitting for most of it: a desk job or remote work, driving or sitting on the commute, and fewer than about 5,000 steps, with no regular exercise. If that describes your typical week honestly, the 1.2 multiplier on this page is your number. Occasional busy days do not change the average much, which is why the calculator here keeps the activity level fixed at sedentary.',
+  },
+  {
+    q: 'I work at a desk but train three times a week. Am I sedentary?',
+    a: 'Probably not. Three genuine training sessions a week usually move you to the light level, 1.375, even if the rest of your day is seated. This page is built for people with little or no exercise. If you train, use the main TDEE Calculator on our homepage and pick light or moderate, then correct the result with a few weeks of weight tracking.',
+  },
+  {
+    q: 'How can I raise my TDEE without going to the gym?',
+    a: 'Through NEAT, the calories you burn living your life. Walk for 10 minutes after meals, stand and move for a few minutes every hour, take stairs, park at the far end of the lot, and build your step count toward 7,000 to 8,000 a day. Together these habits commonly add 150 to 300 kcal a day, which is the whole gap between the sedentary and light activity levels.',
+  },
+  {
+    q: 'How many steps take me out of the sedentary range?',
+    a: 'Under about 5,000 steps a day is generally classed as sedentary. Consistently reaching 7,500 or more puts you closer to light activity, especially if some of those steps are brisk. The exact step count matters less than the pattern: a daily walking habit, held for weeks, is what raises your real TDEE and lets you recalculate at the higher level.',
+  },
+  {
+    q: 'Why is weight loss slower when you are sedentary?',
+    a: 'Because the room to cut is smaller. If your maintenance is 1,600 kcal, the standard 500 kcal deficit would put you at 1,100, below the 1,200 floor most women should not cross without supervision. Sedentary dieters usually do better with the mild 250 kcal deficit, more protein to protect muscle, and extra daily movement to widen the gap from the spending side instead of the eating side.',
+  },
+];
+---
+
+<BaseLayout
+  title="Sedentary TDEE Calculator - True Calories for Desk Workers"
+  description="Free sedentary TDEE calculator for desk workers. Find the calories you burn at a 1.2 activity level, and how NEAT can raise your daily burn without the gym."
+  path="/sedentary-tdee-calculator/"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Sedentary TDEE Calculator', path: '/sedentary-tdee-calculator/' },
+  ]}
+>
+  <section class="bg-gradient-to-b from-brand-50 to-transparent">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 pb-12">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-ink-900">Sedentary TDEE Calculator</h1>
+        <p class="mt-4 text-lg text-ink-700 leading-relaxed">
+          If your workday is a chair, your commute is a seat, and your steps land under 5,000, your true maintenance
+          calories are lower than most calculators assume. This version fixes the activity level at sedentary, 1.2,
+          so the number it gives you is the honest one for a desk based life.
+        </p>
+        <p class="mt-3 text-sm font-semibold text-ink-500">Reviewed by Farah Akram, Dietitian. Activity is fixed on Sedentary below.</p>
+      </div>
+      <div class="mt-8 max-w-4xl">
+        <TdeeCalculator
+          prefix="sed"
+          presetAge={40}
+          presetFt={5}
+          presetIn={4}
+          presetWeight={150}
+          presetActivity="1.2"
+          lockActivity={true}
+          activityNote="Activity is locked on Sedentary (1.2) for this version of the tool, so the result reflects a desk based day with little or no exercise."
+        />
+      </div>
+    </div>
+  </section>
+
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 mt-4">
+    <h2 class="text-3xl font-extrabold text-ink-900">What the 1.2 factor really covers</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      A sedentary TDEE is your BMR multiplied by 1.2. That extra fifth on top of resting burn pays for digestion, the
+      walk to the kitchen, getting dressed, and the general small change of being awake and upright for part of the
+      day. It does not pay for workouts, long walks, or a job on your feet, because a sedentary life does not include
+      them. The honest test is your step count and your week as it actually is, not as you plan it to be in January.
+      Many people who describe themselves as fairly active discover, once a phone or watch counts for a fortnight,
+      that their desk weeks average closer to 4,000 steps than 10,000, and that gap of movement is worth 200 to 300
+      kcal a day.
+    </p>
+    <h2 class="mt-10 text-3xl font-extrabold text-ink-900">A desk worker's numbers, worked through</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      The example loaded above is a 40 year old woman, 5 ft 4 in and 150 lb, working at a desk with no regular
+      exercise. In metric she is 68.0 kg and 162.6 cm. Her BMR is (10 x 68.0) + (6.25 x 162.6) minus (5 x 40) minus
+      161, which is 680 + 1,016 minus 200 minus 161, about 1,335 kcal per day. Multiply by the sedentary factor of 1.2
+      and her TDEE is about 1,602 kcal per day, roughly 11,217 kcal a week. That is the whole budget her body spends.
+      Eating at 1,602 holds her weight steady. The mild loss target, 1,352 kcal, is as deep as she should cut,
+      because the standard 500 kcal deficit would land at 1,102, below the 1,200 kcal floor for women. Run the
+      calculator and you will see these exact figures.
+    </p>
+    <h2 class="mt-10 text-3xl font-extrabold text-ink-900">NEAT: the burn a desk takes away</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      NEAT stands for non-exercise activity thermogenesis, the energy you spend on everything that is not sleeping,
+      eating, or deliberate exercise: steps, standing, carrying shopping, cleaning, gardening, even fidgeting. It is
+      the most variable part of TDEE and the part office life quietly deletes. Two people with the same BMR and the
+      same gym routine can differ by 100 to 300 kcal a day or more purely on NEAT, one pacing through calls and
+      walking to lunch, the other barely leaving a chair between waking and bed. That difference, repeated daily, is
+      worth roughly 10 to 30 lb a year, which is why sedentary workers often gain weight on intakes that look modest
+      on paper.
+    </p>
+    <h2 class="mt-10 text-3xl font-extrabold text-ink-900">Raising your TDEE without formal exercise</h2>
+    <ul class="mt-4 space-y-3 text-ink-700 leading-relaxed list-disc pl-6">
+      <li><strong>Walk after meals.</strong> Ten minutes after lunch and dinner aids digestion and, across a week, adds up to real distance. Post meal walking is the single easiest NEAT habit to keep.</li>
+      <li><strong>Stand and move hourly.</strong> A few minutes of standing, stretching, or walking each hour breaks up the seated block and keeps daily burn ticking over.</li>
+      <li><strong>Build steps toward 7,000 to 8,000.</strong> Park further away, take stairs, walk one bus stop further. Two thousand extra steps a day is worth roughly 80 to 100 kcal for most adults.</li>
+      <li><strong>Make errands active.</strong> Carrying, cleaning, and weekend chores are NEAT too. An active Saturday can rescue a fully seated week more than people expect.</li>
+    </ul>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      Stacked together, these habits commonly add 150 to 300 kcal a day, effectively moving you from the 1.2 factor
+      toward the light level of 1.375. Once a walking pattern has held for a few weeks, recalculate with the
+      <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a> on our homepage at the light setting
+      and let your weight trend confirm the new number.
+    </p>
+    <h2 class="mt-10 text-3xl font-extrabold text-ink-900">Eating well on a small calorie budget</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      A low TDEE leaves less room for error in both directions. There is no deep deficit available, so sedentary
+      weight loss runs slower, often half a pound a week, and that is fine. There is also less slack for low nutrient
+      food, because 1,600 kcal has to carry a full day of protein, fiber, and micronutrients. Prioritize protein at
+      every meal, the calculator's loss targets set it at 40 percent, which for our example is about 135 g a day at
+      the mild target, and build plates around vegetables, legumes, dairy, eggs, and lean meats before spending
+      calories on snacks. If you are using the deficit version of this plan, the
+      <a class="font-bold text-brand-700 underline" href="/tdee-weight-loss-calculator/">TDEE weight loss calculator</a>
+      explains deficit sizing and plateaus in more detail.
+    </p>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      Sitting between categories? The
+      <a class="font-bold text-brand-700 underline" href="/tdee-calculator-for-women/">TDEE calculator for women</a> and
+      the
+      <a class="font-bold text-brand-700 underline" href="/tdee-calculator-for-men/">TDEE calculator for men</a> preset
+      the audience and leave activity open, and the
+      <a class="font-bold text-brand-700 underline" href="/tdee-calculator-kg/">TDEE calculator in kg</a> runs the same
+      sedentary math in kilograms and centimeters.
+    </p>
+    <p class="mt-8 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Farah Akram, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+    <Faq faqs={faqs} />
+  </article>
+</BaseLayout>

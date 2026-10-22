@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TdeeCalculator from '../../components/TdeeCalculator.astro';
+import Faq from '../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'TDEE Calculator for Men',
+    url: 'https://tdeecheck.com/tdee-calculator-for-men/',
+    applicationCategory: 'HealthApplication',
+    operatingSystem: 'Any',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Person', name: 'Farah Akram', jobTitle: 'Dietitian' },
+  },
+];
+
+const faqs = [
+  {
+    q: 'What is a normal TDEE for a man?',
+    a: 'Most men maintain somewhere between about 2,000 and 3,200 kcal per day. A smaller man with a desk job often sits near 2,000 to 2,200, an average sized man who trains a few times a week near 2,500 to 2,800, and a big, very active man or physical worker can hold weight at 3,200 or more. Height, weight, and muscle mass move the number as much as workouts do.',
+  },
+  {
+    q: 'How many calories should I eat to bulk?',
+    a: 'Start with a mild surplus of 250 kcal above your TDEE and give it a month. Most men gain muscle at close to the maximum rate on that, with far less fat than a 500 kcal surplus adds. If the scale and your lifts are both flat after three consistent weeks, move up to the 500 kcal target. Bulking is a long game measured in months, not a race measured in weeks.',
+  },
+  {
+    q: 'Does building muscle actually raise my TDEE?',
+    a: 'Yes, but modestly. Muscle burns more at rest than fat, so every kilo of lean mass you add lifts your BMR a little, and stronger training usually raises your daily movement too. The effect is real but slow, which is why recalculating after every 10 to 15 lb of change matters more than expecting the formula to notice a single good month in the gym. If you know your body fat percentage, the Katch-McArdle option in the calculator uses your lean mass directly.',
+  },
+  {
+    q: 'Why is my TDEE lower than the averages I see online?',
+    a: 'Usually one of three things: you are shorter or lighter than the reference man in the article you read, you are older, or your activity level was picked one notch too high. A desk worker who trains three times a week is light or moderate, not very active. Choose the honest level, run the number, then correct it with 2 to 3 weeks of real weight tracking.',
+  },
+  {
+    q: 'How low can a man safely cut?',
+    a: 'Most men should not plan below 1,500 kcal per day without medical supervision. Below that, protein and nutrient coverage gets difficult and the costs show up as falling strength, low energy, poor sleep, and low mood. Larger deficits also burn more muscle along with fat. If your math lands under the floor, use the mild loss target and add movement instead of cutting deeper.',
+  },
+];
+---
+
+<BaseLayout
+  title="TDEE Calculator for Men - Maintenance, Bulking and Macros"
+  description="Free TDEE calculator for men using the male Mifflin-St Jeor formula. Get maintenance calories, clean bulking targets and daily macros. Reviewed by a dietitian."
+  path="/tdee-calculator-for-men/"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'TDEE Calculator for Men', path: '/tdee-calculator-for-men/' },
+  ]}
+>
+  <section class="bg-gradient-to-b from-brand-50 to-transparent">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 pb-12">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-ink-900">TDEE Calculator for Men</h1>
+        <p class="mt-4 text-lg text-ink-700 leading-relaxed">
+          Whether the goal is a lean cut or a clean bulk, it starts with the same number: what you burn. This
+          calculator opens with the male equation and a realistic training example already loaded, so one click shows
+          you maintenance, cutting, and gaining targets with macros for each.
+        </p>
+        <p class="mt-3 text-sm font-semibold text-ink-500">Reviewed by Farah Akram, Dietitian. Male and a very active example are preset below.</p>
+      </div>
+      <div class="mt-8 max-w-4xl">
+        <TdeeCalculator prefix="m" presetSex="male" presetAge={28} presetFt={5} presetIn={10} presetWeight={185} presetActivity="1.725" />
+      </div>
+    </div>
+  </section>
+
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 mt-4">
+    <h2 class="text-3xl font-extrabold text-ink-900">Typical TDEE ranges for men</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      Male maintenance calories spread wider than most people expect. A 5 ft 7 in office worker at 160 lb might hold
+      his weight near 2,100 kcal, while a 6 ft 2 in construction worker at 210 lb can eat 3,400 kcal without gaining
+      a pound. Three things drive the spread. Size is first: bigger bodies have more tissue to run and more mass to
+      move. Muscle is second: lean mass burns several times more energy per kilo at rest than fat mass, so two men at
+      the same weight can differ by 200 kcal before either leaves the couch. Activity is third, and it is the one men
+      most often exaggerate. Judge your level by the whole week. Six gym hours inside an otherwise seated life is
+      moderate for most men, not very active.
+    </p>
+    <h2 class="mt-10 text-3xl font-extrabold text-ink-900">The male formula, with a worked example</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      For men, Mifflin-St Jeor reads BMR = (10 x weight in kg) + (6.25 x height in cm) minus (5 x age) plus 5. The
+      example loaded into the calculator above is a 28 year old man, 5 ft 10 in and 185 lb, training hard six days a
+      week. In metric he is 83.9 kg and 177.8 cm, so his BMR is (10 x 83.9) + (6.25 x 177.8) minus (5 x 28) plus 5,
+      which is 839 + 1,111 minus 140 plus 5, about 1,815 kcal per day. At the very active factor of 1.725 his TDEE is
+      1,815 x 1.725, about 3,132 kcal per day, or roughly 21,921 kcal a week. At maintenance the calculator splits
+      that into about 235 g of protein, 313 g of carbs, and 104 g of fat. Press calculate above and you will land on
+      the same numbers.
+    </p>
+    <h2 class="mt-10 text-3xl font-extrabold text-ink-900">Cutting and bulking from the same number</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      For a cut, subtract. Our example man maintains at 3,132, so a mild cut is 2,882 and a standard cut is 2,632
+      kcal, with the protein split lifted to 40 percent so the weight he loses comes from fat rather than the muscle
+      he trained for. For a bulk, add, but add less than instinct suggests. A mild surplus of 250 kcal takes him to
+      3,382 kcal with about 254 g of protein, 380 g of carbs, and 94 g of fat, and for most intermediates that is
+      already enough to gain at close to the fastest rate muscle can actually be built, roughly half a pound a week.
+      The 500 kcal surplus, 3,632 kcal here, suits beginners, very lean men, and men whose jobs burn energy all day.
+      If your belt is moving faster than your lifts, the surplus is too big, whatever the plan said.
+    </p>
+    <h2 class="mt-10 text-3xl font-extrabold text-ink-900">The floor for men: 1,500 kcal</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      Most men should not diet below 1,500 kcal per day without medical supervision. The bigger and more muscular you
+      are, the more a crash diet costs you: strength falls, training quality collapses, sleep and mood suffer, and a
+      larger share of every pound lost is muscle. Men with a high TDEE rarely need to go anywhere near the floor
+      anyway, since a 500 kcal cut from 3,100 still leaves a generous 2,600 to eat. The floor mostly traps smaller,
+      sedentary men, and the fix for them is the mild deficit plus more daily movement, not a deeper cut. Our
+      <a class="font-bold text-brand-700 underline" href="/tdee-weight-loss-calculator/">TDEE weight loss calculator</a>
+      lays out safe deficit sizing step by step.
+    </p>
+    <h2 class="mt-10 text-3xl font-extrabold text-ink-900">Recalculate as you change</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      Your TDEE is a moving target in both directions. Lose 15 lb and the smaller body burns less, so the cut that
+      worked in month one quietly becomes maintenance by month four. Gain 10 lb of mostly muscle across a year and
+      the surplus that built it becomes your new maintenance. Rerun this calculator after every 10 to 15 lb of
+      change, and any time your job or training schedule changes in a lasting way. Two minutes of arithmetic keeps a
+      year of eating pointed at the right number.
+    </p>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      Need the women's version? The
+      <a class="font-bold text-brand-700 underline" href="/tdee-calculator-for-women/">TDEE calculator for women</a>
+      uses the female equation. Working in kilograms? The
+      <a class="font-bold text-brand-700 underline" href="/tdee-calculator-kg/">TDEE calculator in kg</a> opens in
+      metric units. Barely moving at a desk all day? The
+      <a class="font-bold text-brand-700 underline" href="/sedentary-tdee-calculator/">sedentary TDEE calculator</a>
+      fixes activity at the 1.2 desk level. Or start from the plain
+      <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a> on our homepage with no presets.
+    </p>
+    <p class="mt-8 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Farah Akram, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+    <Faq faqs={faqs} />
+  </article>
+</BaseLayout>

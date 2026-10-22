@@ -1,0 +1,130 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TdeeCalculator from '../../components/TdeeCalculator.astro';
+import Faq from '../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'TDEE Calculator (KG)',
+    url: 'https://tdeecheck.com/tdee-calculator-kg/',
+    applicationCategory: 'HealthApplication',
+    operatingSystem: 'Any',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Person', name: 'Farah Akram', jobTitle: 'Dietitian' },
+  },
+];
+
+const faqs = [
+  {
+    q: 'How do I calculate my TDEE in kg?',
+    a: 'Use the Mifflin-St Jeor formula directly in metric. For women: (10 x weight in kg) + (6.25 x height in cm) minus (5 x age) minus 161. For men the same formula ends with plus 5 instead of minus 161. That gives your BMR. Multiply it by your activity factor, from 1.2 for sedentary up to 1.9 for athletes, and you have your TDEE in kcal per day. The calculator on this page runs those steps for you.',
+  },
+  {
+    q: 'How do I convert my weight from pounds to kilograms?',
+    a: 'Divide pounds by 2.205, or multiply by 0.454. So 150 lb is about 68 kg, 165 lb is about 74.8 kg, and 200 lb is about 90.7 kg. For height, multiply total inches by 2.54 to get centimeters. If you think in pounds and feet day to day, the homepage calculator opens in imperial by default and has the same metric toggle.',
+  },
+  {
+    q: 'Why is my metric result a few calories different from the imperial one?',
+    a: 'Rounding. Conversions like 165 lb equals 74.8 kg are rounded to one decimal, so the metric version of the same person feeds the formula slightly rounded inputs and can land 2 or 3 kcal away from the imperial result. Every TDEE formula carries an error margin near 10 percent, so a difference smaller than a bite of food is meaningless. Pick one unit system and stick with it.',
+  },
+  {
+    q: 'Do the activity multipliers change in metric?',
+    a: 'No. The multipliers 1.2, 1.375, 1.55, 1.725, and 1.9 are unit free numbers that scale your BMR up to a full day of living. They work identically whether your weight went in as kilograms or pounds, which is why only the BMR step of the formula mentions units at all.',
+  },
+  {
+    q: 'My scale shows stones and pounds. What do I enter?',
+    a: 'Convert the stones first: one stone is 6.35 kg. Then add the remaining pounds at 0.454 kg each. For example, 12 stone 7 lb is (12 x 6.35) + (7 x 0.454), about 79.4 kg. Enter that as your weight in the metric calculator above.',
+  },
+];
+---
+
+<BaseLayout
+  title="TDEE Calculator in KG and CM - Metric Maintenance Calories"
+  description="Free metric TDEE calculator in kg and cm. Work out maintenance calories with the Mifflin-St Jeor formula, plus weight loss, gain and macro targets in grams."
+  path="/tdee-calculator-kg/"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'TDEE Calculator (KG)', path: '/tdee-calculator-kg/' },
+  ]}
+>
+  <section class="bg-gradient-to-b from-brand-50 to-transparent">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 pb-12">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-ink-900">TDEE Calculator in KG and CM</h1>
+        <p class="mt-4 text-lg text-ink-700 leading-relaxed">
+          If your scale reads kilograms and your measuring tape reads centimeters, this is your version of the tool.
+          It opens in metric, so you can type your numbers straight in, with no conversion step and no rounding
+          surprises on the way.
+        </p>
+        <p class="mt-3 text-sm font-semibold text-ink-500">Reviewed by Farah Akram, Dietitian. Metric units are preset for you below.</p>
+      </div>
+      <div class="mt-8 max-w-4xl">
+        <TdeeCalculator prefix="kg" presetUnits="metric" presetWeight={74.8} presetCm={167.6} />
+      </div>
+    </div>
+  </section>
+
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 mt-4">
+    <h2 class="text-3xl font-extrabold text-ink-900">The formula only speaks metric</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      Every calorie formula in common use, Mifflin-St Jeor included, was built in kilograms and centimeters. When a
+      calculator asks for pounds and inches, it is quietly converting your numbers behind the scenes before the math
+      starts. Working in metric skips that translation layer entirely. The equation itself is short. For women:
+      BMR = (10 x weight in kg) + (6.25 x height in cm) minus (5 x age) minus 161. For men it is identical except the
+      ending is plus 5. Multiply BMR by your activity factor and you have TDEE. Grams, used for the protein, carb, and
+      fat targets, are already metric everywhere, so a metric user gets one consistent system from the first input to
+      the last macro.
+    </p>
+    <h2 class="mt-10 text-3xl font-extrabold text-ink-900">A worked example, entirely in kilograms</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      Anna is 32, weighs 74.8 kg, and is 167.6 cm tall. She trains three to five days a week. Step one, her BMR:
+      (10 x 74.8) + (6.25 x 167.6) minus (5 x 32) minus 161, which is 748 + 1,047.5 minus 160 minus 161, giving
+      1,474.5, which rounds to about 1,475 kcal per day. Step two, her TDEE: 1,475 x 1.55 for moderate activity, about
+      2,287 kcal per day. Anna is deliberately the same person as the worked example on our homepage, where she
+      appears as 165 lb and 5 ft 6 in. One honest footnote: if you type the rounded figures 74.8 kg and 167.6 cm into
+      the calculator above, it shows 2,285 instead of 2,287, because those metric numbers are themselves rounded
+      conversions. Two kilocalories is rounding noise, far inside the accuracy of any formula, and a good reminder
+      that TDEE is an estimate to be corrected by real world tracking, not a laboratory measurement.
+    </p>
+    <h2 class="mt-10 text-3xl font-extrabold text-ink-900">Conversions for mixed unit lives</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      Many metric users still meet imperial numbers on imported scales, gym equipment, and clothing labels. The three
+      conversions worth memorizing are simple: pounds to kilograms, divide by 2.205; inches to centimeters, multiply
+      by 2.54; stones to kilograms, multiply by 6.35. For heights you see often: 5 ft 0 in is 152.4 cm, 5 ft 4 in is
+      162.6 cm, 5 ft 6 in is 167.6 cm, 5 ft 8 in is 172.7 cm, 5 ft 10 in is 177.8 cm, and 6 ft 0 in is 182.9 cm. For
+      weights: 120 lb is 54.4 kg, 140 lb is 63.5 kg, 160 lb is 72.6 kg, 180 lb is 81.6 kg, and 200 lb is 90.7 kg. If
+      you would rather never convert at all, the
+      <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a> on our homepage opens in imperial and
+      its unit toggle switches everything for you.
+    </p>
+    <h2 class="mt-10 text-3xl font-extrabold text-ink-900">Reading your results in metric</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      With metric selected, the calculator reports your expected weekly weight change in kilograms instead of pounds,
+      which makes trend tracking cleaner if you weigh yourself in kg. The calorie targets follow the same sizes as
+      everywhere else on this site: maintenance at your TDEE, mild loss 250 kcal below it, standard loss 500 kcal
+      below, and the matching surpluses for gaining. The safety floors do not change with the units either, a minimum
+      of about 1,200 kcal per day for women and 1,500 kcal for men unless a clinician is supervising. When you adjust
+      based on your results, weigh under the same conditions a few mornings a week, compare weekly averages in kg, and
+      move your target by 100 to 200 kcal at a time.
+    </p>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      Choosing by audience instead of units? The
+      <a class="font-bold text-brand-700 underline" href="/tdee-calculator-for-women/">TDEE calculator for women</a> and
+      the
+      <a class="font-bold text-brand-700 underline" href="/tdee-calculator-for-men/">TDEE calculator for men</a> preset
+      the sex and explain the targets in depth, and the
+      <a class="font-bold text-brand-700 underline" href="/sedentary-tdee-calculator/">sedentary TDEE calculator</a>
+      fixes the activity level for desk workers. For fat loss specifically, the
+      <a class="font-bold text-brand-700 underline" href="/tdee-weight-loss-calculator/">TDEE weight loss calculator</a>
+      builds the whole page around safe deficits.
+    </p>
+    <p class="mt-8 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Farah Akram, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+    <Faq faqs={faqs} />
+  </article>
+</BaseLayout>

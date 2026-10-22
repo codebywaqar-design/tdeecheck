@@ -1,0 +1,139 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TdeeCalculator from '../../components/TdeeCalculator.astro';
+import Faq from '../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'TDEE Calculator for Women',
+    url: 'https://tdeecheck.com/tdee-calculator-for-women/',
+    applicationCategory: 'HealthApplication',
+    operatingSystem: 'Any',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Person', name: 'Farah Akram', jobTitle: 'Dietitian' },
+  },
+];
+
+const faqs = [
+  {
+    q: 'What is a normal TDEE for a woman?',
+    a: 'Most women fall somewhere between about 1,600 and 2,400 kcal per day. A smaller woman with a desk job often maintains near 1,600 to 1,800, an average sized moderately active woman near 2,000 to 2,300, and a tall, heavy, or very active woman can maintain at 2,500 or more. Your personal number depends on your size, age, and movement, which is exactly what the calculator above estimates.',
+  },
+  {
+    q: 'Why is my TDEE lower than my partner\'s when we weigh the same?',
+    a: 'Two reasons. First, the Mifflin-St Jeor formula itself subtracts 161 for women and adds 5 for men, a built in gap of 166 kcal at identical stats, reflecting average body composition differences. Second, at the same weight men typically carry more muscle and less fat, and muscle burns more energy at rest, so the real world gap is often larger than the formula gap.',
+  },
+  {
+    q: 'Does my menstrual cycle change my TDEE?',
+    a: 'Slightly. Resting burn rises a little in the luteal phase, the days between ovulation and your period, and appetite and cravings often rise with it. More noticeable is water retention, which can hide a week or two of fat loss on the scale. Judge your progress by comparing the same week of one cycle with the same week of the next, not by single weigh-ins around your period.',
+  },
+  {
+    q: 'How many calories should a woman eat to lose weight?',
+    a: 'Start 250 to 500 kcal below your TDEE. With the example TDEE of 2,287 kcal from this page, that means about 1,787 to 2,037 kcal per day. Keep the target at or above 1,200 kcal per day, keep protein high to protect muscle, and adjust by 100 to 200 kcal based on your 2 to 3 week trend.',
+  },
+  {
+    q: 'Does TDEE change during menopause?',
+    a: 'It often drifts down. Muscle mass tends to fall with age, sleep disruption can cut daily movement, and both lower your burn even if your weight stays the same. The counter moves are resistance training to defend muscle, enough protein, and recalculating your TDEE every few months instead of running on a number from years ago. Persistent symptoms are worth discussing with your clinician.',
+  },
+];
+---
+
+<BaseLayout
+  title="TDEE Calculator for Women - Maintenance Calories and Macros"
+  description="Free TDEE calculator for women using the female Mifflin-St Jeor formula. Get maintenance calories, safe fat loss targets and daily macros. Dietitian reviewed."
+  path="/tdee-calculator-for-women/"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'TDEE Calculator for Women', path: '/tdee-calculator-for-women/' },
+  ]}
+>
+  <section class="bg-gradient-to-b from-brand-50 to-transparent">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 pb-12">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-ink-900">TDEE Calculator for Women</h1>
+        <p class="mt-4 text-lg text-ink-700 leading-relaxed">
+          Women burn fewer calories than men of the same size, and the reasons are built into both your body and the
+          formula. This calculator opens with the female equation already selected, so you can get your maintenance
+          calories, safe loss targets, and macros in one pass.
+        </p>
+        <p class="mt-3 text-sm font-semibold text-ink-500">Reviewed by Farah Akram, Dietitian. Female is preselected for you below.</p>
+      </div>
+      <div class="mt-8 max-w-4xl">
+        <TdeeCalculator prefix="w" presetSex="female" />
+      </div>
+    </div>
+  </section>
+
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 mt-4">
+    <h2 class="text-3xl font-extrabold text-ink-900">Why a woman's TDEE runs lower</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      Put a man and a woman with the same weight, height, and age side by side and the woman will almost always burn
+      less. The biggest driver is body composition. Women naturally carry more essential fat and, kilo for kilo, less
+      muscle than men, and muscle is the more expensive tissue to run. The formula reflects this before any lifestyle
+      difference enters the picture: the Mifflin-St Jeor equation ends with minus 161 for women and plus 5 for men, so
+      even two people with identical stats start 166 kcal apart. Add smaller average frames and lower average training
+      loads and the typical gap between partners lands at several hundred calories a day, which is why copying a
+      boyfriend's or husband's portions is such a reliable way to stall.
+    </p>
+    <h2 class="mt-10 text-3xl font-extrabold text-ink-900">The female formula, worked end to end</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      For women the equation is BMR = (10 x weight in kg) + (6.25 x height in cm) minus (5 x age) minus 161. Take a
+      32 year old woman who is 5 ft 6 in and 165 lb. Convert first: 165 lb is 74.8 kg and 5 ft 6 in is 167.6 cm. Her
+      BMR is (10 x 74.8) + (6.25 x 167.6) minus (5 x 32) minus 161, which is 748 + 1,047.5 minus 160 minus 161, about
+      1,475 kcal per day. She trains three to five days a week, so the moderate factor of 1.55 applies, giving a TDEE
+      of 1,475 x 1.55, about 2,287 kcal per day. From there the targets follow: maintenance at 2,287, a mild loss near
+      2,037, and a standard loss near 1,787 kcal, where the calculator sets protein at 179 g to protect her muscle
+      while she loses. Type her numbers into the tool above and you will see exactly these results.
+    </p>
+    <h2 class="mt-10 text-3xl font-extrabold text-ink-900">Your cycle moves appetite and water, not the rules</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      In the luteal phase, the stretch between ovulation and your period, resting energy expenditure nudges up a
+      little and appetite usually follows it. Cravings in that week are physiology, not a character flaw, and fighting
+      them with a harsher deficit rarely works for long. The smarter play is to hold your normal target, expect hunger
+      to run higher for a few days, and lean on high protein, high volume meals. What the cycle changes most is the
+      scale: water retention before a period can mask one to two weeks of genuine fat loss, then release it in a few
+      days. Compare cycle week to the same cycle week, and judge the trend across a full month before touching your
+      calories.
+    </p>
+    <h2 class="mt-10 text-3xl font-extrabold text-ink-900">The 1,200 kcal floor, and when even that is too low</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      Most women should not plan to eat below 1,200 kcal per day without medical supervision. Under that line it
+      becomes very hard to cover protein, fiber, iron, calcium, and the other nutrients a body needs, and the side
+      effects show up quickly: constant hunger, hair shedding, feeling cold, workouts falling apart, and in some women
+      a disrupted cycle. The floor matters most for smaller, less active women, because their TDEE may be only 1,600
+      to 1,700 to begin with. A standard 500 kcal cut would drop them straight through the floor. If that is you, use
+      the mild loss target, or widen the gap from the movement side with walking and training rather than from the
+      plate. Our dedicated
+      <a class="font-bold text-brand-700 underline" href="/tdee-weight-loss-calculator/">TDEE weight loss calculator</a>
+      walks through those choices in more depth.
+    </p>
+    <h2 class="mt-10 text-3xl font-extrabold text-ink-900">Muscle is the one lever fully in your hands</h2>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      You cannot change your height and you cannot argue with the minus 161, but lean mass is trainable at almost any
+      age. Two to four resistance sessions a week, enough protein, and patience will slowly raise the tissue that does
+      most of your burning, and it pays double during a diet because the muscle you keep is what keeps your maintenance
+      calories from collapsing as you get lighter. This matters more with each decade. Around perimenopause, falling
+      estrogen, poorer sleep, and gradual muscle loss often pull TDEE down even when weight looks stable, which is why
+      recalculating every few months beats trusting a number from five years ago.
+    </p>
+    <p class="mt-4 text-ink-700 leading-relaxed">
+      Looking for the men's version? The
+      <a class="font-bold text-brand-700 underline" href="/tdee-calculator-for-men/">TDEE calculator for men</a> uses the
+      male equation and covers bulking targets. Prefer to work in kilograms and centimeters? The
+      <a class="font-bold text-brand-700 underline" href="/tdee-calculator-kg/">TDEE calculator in kg</a> opens in metric.
+      Desk job with barely any steps? The
+      <a class="font-bold text-brand-700 underline" href="/sedentary-tdee-calculator/">sedentary TDEE calculator</a> is
+      set to the 1.2 activity level. And the general
+      <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a> on our homepage covers everyone with no
+      presets at all.
+    </p>
+    <p class="mt-8 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Farah Akram, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+    <Faq faqs={faqs} />
+  </article>
+</BaseLayout>
