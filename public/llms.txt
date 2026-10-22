@@ -1,6 +1,6 @@
 # TDEE Check
 
-> TDEE Check is a free calculator site that helps people find their Total Daily Energy Expenditure (TDEE) and the calories they need to lose, maintain, or gain weight. All tools are free, need no sign up, and run instantly in the browser. Content is reviewed by Waqar, a dietitian.
+> TDEE Check is a free calculator site that helps people find their Total Daily Energy Expenditure (TDEE) and the calories they need to lose, maintain, or gain weight. All tools are free, need no sign up, and run instantly in the browser. Content is reviewed by Farah Akram, a dietitian.
 
 ## Calculators
 
@@ -17,6 +17,13 @@
 - [Pregnancy Calorie Calculator](https://tdeecheck.com/calculators/pregnancy-calorie-calculator/): Maintenance calories plus the extra energy needed in trimester one, two and three.
 - [Breastfeeding Calorie Calculator](https://tdeecheck.com/calculators/breastfeeding-calorie-calculator/): Maintenance calories plus the milk production allowance for babies under and over 6 months.
 - [TDEE Weight Loss Calculator](https://tdeecheck.com/tdee-weight-loss-calculator/): The safe calorie deficit and weekly loss rate for your body and activity level.
+
+## TDEE variants
+
+- [TDEE Calculator for Women](https://tdeecheck.com/tdee-calculator-for-women/): The TDEE calculator with the female Mifflin-St Jeor equation preset, cycle aware guidance and the 1,200 kcal safety floor.
+- [TDEE Calculator for Men](https://tdeecheck.com/tdee-calculator-for-men/): The TDEE calculator with the male equation preset, typical male TDEE ranges, bulking targets and the 1,500 kcal floor.
+- [TDEE Calculator (KG)](https://tdeecheck.com/tdee-calculator-kg/): The TDEE calculator opening in kilograms and centimeters, the formula shown purely in metric, with pound and stone conversions.
+- [Sedentary TDEE Calculator](https://tdeecheck.com/sedentary-tdee-calculator/): The TDEE calculator with activity fixed at the sedentary 1.2 level for desk workers, plus NEAT strategies to raise daily burn.
 
 ## Guides
 

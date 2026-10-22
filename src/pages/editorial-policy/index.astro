@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Editorial Policy - How TDEE Check Content Is Reviewed"
+  description="How TDEE Check creates and reviews its health content: published formulas, dietitian review by Farah Akram, accuracy checks, corrections and advertising separation."
+  path="/editorial-policy/"
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Editorial Policy', path: '/editorial-policy/' },
+  ]}
+>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 pt-10">
+    <h1 class="text-4xl font-extrabold tracking-tight text-ink-900">Editorial policy</h1>
+    <p class="mt-3 text-sm font-semibold text-ink-500">Last updated: October 2026</p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Who reviews our content</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Every calculator and guide on TDEE Check is reviewed before publication by
+      <strong>Farah Akram, Dietitian</strong>, who checks the formulas, the safety limits, and the wording of the health
+      guidance. You can find her on
+      <a class="font-bold text-brand-700 underline" href="https://www.instagram.com/dietitian_faraa" rel="noopener" target="_blank">Instagram</a> and
+      <a class="font-bold text-brand-700 underline" href="https://www.linkedin.com/in/farah-akram-41b572429" rel="noopener" target="_blank">LinkedIn</a>.
+      Pages name their reviewer so readers always know whose judgment stands behind the numbers.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Where our formulas come from</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      We only use published, widely validated methods, and each calculator page names its formula: the Mifflin-St Jeor
+      equation (1990) for BMR and TDEE, the Katch-McArdle equation when body fat percentage is known, the Boer and James
+      equations for lean body mass, the US Army circumference method for body fat percentage, and the World Health
+      Organization categories for BMI. We do not publish proprietary or invented formulas.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">How we check accuracy</h2>
+    <ul class="mt-3 space-y-2 text-ink-700 leading-relaxed list-disc pl-6">
+      <li>Every worked example in our guides is calculated by hand and compared with the calculator output before publication.</li>
+      <li>Result ranges and safety floors are stated on each page, including the general floors of 1,200 kcal per day for women and 1,500 kcal per day for men.</li>
+      <li>When a formula or guideline is updated by its source, the affected pages are updated and the change noted.</li>
+    </ul>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Corrections</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      If you spot an error in a result, a formula, or a guide, tell us through the
+      <a class="font-bold text-brand-700 underline" href="/contact/">contact page</a>. Verified corrections are made
+      promptly and visibly, and the page date is updated. Reader reports are one of the ways this site stays accurate.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Advertising and independence</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      This site is supported by advertising, including Google AdSense. Advertisements are labeled as advertisements and
+      are kept visually separate from calculator results and editorial content. Advertisers have no influence on our
+      formulas, our results, or our guidance, and no result on this site can be bought or changed by a sponsor.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">A note on drafting</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Drafts for this site may be prepared with research and writing tools, but nothing is published until it has passed
+      the dietitian review described above and the accuracy checks on this page. The responsibility for every number on
+      TDEE Check is human, and it sits with our reviewer.
+    </p>
+  </article>
+</BaseLayout>

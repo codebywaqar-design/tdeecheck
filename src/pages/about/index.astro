@@ -5,9 +5,13 @@ const schemas = [
   {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    name: 'Waqar',
+    name: 'Farah Akram',
     jobTitle: 'Dietitian',
     url: 'https://tdeecheck.com/about/',
+    sameAs: [
+      'https://www.instagram.com/dietitian_faraa',
+      'https://www.linkedin.com/in/farah-akram-41b572429',
+    ],
     worksFor: { '@type': 'Organization', name: 'TDEE Check', url: 'https://tdeecheck.com/' },
     knowsAbout: ['TDEE', 'BMR', 'Calorie planning', 'Macronutrients', 'Weight management'],
   },
@@ -16,7 +20,7 @@ const schemas = [
 
 <BaseLayout
   title="About TDEE Check - Dietitian Reviewed Calorie Calculators"
-  description="About TDEE Check: free calorie, TDEE, BMR, macro, and BMI calculators built on published formulas and reviewed by Waqar, Dietitian."
+  description="About TDEE Check: free calorie, TDEE, BMR, macro, and BMI calculators built on published formulas and reviewed by Farah Akram, Dietitian."
   path="/about/"
   schemas={schemas}
   crumbs={[
@@ -34,11 +38,14 @@ const schemas = [
     </p>
     <h2 class="mt-10 text-2xl font-extrabold text-ink-900">Reviewed by a dietitian</h2>
     <p class="mt-3 text-ink-700 leading-relaxed">
-      The content and calculators on this site are reviewed by <strong>Waqar</strong>, a practicing
+      The content and calculators on this site are reviewed by <strong>Farah Akram</strong>, a practicing
       <strong>Dietitian</strong>. That review means the formulas are the right ones, the safety floors are stated honestly,
       and the guidance matches what a professional would tell a client in a first session: start with a reasonable target,
       track the trend, adjust in small steps, and never chase extreme deficits. Health content on the internet is full of
-      confident nonsense, so every page here names its formula and its limits.
+      confident nonsense, so every page here names its formula and its limits. You can find Farah on
+      <a class="font-bold text-brand-700 underline" href="https://www.instagram.com/dietitian_faraa" rel="noopener" target="_blank">Instagram, @dietitian_faraa</a>, and on
+      <a class="font-bold text-brand-700 underline" href="https://www.linkedin.com/in/farah-akram-41b572429" rel="noopener" target="_blank">LinkedIn</a>. Our
+      <a class="font-bold text-brand-700 underline" href="/editorial-policy/">editorial policy</a> explains exactly how this review process works.
     </p>
     <h2 class="mt-10 text-2xl font-extrabold text-ink-900">How we calculate</h2>
     <ul class="mt-3 space-y-3 text-ink-700 leading-relaxed list-disc pl-6">

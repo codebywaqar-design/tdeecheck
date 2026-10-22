@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Cookie Policy - TDEE Check"
+  description="How TDEE Check uses cookies: what cookies are, which ones this site and Google advertising may set, and how to control or delete them."
+  path="/cookie-policy/"
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Cookie Policy', path: '/cookie-policy/' },
+  ]}
+>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 pt-10">
+    <h1 class="text-4xl font-extrabold tracking-tight text-ink-900">Cookie policy</h1>
+    <p class="mt-3 text-sm font-semibold text-ink-500">Last updated: October 2026</p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">What cookies are</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Cookies are small text files that a website asks your browser to store on your device. They let sites remember
+      preferences, understand how pages are used, and, on sites supported by advertising, show and measure ads.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Cookies set by TDEE Check itself</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      TDEE Check is a static website and the calculators run entirely in your browser. The site itself does not set
+      tracking cookies, does not require an account, and does not store your calculator entries on any server. Your
+      inputs are used only to show your result on the page you are using.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Advertising cookies from Google</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      This site is supported by Google AdSense advertising. When ads are shown, Google and its partners may set and
+      read cookies on your device to serve ads, limit how often you see the same ad, prevent fraud, and measure ad
+      performance. Depending on your location and choices, ads may be personalized using those cookies. Google explains
+      its own use of data on its page,
+      <a class="font-bold text-brand-700 underline" href="https://policies.google.com/technologies/ads" rel="noopener" target="_blank">How Google uses information from sites that use its services</a>.
+    </p>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">How to control cookies</h2>
+    <ul class="mt-3 space-y-2 text-ink-700 leading-relaxed list-disc pl-6">
+      <li>Your browser settings let you block or delete cookies at any time. Blocking cookies will not break the calculators on this site.</li>
+      <li>You can manage personalized advertising in your Google account ad settings, or opt out of personalized ads from many providers through industry opt-out pages for your region.</li>
+      <li>Where a consent banner is shown on this site, your choice there controls whether advertising cookies are used.</li>
+    </ul>
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Changes to this policy</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      If the way this site uses cookies changes, this page will be updated and the date at the top will change. For
+      questions about cookies or privacy, see our <a class="font-bold text-brand-700 underline" href="/privacy-policy/">privacy policy</a> or
+      <a class="font-bold text-brand-700 underline" href="/contact/">contact us</a>.
+    </p>
+  </article>
+</BaseLayout>

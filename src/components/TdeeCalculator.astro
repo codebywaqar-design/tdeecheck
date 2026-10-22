@@ -2,10 +2,38 @@
 interface Props {
   prefix?: string;
   emphasis?: 'all' | 'loss';
+  presetSex?: 'female' | 'male';
+  presetUnits?: 'imperial' | 'metric';
+  presetAge?: number;
+  presetFt?: number;
+  presetIn?: number;
+  presetCm?: number;
+  presetWeight?: number;
+  presetActivity?: string;
+  lockActivity?: boolean;
+  activityNote?: string;
 }
 
-const { prefix = 'tdee', emphasis = 'all' } = Astro.props;
+const {
+  prefix = 'tdee',
+  emphasis = 'all',
+  presetSex = 'female',
+  presetUnits = 'imperial',
+  presetAge = 32,
+  presetFt = 5,
+  presetIn = 6,
+  presetCm = 168,
+  presetWeight = 165,
+  presetActivity = '1.55',
+  lockActivity = false,
+  activityNote,
+} = Astro.props;
 const p = prefix;
+const unitsBtn = (u: string) =>
+  `${p}-units-btn px-3 py-1.5 rounded-md text-sm font-bold ` + (presetUnits === u ? 'bg-brand-600 text-white' : 'text-ink-700');
+const sexBtn = (s: string) =>
+  `${p}-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm ` +
+  (presetSex === s ? 'border-brand-600 bg-brand-50 text-brand-800' : 'border-brand-100 bg-white text-ink-700');
 ---
 
 <div class="bg-white rounded-2xl shadow-lg shadow-brand-900/5 border border-brand-100 p-5 sm:p-7" id="calculator">
@@ -13,8 +41,8 @@ const p = prefix;
     <div class="flex flex-wrap items-center justify-between gap-3">
       <p class="font-extrabold text-ink-900 text-lg">Your details</p>
       <div class="inline-flex rounded-lg bg-brand-50 border border-brand-100 p-1" role="group" aria-label="Units">
-        <button type="button" data-units="imperial" class={`${p}-units-btn px-3 py-1.5 rounded-md text-sm font-bold bg-brand-600 text-white`}>Imperial (lb, ft)</button>
-        <button type="button" data-units="metric" class={`${p}-units-btn px-3 py-1.5 rounded-md text-sm font-bold text-ink-700`}>Metric (kg, cm)</button>
+        <button type="button" data-units="imperial" class={unitsBtn('imperial')}>Imperial (lb, ft)</button>
+        <button type="button" data-units="metric" class={unitsBtn('metric')}>Metric (kg, cm)</button>
       </div>
     </div>
 
@@ -22,40 +50,41 @@ const p = prefix;
       <div>
         <span class="block text-sm font-bold text-ink-700 mb-2" id={`${p}-sex-label`}>Sex</span>
         <div class="grid grid-cols-2 gap-2" role="radiogroup" aria-labelledby={`${p}-sex-label`}>
-          <button type="button" data-sex="female" class={`${p}-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm border-brand-600 bg-brand-50 text-brand-800`} aria-checked="true" role="radio">Female</button>
-          <button type="button" data-sex="male" class={`${p}-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm border-brand-100 bg-white text-ink-700`} aria-checked="false" role="radio">Male</button>
+          <button type="button" data-sex="female" class={sexBtn('female')} aria-checked={presetSex === 'female' ? 'true' : 'false'} role="radio">Female</button>
+          <button type="button" data-sex="male" class={sexBtn('male')} aria-checked={presetSex === 'male' ? 'true' : 'false'} role="radio">Male</button>
         </div>
       </div>
       <div>
         <label class="block text-sm font-bold text-ink-700 mb-2" for={`${p}-age`}>Age (years)</label>
-        <input id={`${p}-age`} type="number" inputmode="numeric" min="10" max="100" value="32" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        <input id={`${p}-age`} type="number" inputmode="numeric" min="10" max="100" value={presetAge} class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
       </div>
       <div>
         <span class="block text-sm font-bold text-ink-700 mb-2">Height</span>
-        <div id={`${p}-height-imperial`} class="grid grid-cols-2 gap-2">
+        <div id={`${p}-height-imperial`} class={'grid grid-cols-2 gap-2' + (presetUnits === 'imperial' ? '' : ' hidden')}>
           <label class="sr-only" for={`${p}-ft`}>Feet</label>
-          <input id={`${p}-ft`} type="number" inputmode="numeric" min="3" max="8" value="5" placeholder="ft" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          <input id={`${p}-ft`} type="number" inputmode="numeric" min="3" max="8" value={presetFt} placeholder="ft" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
           <label class="sr-only" for={`${p}-inch`}>Inches</label>
-          <input id={`${p}-inch`} type="number" inputmode="numeric" min="0" max="11" value="6" placeholder="in" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          <input id={`${p}-inch`} type="number" inputmode="numeric" min="0" max="11" value={presetIn} placeholder="in" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
         </div>
-        <div id={`${p}-height-metric`} class="hidden">
+        <div id={`${p}-height-metric`} class={presetUnits === 'metric' ? '' : 'hidden'}>
           <label class="sr-only" for={`${p}-cm`}>Centimeters</label>
-          <input id={`${p}-cm`} type="number" inputmode="numeric" min="100" max="250" value="168" placeholder="cm" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          <input id={`${p}-cm`} type="number" inputmode="decimal" min="100" max="250" value={presetCm} placeholder="cm" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
         </div>
       </div>
       <div>
-        <label class="block text-sm font-bold text-ink-700 mb-2" for={`${p}-weight`}>Weight <span id={`${p}-weight-unit`} class="font-semibold text-ink-500">(lb)</span></label>
-        <input id={`${p}-weight`} type="number" inputmode="decimal" min="50" max="1000" value="165" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        <label class="block text-sm font-bold text-ink-700 mb-2" for={`${p}-weight`}>Weight <span id={`${p}-weight-unit`} class="font-semibold text-ink-500">{presetUnits === 'metric' ? '(kg)' : '(lb)'}</span></label>
+        <input id={`${p}-weight`} type="number" inputmode="decimal" min="50" max="1000" value={presetWeight} class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
       </div>
       <div class="sm:col-span-2">
         <label class="block text-sm font-bold text-ink-700 mb-2" for={`${p}-activity`}>Activity level</label>
-        <select id={`${p}-activity`} class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-brand-500">
-          <option value="1.2">Sedentary: desk job, little or no exercise</option>
-          <option value="1.375">Light: exercise 1 to 3 days a week</option>
-          <option value="1.55" selected>Moderate: exercise 3 to 5 days a week</option>
-          <option value="1.725">Very active: hard exercise 6 to 7 days a week</option>
-          <option value="1.9">Athlete: very hard exercise, physical job or training twice a day</option>
+        <select id={`${p}-activity`} disabled={lockActivity} class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 disabled:bg-brand-50 disabled:text-ink-700">
+          <option value="1.2" selected={presetActivity === '1.2'}>Sedentary: desk job, little or no exercise</option>
+          <option value="1.375" selected={presetActivity === '1.375'}>Light: exercise 1 to 3 days a week</option>
+          <option value="1.55" selected={presetActivity === '1.55'}>Moderate: exercise 3 to 5 days a week</option>
+          <option value="1.725" selected={presetActivity === '1.725'}>Very active: hard exercise 6 to 7 days a week</option>
+          <option value="1.9" selected={presetActivity === '1.9'}>Athlete: very hard exercise, physical job or training twice a day</option>
         </select>
+        {activityNote && <p class="mt-2 text-sm text-ink-500">{activityNote}</p>}
       </div>
       <div class="sm:col-span-2">
         <label class="flex items-start gap-3 cursor-pointer">
@@ -96,10 +125,10 @@ const p = prefix;
   </div>
 </div>
 
-<script define:vars={{ p, emphasis }}>
+<script define:vars={{ p, emphasis, presetSex, presetUnits }}>
   (function () {
-    var units = 'imperial';
-    var sex = 'female';
+    var units = presetUnits;
+    var sex = presetSex;
     var form = document.getElementById(p + '-form');
 
     function $(id) { return document.getElementById(p + '-' + id); }
