@@ -99,6 +99,7 @@
         var next = b.getAttribute('data-units');
         if (next === units) return;
         units = next;
+        $('brf-results').classList.add('hidden');
         document.querySelectorAll('.brf-units-btn').forEach(function (x) {
           var active = x.getAttribute('data-units') === units;
           x.className = 'brf-units-btn px-3 py-1.5 rounded-md text-sm font-bold ' + (active ? 'bg-brand-600 text-white' : 'text-ink-700');
@@ -128,6 +129,7 @@
 
     $('brf-form').addEventListener('submit', function (e) {
       e.preventDefault();
+      $('brf-results').classList.add('hidden');
       var err = $('brf-error');
       err.classList.add('hidden');
       var age = parseFloat($('brf-age').value);

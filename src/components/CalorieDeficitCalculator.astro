@@ -92,6 +92,7 @@
         var next = b.getAttribute('data-units');
         if (next === units) return;
         units = next;
+        $('def-results').classList.add('hidden');
         document.querySelectorAll('.def-units-btn').forEach(function (x) {
           var active = x.getAttribute('data-units') === units;
           x.className = 'def-units-btn px-3 py-1.5 rounded-md text-sm font-bold ' + (active ? 'bg-brand-600 text-white' : 'text-ink-700');
@@ -124,6 +125,7 @@
     document.querySelectorAll('.def-sex-btn').forEach(function (b) {
       b.addEventListener('click', function () {
         sex = b.getAttribute('data-sex');
+        $('def-results').classList.add('hidden');
         document.querySelectorAll('.def-sex-btn').forEach(function (x) {
           var active = x.getAttribute('data-sex') === sex;
           x.className = 'def-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm ' + (active ? 'border-brand-600 bg-brand-50 text-brand-800' : 'border-brand-100 bg-white text-ink-700');
@@ -133,6 +135,7 @@
 
     $('def-form').addEventListener('submit', function (e) {
       e.preventDefault();
+      $('def-results').classList.add('hidden');
       var err = $('def-error');
       err.classList.add('hidden');
       var age = parseFloat($('def-age').value);

@@ -112,6 +112,7 @@
         var next = b.getAttribute('data-units');
         if (next === units) return;
         units = next;
+        $('ffmi-results').classList.add('hidden');
         document.querySelectorAll('.ffmi-units-btn').forEach(function (x) {
           var active = x.getAttribute('data-units') === units;
           x.className = 'ffmi-units-btn px-3 py-1.5 rounded-md text-sm font-bold ' + (active ? 'bg-brand-600 text-white' : 'text-ink-700');
@@ -141,6 +142,7 @@
     document.querySelectorAll('.ffmi-sex-btn').forEach(function (b) {
       b.addEventListener('click', function () {
         sex = b.getAttribute('data-sex');
+        $('ffmi-results').classList.add('hidden');
         document.querySelectorAll('.ffmi-sex-btn').forEach(function (x) {
           var active = x.getAttribute('data-sex') === sex;
           x.className = 'ffmi-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm ' + (active ? 'border-brand-600 bg-brand-50 text-brand-800' : 'border-brand-100 bg-white text-ink-700');
@@ -150,6 +152,7 @@
 
     $('ffmi-form').addEventListener('submit', function (e) {
       e.preventDefault();
+      $('ffmi-results').classList.add('hidden');
       var err = $('ffmi-error');
       err.classList.add('hidden');
       var weightRaw = parseFloat($('ffmi-weight').value);

@@ -88,6 +88,7 @@
         var next = b.getAttribute('data-units');
         if (next === units) return;
         units = next;
+        $('bmi-results').classList.add('hidden');
         document.querySelectorAll('.bmi-units-btn').forEach(function (x) {
           var active = x.getAttribute('data-units') === units;
           x.className = 'bmi-units-btn px-3 py-1.5 rounded-md text-sm font-bold ' + (active ? 'bg-brand-600 text-white' : 'text-ink-700');
@@ -117,6 +118,7 @@
 
     $('bmi-form').addEventListener('submit', function (e) {
       e.preventDefault();
+      $('bmi-results').classList.add('hidden');
       var err = $('bmi-error');
       err.classList.add('hidden');
       var weightRaw = parseFloat($('bmi-weight').value);

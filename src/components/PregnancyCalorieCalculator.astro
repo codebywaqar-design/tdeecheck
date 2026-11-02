@@ -98,6 +98,7 @@
         var next = b.getAttribute('data-units');
         if (next === units) return;
         units = next;
+        $('preg-results').classList.add('hidden');
         document.querySelectorAll('.preg-units-btn').forEach(function (x) {
           var active = x.getAttribute('data-units') === units;
           x.className = 'preg-units-btn px-3 py-1.5 rounded-md text-sm font-bold ' + (active ? 'bg-brand-600 text-white' : 'text-ink-700');
@@ -127,6 +128,7 @@
 
     $('preg-form').addEventListener('submit', function (e) {
       e.preventDefault();
+      $('preg-results').classList.add('hidden');
       var err = $('preg-error');
       err.classList.add('hidden');
       var age = parseFloat($('preg-age').value);

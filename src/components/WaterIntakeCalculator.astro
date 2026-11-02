@@ -70,6 +70,7 @@
         var next = b.getAttribute('data-units');
         if (next === units) return;
         units = next;
+        $('water-results').classList.add('hidden');
         document.querySelectorAll('.water-units-btn').forEach(function (x) {
           var active = x.getAttribute('data-units') === units;
           x.className = 'water-units-btn px-3 py-1.5 rounded-md text-sm font-bold ' + (active ? 'bg-brand-600 text-white' : 'text-ink-700');
@@ -82,6 +83,7 @@
 
     $('water-form').addEventListener('submit', function (e) {
       e.preventDefault();
+      $('water-results').classList.add('hidden');
       var err = $('water-error');
       err.classList.add('hidden');
       var weightRaw = parseFloat($('water-weight').value);

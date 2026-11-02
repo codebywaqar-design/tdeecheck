@@ -1,7 +1,7 @@
 ---
 interface Props {
   prefix?: string;
-  emphasis?: 'all' | 'loss';
+  emphasis?: 'all' | 'loss' | 'gain';
   presetSex?: 'female' | 'male';
   presetUnits?: 'imperial' | 'metric';
   presetAge?: number;
@@ -146,6 +146,7 @@ const sexBtn = (s: string) =>
     function setUnits(u) {
       if (u === units) return;
       units = u;
+      $('results').classList.add('hidden');
       document.querySelectorAll('.' + p + '-units-btn').forEach(function (b) {
         var active = b.getAttribute('data-units') === u;
         b.className = b.className.replace(/bg-brand-600 text-white|text-ink-700/g, '').trim();
@@ -176,7 +177,9 @@ const sexBtn = (s: string) =>
     }
 
     function setSex(s) {
+      if (s === sex) return;
       sex = s;
+      $('results').classList.add('hidden');
       document.querySelectorAll('.' + p + '-sex-btn').forEach(function (b) {
         var active = b.getAttribute('data-sex') === s;
         b.setAttribute('aria-checked', active ? 'true' : 'false');
@@ -217,7 +220,8 @@ const sexBtn = (s: string) =>
     function goalCard(goal, tdee) {
       var cal = Math.max(1000, tdee + goal.delta);
       var m = macroSplit(cal, goal.kind);
-      var highlight = emphasis === 'loss' && goal.kind === 'loss' && goal.delta === -500;
+      var highlight = (emphasis === 'loss' && goal.kind === 'loss' && goal.delta === -500) ||
+        (emphasis === 'gain' && goal.kind === 'gain' && goal.delta === 500);
       var ring = highlight ? ' ring-2 ring-brand-500' : '';
       var badge = highlight ? '<span class="ml-2 align-middle text-xs font-extrabold uppercase tracking-wide bg-brand-600 text-white rounded-full px-2 py-0.5">Your goal</span>' : '';
       var bar = '<div class="flex h-2.5 rounded-full overflow-hidden mt-3" aria-hidden="true">' +
@@ -238,6 +242,7 @@ const sexBtn = (s: string) =>
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      $('results').classList.add('hidden');
       var err = $('error');
       err.classList.add('hidden');
       var age = parseFloat($('age').value);
@@ -297,6 +302,8 @@ const sexBtn = (s: string) =>
       ];
       if (emphasis === 'loss') {
         goals.sort(function (a, b) { return Math.abs(a.delta + 500) - Math.abs(b.delta + 500); });
+      } else if (emphasis === 'gain') {
+        goals.sort(function (a, b) { return Math.abs(a.delta - 500) - Math.abs(b.delta - 500); });
       }
       $('goal-cards').innerHTML = goals.map(function (g) { return goalCard(g, tdee); }).join('');
       $('results').classList.remove('hidden');

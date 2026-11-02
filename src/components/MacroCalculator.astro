@@ -144,6 +144,7 @@
 
     $('mac-form').addEventListener('submit', function (e) {
       e.preventDefault();
+      $('mac-results').classList.add('hidden');
       var err = $('mac-error');
       err.classList.add('hidden');
       var cal = parseFloat($('mac-calories').value);
