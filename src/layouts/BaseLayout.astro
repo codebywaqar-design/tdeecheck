@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Analytics from '@vercel/analytics/astro';
 
 interface Crumb {
   name: string;
@@ -61,6 +62,7 @@ const year = new Date().getFullYear();
     <meta name="twitter:image" content={ogImageUrl} />
     <link rel="alternate" type="application/rss+xml" title="TDEE Check blog" href="/rss.xml" />
     {allSchemas.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+    <Analytics />
   </head>
   <body class="min-h-screen flex flex-col antialiased">
     <header class="bg-white/90 backdrop-blur border-b border-brand-100 sticky top-0 z-40">
