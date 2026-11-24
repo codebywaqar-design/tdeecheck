@@ -15,10 +15,10 @@
     </div>
     <div class="grid sm:grid-cols-2 gap-4 mt-5">
       <div>
-        <span class="block text-sm font-bold text-ink-700 mb-2">Sex</span>
-        <div class="grid grid-cols-2 gap-2">
-          <button type="button" data-sex="female" class="army-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm border-brand-100 bg-white text-ink-700">Female</button>
-          <button type="button" data-sex="male" class="army-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm border-brand-600 bg-brand-50 text-brand-800">Male</button>
+        <span class="block text-sm font-bold text-ink-700 mb-2" id="army-sex-label">Sex</span>
+        <div class="grid grid-cols-2 gap-2" role="radiogroup" aria-labelledby="army-sex-label">
+          <button type="button" data-sex="female" class="army-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm border-brand-100 bg-white text-ink-700" role="radio" aria-checked="false">Female</button>
+          <button type="button" data-sex="male" class="army-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm border-brand-600 bg-brand-50 text-brand-800" role="radio" aria-checked="true">Male</button>
         </div>
       </div>
       <div>
@@ -122,6 +122,7 @@
         document.querySelectorAll('.army-sex-btn').forEach(function (x) {
           var active = x.getAttribute('data-sex') === sex;
           x.className = 'army-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm ' + (active ? 'border-brand-600 bg-brand-50 text-brand-800' : 'border-brand-100 bg-white text-ink-700');
+          x.setAttribute('aria-checked', active ? 'true' : 'false');
         });
         $('army-hip-wrap').classList.toggle('hidden', sex !== 'female');
       });

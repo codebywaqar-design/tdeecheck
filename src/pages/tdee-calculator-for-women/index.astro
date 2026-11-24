@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TdeeCalculator from '../../components/TdeeCalculator.astro';
 import Faq from '../../components/Faq.astro';
+import QuickAnswer from '../../components/QuickAnswer.astro';
 
 const schemas = [
   {
@@ -38,6 +39,18 @@ const faqs = [
     a: 'It often drifts down. Muscle mass tends to fall with age, sleep disruption can cut daily movement, and both lower your burn even if your weight stays the same. The counter moves are resistance training to defend muscle, enough protein, and recalculating your TDEE every few months instead of running on a number from years ago. Persistent symptoms are worth discussing with your clinician.',
   },
 ];
+
+const quickAnswer = {
+  question: 'What is a normal TDEE for a woman?',
+  answer:
+    'Most women maintain somewhere between about 1,600 and 2,400 kcal per day, depending on size, age, and activity. A smaller woman with a desk job often maintains near 1,600 to 1,800 kcal, an average sized moderately active woman near 2,000 to 2,300 kcal, and a tall or very active woman can maintain at 2,500 kcal or more. Enter your stats in the calculator above for your personal number.',
+  keyFacts: [
+    'The female Mifflin-St Jeor formula ends with minus 161; the male formula ends with plus 5, a built in gap of 166 kcal at identical stats.',
+    'A 32 year old woman at 165 lb and 5 ft 6 in who trains moderately has a TDEE of about 2,287 kcal per day.',
+    'Most women should not diet below 1,200 kcal per day without medical supervision.',
+    'Resting burn rises slightly in the luteal phase, and water retention can hide a week or two of fat loss on the scale.',
+  ],
+};
 ---
 
 <BaseLayout
@@ -60,6 +73,9 @@ const faqs = [
           calories, safe loss targets, and macros in one pass.
         </p>
         <p class="mt-3 text-sm font-semibold text-ink-500">Reviewed by Farah Akram, Dietitian. Female is preselected for you below.</p>
+      </div>
+      <div class="mt-6 max-w-4xl">
+        <QuickAnswer {...quickAnswer} />
       </div>
       <div class="mt-8 max-w-4xl">
         <TdeeCalculator prefix="w" presetSex="female" />

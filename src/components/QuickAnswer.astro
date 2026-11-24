@@ -1,0 +1,52 @@
+---
+// QuickAnswer.astro
+// Visible "Quick answer" box plus key facts, for AI Overview readiness.
+// Follows the Faq.astro pattern: the visible content and its JSON-LD live
+// in the same component, so the two can never drift apart.
+//
+// The structured data has a standard core: the page's main question as a
+// Question with an acceptedAnswer (mainEntity), and a speakable pointer at
+// the visible box. The directAnswer and keyFacts fields mirror the visible
+// content, the same field names the stair site uses for this pattern in
+// its calculatorSEOContent data. Place this near the top of a calculator
+// page, right under the intro and above the calculator itself.
+// Copy rule for this component and every page that uses it: no em-dash
+// anywhere, use hyphens or commas instead.
+interface Props {
+  question: string;
+  answer: string;
+  keyFacts: string[];
+}
+
+const { question, answer, keyFacts } = Astro.props;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  mainEntity: {
+    '@type': 'Question',
+    name: question,
+    acceptedAnswer: { '@type': 'Answer', text: answer },
+  },
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['.quick-answer'],
+  },
+  directAnswer: answer,
+  keyFacts,
+};
+---
+
+<section class="quick-answer rounded-xl border border-brand-100 bg-brand-50 px-5 py-4 sm:px-6 sm:py-5" aria-label="Quick answer">
+  <p class="text-sm font-bold uppercase tracking-wide text-brand-700">Quick answer</p>
+  <p class="mt-2 leading-relaxed text-ink-900">{answer}</p>
+  {keyFacts.length > 0 && (
+    <div class="mt-4">
+      <p class="text-sm font-bold text-ink-900">Key facts</p>
+      <ul class="mt-2 space-y-1.5 list-disc pl-5 leading-relaxed text-ink-700">
+        {keyFacts.map((fact) => <li>{fact}</li>)}
+      </ul>
+    </div>
+  )}
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</section>

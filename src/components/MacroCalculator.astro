@@ -27,7 +27,7 @@
       <div class="grid sm:grid-cols-2 gap-4 mt-4">
         <div>
           <label class="block text-sm font-bold text-ink-700 mb-2" for="mac-weight">Weight (lb)</label>
-          <input id="mac-weight" type="number" inputmode="decimal" min="50" max="1000" value="165" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-brand-500" />
+          <input id="mac-weight" type="number" inputmode="decimal" step="any" min="50" max="1000" value="165" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-brand-500" />
         </div>
         <div>
           <label class="block text-sm font-bold text-ink-700 mb-2" for="mac-activity">Activity level</label>
@@ -126,9 +126,24 @@
     $('mac-estimate').addEventListener('click', function () {
       var age = parseFloat($('mac-age').value);
       var weightLb = parseFloat($('mac-weight').value);
-      var heightCm = ((parseFloat($('mac-ft').value) || 0) * 12 + (parseFloat($('mac-inch').value) || 0)) * 2.54;
+      var ft = parseFloat($('mac-ft').value);
+      var inch = parseFloat($('mac-inch').value);
+      var heightCm = ((ft || 0) * 12 + (inch || 0)) * 2.54;
       var sex = $('mac-sex').value;
-      if (isNaN(age) || isNaN(weightLb) || heightCm < 100) return;
+      var ageBad = isNaN(age) || age < 10 || age > 100;
+      var weightBad = isNaN(weightLb) || weightLb < 50 || weightLb > 1000;
+      var heightBad = isNaN(ft) || isNaN(inch) || ft < 3 || ft > 8 || inch < 0 || inch > 11 || heightCm < 100 || heightCm > 250;
+      flag('mac-age', ageBad);
+      flag('mac-weight', weightBad);
+      flag('mac-ft', heightBad);
+      flag('mac-inch', heightBad);
+      var note = $('mac-estimate-note');
+      if (ageBad || weightBad || heightBad) {
+        note.textContent = 'Please enter valid values for the highlighted fields.';
+        note.classList.remove('hidden', 'text-brand-700');
+        note.classList.add('text-red-700');
+        return;
+      }
       var kg = weightLb * 0.45359237;
       var bmr = 10 * kg + 6.25 * heightCm - 5 * age + (sex === 'male' ? 5 : -161);
       var tdee = bmr * parseFloat($('mac-activity').value);
@@ -137,9 +152,9 @@
       var calInput = $('mac-calories');
       calInput.classList.add('ring-2', 'ring-brand-500');
       setTimeout(function () { calInput.classList.remove('ring-2', 'ring-brand-500'); }, 1500);
-      var note = $('mac-estimate-note');
       note.textContent = 'Calories filled in from your details. Now press Calculate.';
-      note.classList.remove('hidden');
+      note.classList.remove('hidden', 'text-red-700');
+      note.classList.add('text-brand-700');
     });
 
     $('mac-form').addEventListener('submit', function (e) {

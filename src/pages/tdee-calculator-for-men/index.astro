@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TdeeCalculator from '../../components/TdeeCalculator.astro';
 import Faq from '../../components/Faq.astro';
+import QuickAnswer from '../../components/QuickAnswer.astro';
 
 const schemas = [
   {
@@ -38,6 +39,18 @@ const faqs = [
     a: 'Most men should not plan below 1,500 kcal per day without medical supervision. Below that, protein and nutrient coverage gets difficult and the costs show up as falling strength, low energy, poor sleep, and low mood. Larger deficits also burn more muscle along with fat. If your math lands under the floor, use the mild loss target and add movement instead of cutting deeper.',
   },
 ];
+
+const quickAnswer = {
+  question: 'What is a normal TDEE for a man?',
+  answer:
+    'Most men maintain somewhere between about 2,000 and 3,200 kcal per day, depending on size, muscle mass, and activity. A smaller man with a desk job often sits near 2,000 to 2,200 kcal, an average sized man who trains a few times a week near 2,500 to 2,800 kcal, and a big, very active man can hold weight at 3,200 kcal or more. Enter your stats in the calculator above for your personal number.',
+  keyFacts: [
+    'The male Mifflin-St Jeor formula ends with plus 5; the female formula ends with minus 161.',
+    'A mild bulking surplus is 250 kcal above TDEE; a standard surplus is 500 kcal above TDEE.',
+    'Most men should not diet below 1,500 kcal per day without medical supervision.',
+    'Recalculate your TDEE after every 10 to 15 lb of change.',
+  ],
+};
 ---
 
 <BaseLayout
@@ -60,6 +73,9 @@ const faqs = [
           you maintenance, cutting, and gaining targets with macros for each.
         </p>
         <p class="mt-3 text-sm font-semibold text-ink-500">Reviewed by Farah Akram, Dietitian. Male and a very active example are preset below.</p>
+      </div>
+      <div class="mt-6 max-w-4xl">
+        <QuickAnswer {...quickAnswer} />
       </div>
       <div class="mt-8 max-w-4xl">
         <TdeeCalculator prefix="m" presetSex="male" presetAge={28} presetFt={5} presetIn={10} presetWeight={185} presetActivity="1.725" />

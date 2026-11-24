@@ -14,10 +14,10 @@
     </div>
     <div class="grid sm:grid-cols-2 gap-4 mt-5">
       <div>
-        <span class="block text-sm font-bold text-ink-700 mb-2">Sex</span>
-        <div class="grid grid-cols-2 gap-2">
-          <button type="button" data-sex="female" class="def-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm border-brand-600 bg-brand-50 text-brand-800">Female</button>
-          <button type="button" data-sex="male" class="def-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm border-brand-100 bg-white text-ink-700">Male</button>
+        <span class="block text-sm font-bold text-ink-700 mb-2" id="def-sex-label">Sex</span>
+        <div class="grid grid-cols-2 gap-2" role="radiogroup" aria-labelledby="def-sex-label">
+          <button type="button" data-sex="female" class="def-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm border-brand-600 bg-brand-50 text-brand-800" role="radio" aria-checked="true">Female</button>
+          <button type="button" data-sex="male" class="def-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm border-brand-100 bg-white text-ink-700" role="radio" aria-checked="false">Male</button>
         </div>
       </div>
       <div>
@@ -36,7 +36,7 @@
       </div>
       <div>
         <label class="block text-sm font-bold text-ink-700 mb-2" for="def-weight">Weight <span id="def-weight-unit" class="font-semibold text-ink-500">(lb)</span></label>
-        <input id="def-weight" type="number" inputmode="decimal" min="50" max="1000" value="165" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        <input id="def-weight" type="number" inputmode="decimal" step="any" min="50" max="1000" value="165" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
       </div>
       <div>
         <label class="block text-sm font-bold text-ink-700 mb-2" for="def-activity">Activity level</label>
@@ -50,7 +50,7 @@
       </div>
       <div>
         <label class="block text-sm font-bold text-ink-700 mb-2" for="def-goal">Goal weight <span class="font-semibold text-ink-500">(optional)</span> <span id="def-goal-unit" class="font-semibold text-ink-500">(lb)</span></label>
-        <input id="def-goal" type="number" inputmode="decimal" min="50" max="1000" placeholder="e.g. 145" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        <input id="def-goal" type="number" inputmode="decimal" step="any" min="50" max="1000" placeholder="e.g. 145" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
         <p class="mt-1.5 text-xs text-ink-500">Add a goal weight and each card estimates how many weeks it takes to get there.</p>
       </div>
     </div>
@@ -117,9 +117,9 @@
           }
         }
         var w = parseFloat($('def-weight').value);
-        if (!isNaN(w)) $('def-weight').value = units === 'imperial' ? Math.round(w * 2.20462) : Math.round(w / 2.20462);
+        if (!isNaN(w)) $('def-weight').value = units === 'imperial' ? Math.round(w * 2.20462) : Math.round(w / 2.20462 * 10) / 10;
         var g = parseFloat($('def-goal').value);
-        if (!isNaN(g)) $('def-goal').value = units === 'imperial' ? Math.round(g * 2.20462) : Math.round(g / 2.20462);
+        if (!isNaN(g)) $('def-goal').value = units === 'imperial' ? Math.round(g * 2.20462) : Math.round(g / 2.20462 * 10) / 10;
       });
     });
     document.querySelectorAll('.def-sex-btn').forEach(function (b) {
@@ -129,6 +129,7 @@
         document.querySelectorAll('.def-sex-btn').forEach(function (x) {
           var active = x.getAttribute('data-sex') === sex;
           x.className = 'def-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm ' + (active ? 'border-brand-600 bg-brand-50 text-brand-800' : 'border-brand-100 bg-white text-ink-700');
+          x.setAttribute('aria-checked', active ? 'true' : 'false');
         });
       });
     });

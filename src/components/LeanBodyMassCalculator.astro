@@ -15,15 +15,15 @@
     </div>
     <div class="grid sm:grid-cols-2 gap-4 mt-5">
       <div>
-        <span class="block text-sm font-bold text-ink-700 mb-2">Sex</span>
-        <div class="grid grid-cols-2 gap-2">
-          <button type="button" data-sex="female" class="lbm-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm border-brand-600 bg-brand-50 text-brand-800">Female</button>
-          <button type="button" data-sex="male" class="lbm-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm border-brand-100 bg-white text-ink-700">Male</button>
+        <span class="block text-sm font-bold text-ink-700 mb-2" id="lbm-sex-label">Sex</span>
+        <div class="grid grid-cols-2 gap-2" role="radiogroup" aria-labelledby="lbm-sex-label">
+          <button type="button" data-sex="female" class="lbm-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm border-brand-600 bg-brand-50 text-brand-800" role="radio" aria-checked="true">Female</button>
+          <button type="button" data-sex="male" class="lbm-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm border-brand-100 bg-white text-ink-700" role="radio" aria-checked="false">Male</button>
         </div>
       </div>
       <div>
         <label class="block text-sm font-bold text-ink-700 mb-2" for="lbm-bf">Body fat % <span class="font-semibold text-ink-500">(optional)</span></label>
-        <input id="lbm-bf" type="number" inputmode="decimal" min="3" max="60" placeholder="e.g. 24" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        <input id="lbm-bf" type="number" inputmode="decimal" step="any" min="3" max="60" placeholder="e.g. 24" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
       </div>
       <div>
         <span class="block text-sm font-bold text-ink-700 mb-2">Height</span>
@@ -37,7 +37,7 @@
       </div>
       <div>
         <label class="block text-sm font-bold text-ink-700 mb-2" for="lbm-weight">Weight <span id="lbm-weight-unit" class="font-semibold text-ink-500">(lb)</span></label>
-        <input id="lbm-weight" type="number" inputmode="decimal" min="50" max="1000" value="165" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        <input id="lbm-weight" type="number" inputmode="decimal" step="any" min="50" max="1000" value="165" class="w-full rounded-lg border border-brand-100 px-3 py-2.5 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500" />
       </div>
     </div>
     <p id="lbm-error" class="hidden mt-4 text-sm font-semibold text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3" role="alert"></p>
@@ -116,7 +116,7 @@
           }
         }
         var w = parseFloat($('lbm-weight').value);
-        if (!isNaN(w)) $('lbm-weight').value = units === 'imperial' ? Math.round(w * 2.20462) : Math.round(w / 2.20462);
+        if (!isNaN(w)) $('lbm-weight').value = units === 'imperial' ? Math.round(w * 2.20462) : Math.round(w / 2.20462 * 10) / 10;
       });
     });
     document.querySelectorAll('.lbm-sex-btn').forEach(function (b) {
@@ -126,6 +126,7 @@
         document.querySelectorAll('.lbm-sex-btn').forEach(function (x) {
           var active = x.getAttribute('data-sex') === sex;
           x.className = 'lbm-sex-btn rounded-lg border px-3 py-2.5 font-bold text-sm ' + (active ? 'border-brand-600 bg-brand-50 text-brand-800' : 'border-brand-100 bg-white text-ink-700');
+          x.setAttribute('aria-checked', active ? 'true' : 'false');
         });
       });
     });

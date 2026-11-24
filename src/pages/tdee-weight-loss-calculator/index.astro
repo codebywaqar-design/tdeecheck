@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TdeeCalculator from '../../components/TdeeCalculator.astro';
 import Faq from '../../components/Faq.astro';
+import QuickAnswer from '../../components/QuickAnswer.astro';
 
 const schemas = [
   {
@@ -34,6 +35,18 @@ const faqs = [
     a: 'If your target lands below 1,200 kcal as a woman or 1,500 kcal as a man, or you feel constantly exhausted, cold, and preoccupied with food, the deficit is likely too aggressive. Choose the mild loss setting and give it time.',
   },
 ];
+
+const quickAnswer = {
+  question: 'How many calories should I eat to lose weight?',
+  answer:
+    'Start 250 to 500 kcal below your TDEE. A 250 kcal daily deficit predicts about 0.5 lb of fat loss per week, and a 500 kcal deficit predicts about 1 lb per week. Keep protein high and stay above 1,200 kcal per day as a woman or 1,500 kcal per day as a man unless a clinician is supervising you.',
+  keyFacts: [
+    'One pound of body fat stores about 3,500 kcal.',
+    'A mild deficit is 250 kcal below TDEE; a standard deficit is 500 kcal below TDEE.',
+    'Weight loss targets on this page use a 40 percent protein split to protect muscle.',
+    'Recalculate your TDEE after every 10 to 15 lb lost.',
+  ],
+};
 ---
 
 <BaseLayout
@@ -55,6 +68,9 @@ const faqs = [
           for steady loss, with high protein macros that protect your muscle while the fat comes off.
         </p>
         <p class="mt-3 text-sm font-semibold text-ink-500">Reviewed by Farah Akram, Dietitian. The weight loss goal below is highlighted for you.</p>
+      </div>
+      <div class="mt-6 max-w-4xl">
+        <QuickAnswer {...quickAnswer} />
       </div>
       <div class="mt-8 max-w-4xl">
         <TdeeCalculator prefix="wl" emphasis="loss" />
