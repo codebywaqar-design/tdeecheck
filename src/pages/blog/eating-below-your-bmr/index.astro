@@ -13,11 +13,15 @@ const schemas = [
     author: { '@type': 'Person', name: 'Farah Akram', jobTitle: 'Dietitian' },
     publisher: { '@type': 'Organization', name: 'TDEE Check', url: 'https://tdeecheck.com/' },
     datePublished: '2026-10-22',
-    dateModified: '2026-10-22',
+    dateModified: '2026-11-28',
   },
 ];
 
 const faqs = [
+  {
+    q: 'If I eat my BMR, will I lose weight?',
+    a: 'Usually yes, because your TDEE is higher than your BMR. You burn extra calories through movement, exercise and digestion, so eating exactly your BMR still leaves a small deficit. How fast you lose depends on how active you are: a sedentary person whose TDEE is only 1.2 times BMR loses slowly, while a very active person loses faster. But eating at BMR is not a good target to aim for on purpose. It leaves little room for protein and nutrients, most people feel tired and hungry on it, and a smaller deficit taken from TDEE works better and lasts longer.',
+  },
   {
     q: 'Is it OK to eat below my BMR for a few days?',
     a: 'A single low day, because you were busy, ill or travelling, is not a problem for a healthy adult; your body runs on stored energy and barely notices. The concern in this article is chronic intake below BMR, week after week, chosen deliberately as a diet strategy.',
@@ -80,7 +84,8 @@ const faqs = [
       filtering and processing, your heart beating around 100,000 times a day, your kidneys, your lungs, your body
       temperature held within a narrow band, and the constant repair and replacement of your own cells. None of
       that pauses when you eat less. The bill arrives every day whether you fund it or not, and the difference is
-      taken from your own tissue. Run your numbers in our
+      taken from your own tissue. That is why the question of whether to eat below BMR matters so much: the number
+      is a floor to respect, not a target to beat. Run your numbers in our
       <a class="font-bold text-brand-700 underline" href="/calculators/bmr-calculator/">BMR Calculator</a> and
       treat the result as a floor to respect, not a hurdle to get under.
     </p>

@@ -1,0 +1,189 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Faq from '../../../components/Faq.astro';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'TDEE Calculator for Cutting: Set Your Calories to Get Lean',
+    description: 'A TDEE calculator for cutting turns your maintenance calories into a lean target. Pick the right deficit, set protein, keep your muscle, and track the cut properly.',
+    url: 'https://tdeecheck.com/blog/tdee-calculator-cutting/',
+    image: 'https://tdeecheck.com/images/tdee-calculator-cutting-hero.webp',
+    author: { '@type': 'Person', name: 'Farah Akram', jobTitle: 'Dietitian' },
+    publisher: { '@type': 'Organization', name: 'TDEE Check', url: 'https://tdeecheck.com/' },
+    datePublished: '2026-11-28',
+    dateModified: '2026-11-28',
+  },
+];
+
+const faqs = [
+  {
+    q: 'How many calories should I eat when cutting?',
+    a: 'Start with your TDEE minus 250 to 500 kcal. A 500 kcal deficit predicts about a pound of fat loss per week, while 250 kcal gives about half a pound and is easier to hold. The right number also has to clear the safety floors: about 1,200 kcal a day for women and 1,500 for men, and above your BMR where possible.',
+  },
+  {
+    q: 'What deficit is best for cutting without losing muscle?',
+    a: 'A moderate deficit of 250 to 500 kcal, paired with high protein and heavy training, loses mostly fat. Aggressive deficits above 750 kcal raise the share of weight lost from muscle, which lowers your future burn. Lifters usually do best at 10 to 20 percent below TDEE, not at the largest deficit they can tolerate.',
+  },
+  {
+    q: 'Should I cut carbs or fat when cutting?',
+    a: 'Total calories decide fat loss, so the split is a preference question once protein is set. Keep protein high, around 1.6 to 2.2 grams per kilogram of body weight, then split the remaining calories between carbs and fat however you eat best. Most lifters keep carbs higher on training days because performance drops fastest when carbs do.',
+  },
+  {
+    q: 'How long should a cut last?',
+    a: 'Most cuts run 8 to 12 weeks at a moderate deficit, then a maintenance break of 2 to 4 weeks before the next block if more fat loss is needed. Longer cuts get harder: hunger rises, energy falls and your burn adapts downward as you get lighter. If you feel unwell, dizzy or unable to train, stop the cut and eat at maintenance.',
+  },
+  {
+    q: 'Can I cut without tracking calories?',
+    a: 'You can, but it is slower to correct when it stalls. Plate methods, hand portions and a short list of repeat meals can hold a rough deficit for many people. Tracking for even two weeks teaches you what your portions actually contain, and that knowledge keeps working after you stop logging. If the scale has not moved in three weeks, tracking is the fastest way to find out why.',
+  },
+];
+---
+
+<BaseLayout
+  title="TDEE Calculator for Cutting: Set Your Calories to Get Lean"
+  description="A TDEE calculator for cutting turns your maintenance calories into a lean target. Pick the right deficit, set protein, keep your muscle, and track the cut properly."
+  path="/blog/tdee-calculator-cutting/"
+  ogType="article"
+  ogImage="/images/tdee-calculator-cutting-hero.webp"
+  schemas={schemas}
+  crumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog/' },
+    { name: 'TDEE Calculator for Cutting', path: '/blog/tdee-calculator-cutting/' },
+  ]}
+>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 pt-10">
+    <p class="text-sm font-bold text-brand-700 uppercase tracking-wide">Guide · Reviewed by Farah Akram, Dietitian</p>
+    <h1 class="mt-2 text-4xl font-extrabold tracking-tight text-ink-900">TDEE calculator for cutting: set your calories to get lean</h1>
+    <p class="mt-5 text-lg text-ink-700 leading-relaxed">
+      Cutting is a planned phase of fat loss where the goal is not just a smaller number on the scale, but a leaner
+      body with the muscle kept. That distinction is what makes the calorie target matter more than the diet's name.
+      A TDEE calculator for cutting does one job: it turns your maintenance calories into a cutting target that
+      loses fat at a steady pace without starving your training or your muscle. This guide shows how to set that
+      number, how big the deficit should be, how much protein to eat, and how to know when the cut is working and
+      when it is time to stop.
+    </p>
+    <img
+      src="/images/tdee-calculator-cutting-hero.webp"
+      alt="Illustration of a woman weighing a plate of lean food on a kitchen scale beside a phone with a calorie tracker"
+      width="2048"
+      height="1152"
+      class="mt-8 w-full rounded-2xl border border-brand-100"
+      loading="eager"
+    />
+
+    <h2 class="mt-10 text-2xl font-extrabold text-ink-900">Cutting, in plain words</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      In gym language, a cut is the opposite of a bulk. Bulking adds weight, ideally mostly muscle, by eating above
+      maintenance. Cutting removes the fat gained along the way, and sometimes simply the fat accumulated over years
+      of eating at maintenance, by eating below it. The difference between cutting and ordinary dieting is the
+      priority order: keep the muscle first, lose the fat second. That order changes the details. Protein stays high
+      even as calories fall. Training stays heavy instead of turning into endless cardio. And the deficit stays
+      moderate, because an aggressive cut eats muscle along with fat, which lowers your future burn and leaves you
+      smaller but not leaner. If you have never calculated your maintenance calories, start with our
+      <a class="font-bold text-brand-700 underline" href="/">TDEE Calculator</a>. Every number in this guide
+      starts from that one figure.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Find your cutting calories in four steps</h2>
+    <ul class="mt-3 space-y-3 text-ink-700 leading-relaxed list-disc pl-6">
+      <li><strong>Find your TDEE.</strong> Enter your age, sex, height, weight and activity level honestly, choosing the level below the flattering one if you are unsure. Your TDEE is your maintenance, the calories that hold your current weight steady.</li>
+      <li><strong>Pick a deficit.</strong> Subtract 250 to 500 kcal from TDEE. Start at 500 if you have a lot to lose and your TDEE is high, at 250 if you are smaller, leaner, or new to tracking. Bigger is a later decision, not a starting one.</li>
+      <li><strong>Set protein first.</strong> Aim for 1.6 to 2.2 grams of protein per kilogram of body weight per day. At 80 kg that is roughly 130 to 175 grams. Protein is the nutrient that protects muscle while calories are low, and it also keeps you fuller than carbs or fat at the same calories.</li>
+      <li><strong>Check the floors.</strong> Your cutting target should stay above about 1,200 kcal a day for women or 1,500 for men, and above your BMR where possible. If the maths lands below those floors, shrink the deficit, not the floor. Our <a class="font-bold text-brand-700 underline" href="/calculators/calorie-deficit-calculator/">Calorie Deficit Calculator</a> runs all four deficit sizes against your own TDEE at once, including the floor check.</li>
+    </ul>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">How big should the deficit be?</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      The right size depends on how much fat you have to lose, how high your TDEE is, and how long you can hold the
+      plan. The table below covers the usual range. As a rough band, most lifters cut best at 10 to 20 percent below
+      TDEE, which for a 2,500 kcal maintenance is a 250 to 500 kcal deficit.
+    </p>
+    <div class="mt-4 overflow-x-auto rounded-xl border border-brand-100 bg-white">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-brand-50 text-left">
+            <th class="px-4 py-3 font-extrabold text-ink-900">Daily deficit</th>
+            <th class="px-4 py-3 font-extrabold text-ink-900">Weekly loss</th>
+            <th class="px-4 py-3 font-extrabold text-ink-900">Best suited to</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-brand-50">
+          <tr><td class="px-4 py-3 font-semibold">250 kcal</td><td class="px-4 py-3">About 0.5 lb</td><td class="px-4 py-3">Leaner lifters, small amounts to lose, easiest to sustain</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">500 kcal</td><td class="px-4 py-3">About 1 lb</td><td class="px-4 py-3">The standard cut for most people</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">750 kcal</td><td class="px-4 py-3">About 1.5 lb</td><td class="px-4 py-3">Larger bodies with a high TDEE and more to lose</td></tr>
+          <tr><td class="px-4 py-3 font-semibold">1,000 kcal</td><td class="px-4 py-3">About 2 lb</td><td class="px-4 py-3">The upper end, demanding, only when the remaining target stays safe</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Read the last column before the second. A deficit has to leave behind a daily target you can actually eat
+      enough on and train on. Our guide to
+      <a class="font-bold text-brand-700 underline" href="/blog/what-is-a-calorie-deficit/">what a calorie deficit
+      is</a> compares these sizes in more depth, including the safety floors.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">A worked example</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Take the standard example used across this site: a woman of 32, 5 ft 6 in, 165 lb, training three to five
+      days a week, with a TDEE of 2,287 kcal. She chooses the standard 500 kcal deficit, which gives a cutting
+      target of <strong>1,787 kcal a day</strong>. Check the floors: 1,787 sits comfortably above the 1,200 kcal
+      minimum for women and above her BMR of 1,475, so the plan is sound. At 74.8 kg, her protein target is roughly
+      120 to 165 grams a day, which leaves about 1,100 to 1,300 kcal for carbs and fat combined. Expected loss is
+      about a pound a week on the 3,500 kcal approximation, confirmed against her real trend after three weeks
+      rather than expected to be exact.
+    </p>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      A second example shows how the same maths scales up. A man of 28, 6 ft, 190 lb, training four days a week
+      with a desk job, has a TDEE near 2,900 kcal. His 500 kcal cut lands at <strong>2,400 kcal a day</strong>,
+      and his protein target at 86 kg is roughly 140 to 190 grams. He has more room than the first example, which
+      is the normal pattern: the higher your TDEE, the more comfortable a standard deficit feels. If you would
+      rather start from your goal than from a deficit size, our
+      <a class="font-bold text-brand-700 underline" href="/tdee-weight-loss-calculator/">TDEE Weight Loss
+      Calculator</a> builds these targets with the floors already applied.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Protein and training: the muscle insurance</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Calories decide whether you lose weight. Protein and training decide what you lose. When calories are low,
+      the body is happy to burn muscle as well as fat, and muscle is expensive: it is what holds your BMR up, so
+      losing it lowers your future maintenance and makes the next cut harder. High protein plus heavy training is
+      the countermeasure. Keep lifting with the same weights you used before the cut, even if the last reps feel
+      harder. The goal in the gym during a cut is not to burn more calories, it is to give your body a reason to
+      keep the muscle it has. Cardio helps the deficit but it is a supplement, not the plan: a daily walk and two
+      or three short sessions a week are enough for most people, and adding hours of cardio usually just makes
+      hunger worse. Steps are the quiet winner here. Raising daily steps from 5,000 to 10,000 adds roughly 200 to
+      300 kcal of burn without the recovery cost of extra training, which is why our guide to
+      <a class="font-bold text-brand-700 underline" href="/blog/how-activity-levels-work/">how activity levels
+      work</a> treats everyday movement as the most underrated way to raise TDEE.
+    </p>
+
+    <h2 class="mt-8 text-2xl font-extrabold text-ink-900">Track, adjust, and know when to stop</h2>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      A cutting target is a starting estimate, not a verdict. Hold it for two to three weeks, weigh yourself
+      several mornings a week, and judge the weekly average, never a single day. If the trend matches the plan,
+      change nothing. If weight has not moved after three consistent weeks, trim 100 to 200 kcal, usually from
+      carbs or fat, and hold again. If you are losing faster than planned, add 100 to 200 kcal back: faster is not
+      better when muscle is at stake. Two or three of these small corrections will pin down your personal cutting
+      calories more accurately than any formula can.
+    </p>
+    <p class="mt-3 text-ink-700 leading-relaxed">
+      Know when to stop, too. Most cuts run 8 to 12 weeks, then a maintenance break of two to four weeks before
+      another block if more fat loss is needed. The break is not failure, it is part of the plan: hunger hormones
+      settle, training performance returns, and your burn recovers a little. Stop the cut early and eat at
+      maintenance if you feel unwell, dizzy, constantly cold, or unable to train, or if sleep and mood have clearly
+      worsened. A cut that ends at maintenance with muscle kept beats a longer cut abandoned in week five, and the
+      <a class="font-bold text-brand-700 underline" href="/calculators/macro-calculator/">Macro Calculator</a> can
+      rebuild your targets for the maintenance phase when you get there.
+    </p>
+
+    <p class="mt-8 rounded-xl bg-brand-50 border border-brand-100 px-5 py-4 text-sm text-ink-700">
+      Reviewed by <strong>Farah Akram, Dietitian</strong>. Estimates only, not medical advice. See the
+      <a class="font-bold text-brand-700 underline" href="/medical-disclaimer/">medical disclaimer</a>.
+    </p>
+
+    <Faq faqs={faqs} title="Cutting questions" />
+  </article>
+</BaseLayout>
